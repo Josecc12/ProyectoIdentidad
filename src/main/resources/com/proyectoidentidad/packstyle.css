@@ -1,11 +1,22 @@
 .button{
-    -fx-background-color: #3F2B63;
+    -fx-background-color: #363740;
 }
 .button:hover{
     -fx-background-color: #2A1C42;
 }
 
 .button:pressed{
-    -fx-background-color: #7156DD;
+    -fx-background-color: #9FA2B4;
 }
 
+.btn-add:hover{
+    -fx-background-color: #FEC400;
+}
+
+.btn-add{
+    -fx-background-color: #2196F3;
+}
+
+.btn-add:hover{
+    -fx-background-color: #403736;
+}
