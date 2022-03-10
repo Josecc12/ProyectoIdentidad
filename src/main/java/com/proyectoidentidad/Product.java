@@ -1,12 +1,9 @@
 package com.proyectoidentidad;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -32,7 +29,7 @@ public class Product {
         update.setTextAlignment(TextAlignment.CENTER);
         update.setTextFill(Color.web("ffff"));
         update.setStyle("-fx-background-color: #29CC97; ");
-        //update.getStylesheets().add(getClass().getResource("hello-view.fxml").toExternalForm());
+        //update.getStylesheets().add(getClass().getResource("dashboard.fxml").toExternalForm());
         //update.getStyleClass().add("red-border");
         update.setPadding(new Insets(5));
         //update.setAlignment(Pos.CENTER);
@@ -49,22 +46,29 @@ public class Product {
         update.setOnAction(e->{
 
 
-           for (int i=0;i<HelloController.table_product.size();i++){
-               if(update.hashCode()==HelloController.table_product.get(i).getUpdate().hashCode()){
-                   System.out.println("id"+HelloController.table_product.get(i).getId());
-                   System.out.println("code"+HelloController.table_product.get(i).getCode());
-                   System.out.println("stock"+HelloController.table_product.get(i).getStock());
-                   System.out.println("production"+HelloController.table_product.get(i).getProduction());
+           for (int i = 0; i< dashboardController.table_product.size(); i++){
+               if(update.hashCode()== dashboardController.table_product.get(i).getUpdate().hashCode()){
+                   System.out.println("id"+ dashboardController.table_product.get(i).getId());
+                   System.out.println("code"+ dashboardController.table_product.get(i).getCode());
+                   System.out.println("stock"+ dashboardController.table_product.get(i).getStock());
+                   System.out.println("production"+ dashboardController.table_product.get(i).getProduction());
                    System.out.println("");
 
 
                    try {
                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addProduct-view.fxml"));
+                       productManagmentController controller=fxmlLoader.getController();
+
                        Scene scene = new Scene(fxmlLoader.load());
                        Stage stage=new Stage();
                        stage.setTitle("Product Management");
                        stage.setScene(scene);
+                       //controller.setPrueba("Hola");
                        stage.show();
+
+
+
+
                    } catch (IOException ex) {
                        ex.printStackTrace();
                    }
