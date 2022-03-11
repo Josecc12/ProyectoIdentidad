@@ -13,9 +13,9 @@ public class HelloApplication extends Application {
         ///mostar logn
 
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Identidad");
+        stage.setTitle("LOGIN");
 
         stage.setScene(scene);
         stage.show();
