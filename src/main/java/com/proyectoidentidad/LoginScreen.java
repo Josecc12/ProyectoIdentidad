@@ -15,9 +15,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginScreen {
-    private String username = "";
-    private String password = "";
-
     @FXML
     private GridPane BackgroundPanel;
 
@@ -28,7 +25,7 @@ public class LoginScreen {
     private Pane LoginPanel;
 
     @FXML
-    private PasswordField PassvordTextfield;
+    private PasswordField PasswordTextfield;
 
     @FXML
     private Text PasswordLabel;
@@ -41,25 +38,28 @@ public class LoginScreen {
 
     @FXML
     void LoginButtonClicked(MouseEvent event) {
-        username = UsernameTextfield.getText();
-        password = PassvordTextfield.getText();
+        if (UsernameTextfield.getText().equals("admin") && PasswordTextfield.getText().equals("admin")) {
+            System.out.println(UsernameTextfield.getText() + "\n" + PasswordTextfield.getText());
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                Stage stage = new Stage();
+                stage.setTitle("DASHBOARD");
+                stage.setScene(scene);
+                stage.show();
 
-        System.out.println(username + "\n" + password);
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage=new Stage();
-            stage.setTitle("DASHBOARD");
-            stage.setScene(scene);
-            stage.show();
 
-            
-            Node source = (Node) event.getSource();
-            Stage stage2 = (Stage) source.getScene().getWindow();
-            stage2.close();
+                Node source = (Node) event.getSource();
+                Stage stage2 = (Stage) source.getScene().getWindow();
+                stage2.close();
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Error");
+            System.out.println(UsernameTextfield.getText() + "\n" + PasswordTextfield.getText());
         }
     }
 

@@ -39,7 +39,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Text>
-            <PasswordField fx:id="PassvordTextfield" layoutX="56.0" layoutY="329.0" prefHeight="26.0" prefWidth="261.0" promptText="Contraseña" style="-fx-border-color: #2196F3;">
+            <PasswordField fx:id="PasswordTextfield" layoutX="56.0" layoutY="329.0" prefHeight="26.0" prefWidth="261.0" promptText="Contraseña" style="-fx-border-color: #2196F3;">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
