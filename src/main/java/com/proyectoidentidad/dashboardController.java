@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.attribute.UserPrincipal;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable {
@@ -49,6 +51,35 @@ public class dashboardController implements Initializable {
     @FXML
     private TableColumn<Product, Button> Delete_Column;
     public static ObservableList<Product> table_product;
+    // Table User
+    @FXML
+    private TableView<User> table_user;
+
+    @FXML
+    private TableColumn<User, String> user_lastname;
+
+    @FXML
+    private TableColumn<User, String> user_id;
+
+    @FXML
+    private TableColumn<User, String> user_name;
+
+    @FXML
+    private TableColumn<User, String> user_password;
+
+    @FXML
+    private TableColumn<User, String> user_user;
+
+    @FXML
+    private TextField user_serch;
+    private FilteredList<User> filterUser;
+
+    @FXML
+    private TableColumn<User, Button> user_update;
+
+    @FXML
+    private TableColumn<User, Button> user_delete;
+
     @FXML
     private GridPane pgCharts;
 
@@ -75,11 +106,27 @@ public class dashboardController implements Initializable {
         Product_Table2=Product_Table;
         initTable();
         loadData();
+        loadUser();
          this.filterProduct=new FilteredList<>(table_product,e->true);
     }
 
     private void initTable(){
         initCols();
+        initUser();
+    }
+
+    private void initUser(){
+        user_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        user_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        user_lastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        user_user.setCellValueFactory(new PropertyValueFactory<>("user"));
+        user_password.setCellValueFactory(new PropertyValueFactory<>("password"));
+        user_update.setCellValueFactory(new PropertyValueFactory<>("update"));
+        user_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        user_update.setMinWidth(100);
+        user_update.setMaxWidth(100);
+        user_delete.setMinWidth(70);
+        user_delete.setMaxWidth(70);
     }
 
     private void initCols(){
@@ -109,7 +156,19 @@ public class dashboardController implements Initializable {
         System.out.println("Hola");
 
     }
-
+    private void loadUser(){
+        ObservableList<User> data_table = FXCollections.observableArrayList();
+        for (int i = 0; i < 7; i++) {
+            data_table.add(new User(String.valueOf(i),
+                    "name"+i,
+                    "lastname"+i,
+                    "user"+i,
+                    "password"+i,
+                    new Button("update"),
+                    new Button("delete")));
+        }
+        table_user.setItems(data_table);
+    }
     private  void loadData(){
         table_product=FXCollections.observableArrayList();
         for(int i = 0; i<25; i++){
@@ -179,6 +238,7 @@ public class dashboardController implements Initializable {
              if (newValue == null || newValue.isEmpty()) {
                  return true;
              }
+
              String lowerCaseFilter = newValue.toLowerCase();
              if (product.getId().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
                  return true; // Filter matches first name.
@@ -206,6 +266,7 @@ public class dashboardController implements Initializable {
         // 5. Add sorted (and filtered) data to the table.
         Product_Table.setItems(sortedData);
     }
+
 
 
 }
