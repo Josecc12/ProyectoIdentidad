@@ -25,7 +25,7 @@
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="2.0" GridPane.columnSpan="2">
          <children>
             <FontAwesomeIconView glyphName="USERS" size="36" wrappingWidth="43.0" />
-            <Label text="Informacion del producto">
+            <Label text="Informacion del usuario">
                <font>
                   <Font size="18.0" />
                </font>

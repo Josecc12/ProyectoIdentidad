@@ -28,7 +28,7 @@ public class dashboardController implements Initializable {
 
     @FXML
     private TableView<Product> Product_Table;
-    public static TableView<Product> Product_Table2;
+
 
     @FXML
     private TableColumn<Product, String> Id_Column;
@@ -51,10 +51,14 @@ public class dashboardController implements Initializable {
     @FXML
     private TableColumn<Product, Button> Delete_Column;
     public static ObservableList<Product> table_product;
+    @FXML
+    private TextField searchProduct;
+    private FilteredList<Product> filterProduct;
+
     // Table User
     @FXML
     private TableView<User> table_user;
-
+    public static ObservableList<User> table_User;
     @FXML
     private TableColumn<User, String> user_lastname;
 
@@ -71,7 +75,7 @@ public class dashboardController implements Initializable {
     private TableColumn<User, String> user_user;
 
     @FXML
-    private TextField user_serch;
+    private TextField searchUser;
     private FilteredList<User> filterUser;
 
     @FXML
@@ -97,17 +101,19 @@ public class dashboardController implements Initializable {
 
     @FXML
     private GridPane pgUsers;
-    @FXML
-    private TextField searchProduct;
-    private FilteredList<Product> filterProduct;
+
+
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Product_Table2=Product_Table;
+
         initTable();
         loadData();
         loadUser();
-         this.filterProduct=new FilteredList<>(table_product,e->true);
+        this.filterProduct=new FilteredList<>(table_product,e->true);
+        this.filterUser=new FilteredList<>(table_User,e->true);
     }
 
     private void initTable(){
@@ -157,9 +163,9 @@ public class dashboardController implements Initializable {
 
     }
     private void loadUser(){
-        ObservableList<User> data_table = FXCollections.observableArrayList();
+        table_User = FXCollections.observableArrayList();
         for (int i = 0; i < 7; i++) {
-            data_table.add(new User(String.valueOf(i),
+            table_User.add(new User(String.valueOf(i),
                     "name"+i,
                     "lastname"+i,
                     "user"+i,
@@ -167,7 +173,7 @@ public class dashboardController implements Initializable {
                     new Button("update"),
                     new Button("delete")));
         }
-        table_user.setItems(data_table);
+        table_user.setItems(table_User);
     }
     private  void loadData(){
         table_product=FXCollections.observableArrayList();
@@ -187,6 +193,20 @@ public class dashboardController implements Initializable {
     void addProduct(MouseEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addProduct-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage=new Stage();
+            stage.setTitle("Product Management");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    void addUser(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addUser-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage=new Stage();
             stage.setTitle("Product Management");
@@ -267,6 +287,43 @@ public class dashboardController implements Initializable {
         Product_Table.setItems(sortedData);
     }
 
+
+    @FXML
+    void filterUser(KeyEvent event) {
+        searchUser.textProperty().addListener((observable, oldValue, newValue) ->{
+            filterUser.setPredicate(user -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (user.getId().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; // Filter matches first name.
+                } else if (user.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (user.getLastname().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (user.getUser().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (user.getPassword().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else{
+                    return false;
+                }
+
+            });
+        } );
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<User> sortedData = new SortedList<>(filterUser);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        // 	  Otherwise, sorting the TableView would have no effect.
+        sortedData.comparatorProperty().bind(table_user.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        table_user.setItems(sortedData);
+    }
 
 
 }

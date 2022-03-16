@@ -1,9 +1,14 @@
 package com.proyectoidentidad;
 
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class User{
     private String id,name,lastname,user,password;
@@ -30,6 +35,45 @@ public class User{
         delete.setStyle("-fx-background-color: #e85555; ");
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
+
+
+        update.setOnAction(e->{
+
+
+            for (int i = 0; i< dashboardController.table_User.size(); i++){
+                if(update.hashCode()== dashboardController.table_User.get(i).getUpdate().hashCode()){
+                    System.out.println("id"+ dashboardController.table_User.get(i).getId());
+                    System.out.println("Name:"+ dashboardController.table_User.get(i).getName());
+                    System.out.println("LastName"+ dashboardController.table_User.get(i).getLastname());
+                    System.out.println("User"+ dashboardController.table_User.get(i).getUser());
+                    System.out.println("Pasword"+ dashboardController.table_User.get(i).getPassword());
+                    System.out.println("");
+
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addUser-view.fxml"));
+                        productManagmentController controller=fxmlLoader.getController();
+
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage=new Stage();
+                        stage.setTitle("User Management");
+                        stage.setScene(scene);
+                        //controller.setPrueba("Hola");
+                        stage.show();
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                }
+            }
+
+
+        });
+
+
+
     }
 
     public String getId() {
