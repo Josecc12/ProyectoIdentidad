@@ -44,6 +44,7 @@ public class LoginScreen {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
+                stage.setMaximized(true);
                 stage.setTitle("DASHBOARD");
                 stage.setScene(scene);
                 stage.show();

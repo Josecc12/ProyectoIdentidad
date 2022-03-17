@@ -26,13 +26,15 @@ public class User{
 
         update.setTextAlignment(TextAlignment.CENTER);
         update.setTextFill(Color.web("ffff"));
-        update.setStyle("-fx-background-color: #29CC97; ");
-        update.setPadding(new Insets(5));
+        update.getStylesheets().add(getClass().getResource("dashboard.fxml").toExternalForm());
+        update.getStyleClass().add("edit-button");
+        update.setPadding(new Insets(5));;
         update.setMinWidth(95);
 
         delete.setTextAlignment(TextAlignment.CENTER);
         delete.setTextFill(Color.web("ffff"));
-        delete.setStyle("-fx-background-color: #e85555; ");
+        delete.getStylesheets().add(getClass().getResource("dashboard.fxml").toExternalForm());
+        delete.getStyleClass().add("delete-button");
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
@@ -49,16 +51,20 @@ public class User{
                     System.out.println("Pasword"+ dashboardController.table_User.get(i).getPassword());
                     System.out.println("");
 
+                    User slected=dashboardController.table_User.get(i);
+                    UserHolder holder = UserHolder.getInstance();
+                    // Step 3
+                    holder.setUser(slected);
+
 
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addUser-view.fxml"));
-                        productManagmentController controller=fxmlLoader.getController();
 
                         Scene scene = new Scene(fxmlLoader.load());
                         Stage stage=new Stage();
+                        stage.setResizable(false);
                         stage.setTitle("User Management");
                         stage.setScene(scene);
-                        //controller.setPrueba("Hola");
                         stage.show();
 
                     } catch (IOException ex) {

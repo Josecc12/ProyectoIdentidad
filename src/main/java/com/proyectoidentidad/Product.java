@@ -1,7 +1,9 @@
 package com.proyectoidentidad;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -28,18 +30,17 @@ public class Product {
 
         update.setTextAlignment(TextAlignment.CENTER);
         update.setTextFill(Color.web("ffff"));
-        update.setStyle("-fx-background-color: #29CC97; ");
-        //update.getStylesheets().add(getClass().getResource("dashboard.fxml").toExternalForm());
-        //update.getStyleClass().add("red-border");
-        update.setPadding(new Insets(5));
-        //update.setAlignment(Pos.CENTER);
+        update.getStylesheets().add(getClass().getResource("dashboard.fxml").toExternalForm());
+        update.getStyleClass().add("edit-button");
+        update.setPadding(new Insets(5));;
         update.setMinWidth(95);
 
 
 
         delete.setTextAlignment(TextAlignment.CENTER);
         delete.setTextFill(Color.web("ffff"));
-        delete.setStyle("-fx-background-color: #e85555; ");
+        delete.getStylesheets().add(getClass().getResource("dashboard.fxml").toExternalForm());
+        delete.getStyleClass().add("delete-button");
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
@@ -54,17 +55,30 @@ public class Product {
                    System.out.println("production"+ dashboardController.table_product.get(i).getProduction());
                    System.out.println("");
 
+                   Product slected=dashboardController.table_product.get(i);
+                   ProductHolder holder = ProductHolder.getInstance();
+                   // Step 3
+                   holder.setProduct(slected);
+
+
 
                    try {
-                       FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addProduct-view.fxml"));
-                       productManagmentController controller=fxmlLoader.getController();
 
+
+                       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProduct-view.fxml"));
+                       productManagmentController controller=fxmlLoader.getController();
+                       //controller.setPrueba("Hola");
+
+
+                       fxmlLoader.setController(controller);
                        Scene scene = new Scene(fxmlLoader.load());
                        Stage stage=new Stage();
                        stage.setTitle("Product Management");
                        stage.setScene(scene);
-                       //controller.setPrueba("Hola");
+
                        stage.show();
+
+
 
 
 

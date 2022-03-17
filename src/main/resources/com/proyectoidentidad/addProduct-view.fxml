@@ -24,8 +24,8 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2">
          <children>
-            <FontAwesomeIconView fill="#403736" glyphName="CUBES" size="36" wrappingWidth="35.428571701049805" />
-            <Label text="Informacion del producto">
+            <FontAwesomeIconView fill="#2a4a4c" glyphName="CUBES" size="36" wrappingWidth="1.0" />
+            <Label text="Informacion del producto" textFill="#2a4a4c">
                <font>
                   <Font size="18.0" />
                </font>
@@ -43,12 +43,12 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" onMouseClicked="#saveProduct" prefHeight="30.0" prefWidth="423.0" style="-fx-background-color: #29CC97;" text="GUARDAR" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#saveProduct" prefHeight="30.0" prefWidth="423.0" styleClass="add-button" stylesheets="@packstyle.css" text="GUARDAR" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="22" />
                </graphic>
             </Button>
-            <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="30.0" prefWidth="427.0" style="-fx-background-color: #E85555;" text="CANCELAR" textFill="WHITE">
+            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="427.0" styleClass="delete-button" stylesheets="@packstyle.css" text="CANCELAR" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="22" />
                </graphic>
@@ -60,27 +60,27 @@
       </VBox>
       <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.rowIndex="1">
          <children>
-            <Label prefHeight="18.0" prefWidth="22.0" text="ID:">
+            <Label prefHeight="18.0" prefWidth="22.0" text="ID:" textFill="#2a4a4c">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Codigo:">
+            <Label text="Codigo:" textFill="#2a4a4c">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Descripcion:">
+            <Label text="Descripcion:" textFill="#2a4a4c">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Existencia:">
+            <Label text="Existencia:" textFill="#2a4a4c">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label text="Produccion:">
+            <Label text="Produccion:" textFill="#2a4a4c">
                <font>
                   <Font size="16.0" />
                </font>
@@ -95,11 +95,11 @@
             <Insets right="60.0" />
          </padding>
          <children>
-            <TextField fx:id="idField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #2196F3;" />
-            <TextField fx:id="codeField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #2196F3;" />
-            <TextField fx:id="descriptionField" prefHeight="27.0" prefWidth="292.0" style="-fx-border-color: #2196F3;" />
-            <TextField fx:id="stockField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #2196F3;" />
-            <TextField fx:id="productionField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #2196F3;" />
+            <TextField fx:id="idField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #2a4a4c;" />
+            <TextField fx:id="codeField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #2a4a4c;" />
+            <TextField fx:id="descriptionField" prefHeight="27.0" prefWidth="292.0" style="-fx-border-color: #2a4a4c;" />
+            <TextField fx:id="stockField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #2a4a4c;" />
+            <TextField fx:id="productionField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #2a4a4c;" />
          </children>
       </VBox>
    </children>

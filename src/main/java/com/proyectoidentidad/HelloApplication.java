@@ -15,6 +15,8 @@ public class HelloApplication extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+
+
         stage.setTitle("LOGIN");
 
         stage.setScene(scene);

@@ -170,8 +170,8 @@ public class dashboardController implements Initializable {
                     "lastname"+i,
                     "user"+i,
                     "password"+i,
-                    new Button("update"),
-                    new Button("delete")));
+                    new Button("Actualizar"),
+                    new Button("Eliminar")));
         }
         table_user.setItems(table_User);
     }
@@ -192,6 +192,10 @@ public class dashboardController implements Initializable {
     @FXML
     void addProduct(MouseEvent event) {
         try {
+            ProductHolder holder = ProductHolder.getInstance();
+            // Step 3
+            holder.setProduct(null);
+
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addProduct-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage=new Stage();
@@ -206,6 +210,8 @@ public class dashboardController implements Initializable {
     @FXML
     void addUser(MouseEvent event) {
         try {
+            UserHolder holder=UserHolder.getInstance();
+            holder.setUser(null);
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addUser-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage=new Stage();

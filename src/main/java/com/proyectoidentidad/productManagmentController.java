@@ -1,11 +1,15 @@
 package com.proyectoidentidad;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class productManagmentController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class productManagmentController implements Initializable {
 
     @FXML
     private Button cancelButton;
@@ -22,8 +26,7 @@ public class productManagmentController {
     @FXML
     private TextField productionField;
 
-    @FXML
-    private Button saveButton;
+
 
     @FXML
     private TextField stockField;
@@ -44,6 +47,22 @@ public class productManagmentController {
 
     @FXML
     void saveProduct(MouseEvent event) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ProductHolder holder = ProductHolder.getInstance();
+        if (holder.getProduct()!=null){
+            System.out.println(ProductHolder.getInstance());
+            Product product = holder.getProduct();
+            this.idField.setText(product.getId());
+            this.codeField.setText(product.getCode());
+            this.descriptionField.setText(product.getDescription());
+            this.stockField.setText(product.getStock());
+            this.productionField.setText(product.getProduction());
+        }
+
 
     }
 }
