@@ -67,12 +67,13 @@ public class Product {
 
                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProduct-view.fxml"));
                        productManagmentController controller=fxmlLoader.getController();
-                       //controller.setPrueba("Hola");
+                       //controller.setPrueba("Hola");admin
 
 
                        fxmlLoader.setController(controller);
                        Scene scene = new Scene(fxmlLoader.load());
                        Stage stage=new Stage();
+                       //fxmlLoader.getController().
                        stage.setTitle("Product Management");
                        stage.setScene(scene);
 
@@ -153,4 +154,6 @@ public class Product {
     public void setDelete(Button delete) {
         this.delete = delete;
     }
+
+
 }

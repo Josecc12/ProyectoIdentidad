@@ -24,7 +24,7 @@ import java.nio.file.attribute.UserPrincipal;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class dashboardController implements Initializable {
+public class dashboardController implements Initializable{
 
     @FXML
     private TableView<Product> Product_Table;
@@ -102,7 +102,8 @@ public class dashboardController implements Initializable {
     @FXML
     private GridPane pgUsers;
 
-
+    @FXML
+    private GridPane pgProviders;
 
 
 
@@ -114,6 +115,7 @@ public class dashboardController implements Initializable {
         loadUser();
         this.filterProduct=new FilteredList<>(table_product,e->true);
         this.filterUser=new FilteredList<>(table_User,e->true);
+
     }
 
     private void initTable(){
@@ -218,9 +220,12 @@ public class dashboardController implements Initializable {
             stage.setTitle("Product Management");
             stage.setScene(scene);
             stage.show();
+            System.out.println("Se debe actuzalizar");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+
+
     }
 
     @FXML
@@ -254,6 +259,11 @@ public class dashboardController implements Initializable {
     @FXML
     void showShoppingPage(MouseEvent event) {
     pgShopping.toFront();
+    }
+
+    @FXML
+    void showProvidersPage(MouseEvent event) {
+        pgProviders.toFront();
     }
 
     @FXML
@@ -330,6 +340,7 @@ public class dashboardController implements Initializable {
         // 5. Add sorted (and filtered) data to the table.
         table_user.setItems(sortedData);
     }
+
 
 
 }

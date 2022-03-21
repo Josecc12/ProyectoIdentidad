@@ -51,12 +51,7 @@
                   <Font name="Arial" size="14.0" />
                </font>
             </Button>
-            <ImageView fitHeight="258.0" fitWidth="299.0" layoutX="59.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Logotipo-02.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="211.0" fitWidth="227.0" layoutX="81.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="211.0" fitWidth="227.0" layoutX="82.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Isotipo-02.png" />
                </image>
