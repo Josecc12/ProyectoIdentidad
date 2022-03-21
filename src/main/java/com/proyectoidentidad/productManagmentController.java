@@ -7,9 +7,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class productManagmentController implements Initializable {
+public class productManagmentController implements Initializable  {
+
+
 
     @FXML
     private Button cancelButton;
@@ -47,12 +50,15 @@ public class productManagmentController implements Initializable {
 
     @FXML
     void saveProduct(MouseEvent event) {
+        System.out.println("Query");
+
 
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ProductHolder holder = ProductHolder.getInstance();
+
         if (holder.getProduct()!=null){
             System.out.println(ProductHolder.getInstance());
             Product product = holder.getProduct();
@@ -65,4 +71,8 @@ public class productManagmentController implements Initializable {
 
 
     }
+
+
+
+
 }
