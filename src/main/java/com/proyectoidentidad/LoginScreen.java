@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class LoginScreen {
+    dbConection con;
     @FXML
     private GridPane BackgroundPanel;
 
@@ -40,6 +42,9 @@ public class LoginScreen {
     void LoginButtonClicked(MouseEvent event) {
         if (UsernameTextfield.getText().equals("admin") && PasswordTextfield.getText().equals("admin")) {
             System.out.println(UsernameTextfield.getText() + "\n" + PasswordTextfield.getText());
+            con = new dbConection();
+            con.getConnection();
+            con.print_test();
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
