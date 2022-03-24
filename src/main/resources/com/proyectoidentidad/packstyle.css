@@ -1,11 +1,64 @@
-.button{
-    -fx-background-color: #3F2B63;
+.side-button{
+    -fx-background-color: #505B3C;
 }
-.button:hover{
-    -fx-background-color: #2A1C42;
+.side-button:hover{
+    -fx-background-color: #A0B679;
 }
 
-.button:pressed{
-    -fx-background-color: #7156DD;
+.side-button:pressed{
+    -fx-background-color: #49481A;
 }
+
+.table-view .column-header, .table-view .column-header-background .filler{
+    -fx-background-color: #A0B679;
+    -fx-border-color: #A0B679;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: #ffff;
+    -fx-font-weight: bold;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: #ffff;
+}
+
+.table-column-cell{
+    -fx-border-color: #B6A079;
+}
+
+.login-button{
+    -fx-background-color:  #B6A079;
+}
+
+.login-button:hover{
+    -fx-background-color:  #A0B679;
+}
+
+.edit-button{
+    -fx-background-color: #407072;
+}
+
+.edit-button:hover{
+    -fx-background-color: #29CC97;
+}
+
+.delete-button{
+    -fx-background-color: #C24240;
+
+}
+
+.delete-button:hover{
+    -fx-background-color: #e85555;
+}
+
+.add-button{
+    -fx-background-color: #407072;
+}
+
+.add-button:hover{
+    -fx-background-color: #29CC97;
+}
+
+
 
