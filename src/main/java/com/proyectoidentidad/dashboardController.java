@@ -84,6 +84,39 @@ public class dashboardController implements Initializable{
     @FXML
     private TableColumn<User, Button> user_delete;
 
+    //TABLA PROVIDER
+    @FXML
+    private TableView<Provider> Provider_table;
+    public static ObservableList<Provider> Provider_Table;
+
+    @FXML
+    private TableColumn<Provider, String> provider_address;
+
+    @FXML
+    private TableColumn<Provider, String> provider_id;
+
+    @FXML
+    private TableColumn<Provider, String> provider_name;
+
+    @FXML
+    private TableColumn<Provider, String> provider_nit;
+
+    @FXML
+    private TableColumn<Provider, String> provider_phone;
+
+    @FXML
+    private TextField search_provider;
+    private FilteredList<Provider> filter_Provider;
+
+    @FXML
+    private TableColumn<Provider, Button> provider_action;
+
+    @FXML
+    private TableColumn<Provider, Button> provider_delete;
+
+
+    ///
+
     @FXML
     private GridPane pgCharts;
 
@@ -113,14 +146,16 @@ public class dashboardController implements Initializable{
         initTable();
         loadData();
         loadUser();
+        loadProvider();
         this.filterProduct=new FilteredList<>(table_product,e->true);
         this.filterUser=new FilteredList<>(table_User,e->true);
-
+        this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
     }
 
     private void initTable(){
         initCols();
         initUser();
+        initProviders();
     }
 
     private void initUser(){
@@ -153,6 +188,19 @@ public class dashboardController implements Initializable{
         Delete_Column.setMinWidth(70);
         Delete_Column.setMaxWidth(70);
         editCols();
+    }
+
+    private void initProviders(){
+        provider_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        provider_nit.setCellValueFactory(new PropertyValueFactory<>("Nit"));
+        provider_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        provider_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        provider_action.setCellValueFactory(new PropertyValueFactory<>("update"));
+        provider_action.setMaxWidth(100);
+        provider_action.setMinWidth(100);
+        provider_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        provider_delete.setMaxWidth(70);
+        provider_delete.setMinWidth(70);
     }
 
     private void editCols(){
@@ -190,6 +238,18 @@ public class dashboardController implements Initializable{
         Product_Table.setItems(table_product);
 
     }
+    private  void loadProvider() {
+        Provider_Table = FXCollections.observableArrayList();
+        for(int i = 0; i<25; i++){
+            Button ac=new  Button("Editar");
+            Provider aux = new Provider(String.valueOf(i), "Nit" + String.valueOf(i+2),
+                    "Name" + String.valueOf(i+5),"Phone" + String.valueOf(i+2),
+                    String.valueOf(i+15),ac,new Button("Eliminar"));
+            Provider_Table.add(aux);
+
+        }
+        Provider_table.setItems(Provider_Table);
+    }
 
     @FXML
     void addProduct(MouseEvent event) {
@@ -226,6 +286,24 @@ public class dashboardController implements Initializable{
         }
 
 
+    }
+
+    @FXML
+    void addProvider(MouseEvent event) {
+        try {
+            ProviderHolder holder = ProviderHolder.getInstance();
+            // Step 3
+            holder.setProvider(null);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addProvider-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Provider");
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML
@@ -341,6 +419,44 @@ public class dashboardController implements Initializable{
         table_user.setItems(sortedData);
     }
 
+    @FXML
+    void filterProvider(KeyEvent event) {
 
+        search_provider.textProperty().addListener((observable, oldValue, newValue) ->{
+
+            filter_Provider.setPredicate(provider -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (provider.getId().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; // Filter matches first name.
+                } else if (provider.getNit().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (provider.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (provider.getPhone().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (provider.getAddress().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else{
+                    return false;
+                }
+
+            });
+        } );
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Provider> sortedData = new SortedList<>(filter_Provider);
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        // 	  Otherwise, sorting the TableView would have no effect.
+        sortedData.comparatorProperty().bind(Provider_table.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        Provider_table.setItems(sortedData);
+    }
+
+    ////TABLE PROVIDER
 
 }

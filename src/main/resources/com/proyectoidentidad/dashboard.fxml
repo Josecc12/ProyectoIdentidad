@@ -322,7 +322,7 @@
                               <Insets left="10.0" />
                            </HBox.margin>
                         </FontAwesomeIconView>
-                        <TextField prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="search_provider" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
                         <Button graphicTextGap="15.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Providers" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
@@ -339,15 +339,15 @@
                         <Insets top="5.0" />
                      </padding>
                   </HBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
+                  <TableView fx:id="Provider_table" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
                      <columns>
-                        <TableColumn prefWidth="75.0" text="ID" />
-                        <TableColumn prefWidth="75.0" text="NIT" />
-                        <TableColumn prefWidth="75.0" text="Nombre" />
-                        <TableColumn prefWidth="75.0" text="Telefono" />
-                        <TableColumn prefWidth="75.0" text="Direccion" />
-                        <TableColumn prefWidth="75.0" />
-                        <TableColumn prefWidth="75.0" />
+                        <TableColumn fx:id="provider_id" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="provider_nit" prefWidth="75.0" text="NIT" />
+                        <TableColumn fx:id="provider_name" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="provider_phone" prefWidth="75.0" text="Telefono" />
+                        <TableColumn fx:id="provider_address" prefWidth="75.0" text="Direccion" />
+                        <TableColumn fx:id="provider_action" prefWidth="75.0" />
+                        <TableColumn fx:id="provider_delete" prefWidth="75.0" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
