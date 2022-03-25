@@ -195,6 +195,7 @@ public class dashboardController implements Initializable{
         provider_nit.setCellValueFactory(new PropertyValueFactory<>("Nit"));
         provider_name.setCellValueFactory(new PropertyValueFactory<>("name"));
         provider_phone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        provider_address.setCellValueFactory(new PropertyValueFactory<>("address"));
         provider_action.setCellValueFactory(new PropertyValueFactory<>("update"));
         provider_action.setMaxWidth(100);
         provider_action.setMinWidth(100);

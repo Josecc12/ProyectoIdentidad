@@ -306,55 +306,6 @@
                   </TableView>
                </children>
             </GridPane>
-            <GridPane fx:id="pgProviders" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
-                     <children>
-                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </FontAwesomeIconView>
-                        <TextField fx:id="search_provider" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
-                        <Button graphicTextGap="15.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Providers" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </HBox>
-                  <TableView fx:id="Provider_table" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
-                     <columns>
-                        <TableColumn fx:id="provider_id" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="provider_nit" prefWidth="75.0" text="NIT" />
-                        <TableColumn fx:id="provider_name" prefWidth="75.0" text="Nombre" />
-                        <TableColumn fx:id="provider_phone" prefWidth="75.0" text="Telefono" />
-                        <TableColumn fx:id="provider_address" prefWidth="75.0" text="Direccion" />
-                        <TableColumn fx:id="provider_action" prefWidth="75.0" />
-                        <TableColumn fx:id="provider_delete" prefWidth="75.0" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </GridPane>
             <GridPane fx:id="pgShopping" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -413,6 +364,55 @@
                         </TableColumn>
                         <TableColumn prefWidth="75.0" />
                         <TableColumn prefWidth="75.0" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </GridPane>
+            <GridPane fx:id="pgProviders" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
+                     <children>
+                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <TextField fx:id="search_provider" onKeyReleased="#filterProvider" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addProvider" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Providers" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </HBox>
+                  <TableView fx:id="Provider_table" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
+                     <columns>
+                        <TableColumn fx:id="provider_id" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="provider_nit" prefWidth="75.0" text="NIT" />
+                        <TableColumn fx:id="provider_name" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="provider_phone" prefWidth="75.0" text="Telefono" />
+                        <TableColumn fx:id="provider_address" prefWidth="75.0" text="Direccion" />
+                        <TableColumn fx:id="provider_action" prefWidth="75.0" />
+                        <TableColumn fx:id="provider_delete" prefWidth="75.0" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
