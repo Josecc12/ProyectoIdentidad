@@ -117,6 +117,49 @@ public class dashboardController implements Initializable{
 
     ///
 
+    // Table Buys
+    @FXML
+    private TableView<Buy> table_buys;
+    public static ObservableList<Buy> table_Buys;
+    @FXML
+    private TableColumn<User, String> buy_id;
+
+    @FXML
+    private TableColumn<User, String> buy_date;
+
+    @FXML
+    private TableColumn<User, String> buy_serie;
+
+    @FXML
+    private TableColumn<User, String> buy_NO;
+
+    @FXML
+    private TableColumn<User, String> buy_NIT;
+
+    @FXML
+    private TableColumn<User, String> buy_name;
+
+    @FXML
+    private TableColumn<User, String> buy_net;
+
+    @FXML
+    private TableColumn<User, String> buy_gross;
+
+    @FXML
+    private TableColumn<User, String> buy_IVA;
+
+    @FXML
+    private TextField searchBuy;
+    private FilteredList<Buy> filterBuy;
+
+    @FXML
+    private TableColumn<User, Button> buy_action;
+
+    @FXML
+    private TableColumn<User, Button> buy_delete;
+
+
+
     @FXML
     private GridPane pgCharts;
 
@@ -147,15 +190,18 @@ public class dashboardController implements Initializable{
         loadData();
         loadUser();
         loadProvider();
+        loadBuy();
         this.filterProduct=new FilteredList<>(table_product,e->true);
         this.filterUser=new FilteredList<>(table_User,e->true);
         this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
+        //this.filterBuy=new FilteredList<>(table_Buys,e->true);
     }
 
     private void initTable(){
         initCols();
         initUser();
         initProviders();
+        initBuy();
     }
 
     private void initUser(){
@@ -204,6 +250,28 @@ public class dashboardController implements Initializable{
         provider_delete.setMinWidth(70);
     }
 
+
+    private void initBuy(){
+        //id,date,serie,no,nit,name,mount_net,mount_gross,mount_IVA;
+        buy_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        buy_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        buy_serie.setCellValueFactory(new PropertyValueFactory<>("serie"));
+        buy_NO.setCellValueFactory(new PropertyValueFactory<>("no"));
+        buy_NIT.setCellValueFactory(new PropertyValueFactory<>("nit"));
+        buy_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        buy_net.setCellValueFactory(new PropertyValueFactory<>("mount_net"));
+        buy_gross.setCellValueFactory(new PropertyValueFactory<>("mount_gross"));
+        buy_IVA.setCellValueFactory(new PropertyValueFactory<>("mount_IVA"));
+        buy_action.setCellValueFactory(new PropertyValueFactory<>("update"));
+        buy_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        buy_action.setMaxWidth(100);
+        buy_action.setMinWidth(100);
+        buy_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        buy_delete.setMaxWidth(70);
+        buy_delete.setMinWidth(70);
+
+    }
+
     private void editCols(){
 
 
@@ -250,6 +318,22 @@ public class dashboardController implements Initializable{
 
         }
         Provider_table.setItems(Provider_Table);
+    }
+
+
+
+    private void loadBuy(){
+        table_Buys = FXCollections.observableArrayList();
+        for(int i = 0; i<25; i++){
+            Button ac=new  Button("Editar");
+            Buy aux = new Buy(String.valueOf(i),String.valueOf(i*2),String.valueOf(i+11),String.valueOf(i),
+                    String.valueOf(i),String.valueOf(i),String.valueOf(i),String.valueOf(i/2),String.valueOf(i+16),
+                    ac,new Button("Eliminar"));
+            table_Buys.add(aux);
+
+        }
+        table_buys.setItems(table_Buys);
+
     }
 
     @FXML
