@@ -404,7 +404,7 @@
                         <Insets top="5.0" />
                      </padding>
                   </HBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
+                  <TableView fx:id="table_Client" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
                      <columns>
                         <TableColumn fx:id="client_id" prefWidth="75.0" text="ID" />
                         <TableColumn fx:id="client_nit" prefWidth="75.0" text="NIT" />
