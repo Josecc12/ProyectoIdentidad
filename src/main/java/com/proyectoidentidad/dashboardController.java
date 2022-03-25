@@ -20,8 +20,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.attribute.UserPrincipal;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable{
@@ -114,6 +112,34 @@ public class dashboardController implements Initializable{
     @FXML
     private TableColumn<Provider, Button> provider_delete;
 
+    ///Table Client
+    @FXML
+    private TableView<Client> table_Client;
+    public static ObservableList<Client> table_client;
+    @FXML
+    private TableColumn<Client, String> client_id;
+
+    @FXML
+    private TableColumn<Client, String> client_name;
+
+    @FXML
+    private TableColumn<Client, String> client_address;
+
+    @FXML
+    private TableColumn<Client, String> client_phone;
+
+    @FXML
+    private TableColumn<Client, String> client_nit;
+
+    @FXML
+    private TextField searchClient;
+    private FilteredList<Client> filterClient;
+
+    @FXML
+    private TableColumn<Client, Button> client_update;
+
+    @FXML
+    private TableColumn<Client, Button> client_delete;
 
     ///
 
@@ -147,15 +173,18 @@ public class dashboardController implements Initializable{
         loadData();
         loadUser();
         loadProvider();
+        loadClient();
         this.filterProduct=new FilteredList<>(table_product,e->true);
         this.filterUser=new FilteredList<>(table_User,e->true);
         this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
+        this.filterClient = new FilteredList<>(table_client, e-> true);
     }
 
     private void initTable(){
         initCols();
         initUser();
         initProviders();
+        initClient();
     }
 
     private void initUser(){
@@ -204,6 +233,20 @@ public class dashboardController implements Initializable{
         provider_delete.setMinWidth(70);
     }
 
+    private void initClient(){
+        client_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        client_nit.setCellValueFactory(new PropertyValueFactory<>("nit"));
+        client_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        client_phone.setCellValueFactory(new PropertyValueFactory<>("phone number"));
+        client_address.setCellValueFactory(new PropertyValueFactory<>("address"));
+        client_update.setCellValueFactory(new PropertyValueFactory<>("update"));
+        client_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        client_update.setMinWidth(100);
+        client_update.setMaxWidth(100);
+        client_delete.setMinWidth(70);
+        client_delete.setMaxWidth(70);
+    }
+
     private void editCols(){
 
 
@@ -250,6 +293,20 @@ public class dashboardController implements Initializable{
 
         }
         Provider_table.setItems(Provider_Table);
+    }
+
+    private void loadClient(){
+        table_client = FXCollections.observableArrayList();
+        for (int i = 0; i < 7; i++) {
+            table_client.add(new Client(String.valueOf(i),
+                    "NIT"+i,
+                    "name"+i,
+                    "Phone"+i,
+                    "Adress"+i,
+                    new Button("Actualizar"),
+                    new Button("Eliminar")));
+        }
+        table_Client.setItems(table_client);
     }
 
     @FXML
@@ -305,6 +362,25 @@ public class dashboardController implements Initializable{
         }catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @FXML
+    void addClient(MouseEvent event) {
+        try {
+            ClientHolder holder=ClientHolder.getInstance();
+            holder.setClient(null);
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addClient-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage=new Stage();
+            stage.setTitle("Client Management");
+            stage.setScene(scene);
+            stage.show();
+            System.out.println("Se debe actuzalizar");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+
     }
 
     @FXML
@@ -456,6 +532,43 @@ public class dashboardController implements Initializable{
 
         // 5. Add sorted (and filtered) data to the table.
         Provider_table.setItems(sortedData);
+    }
+
+    @FXML
+    void filterClient(KeyEvent event) {
+        searchClient.textProperty().addListener((observable, oldValue, newValue) ->{
+            filterClient.setPredicate(client -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (client.getId().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; // Filter matches first name.
+                } else if (client.getNit().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (client.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (client.getPhone_number().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (client.getAddress().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else{
+                    return false;
+                }
+
+            });
+        } );
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Client> sortedData = new SortedList<>(filterClient);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        // 	  Otherwise, sorting the TableView would have no effect.
+        sortedData.comparatorProperty().bind(table_Client.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        table_Client.setItems(sortedData);
     }
 
     ////TABLE PROVIDER
