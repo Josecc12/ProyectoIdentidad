@@ -217,11 +217,11 @@ public class dashboardController implements Initializable{
         loadUser();
         loadProvider();
         loadBuy();
+        loadClient();
         this.filterProduct=new FilteredList<>(table_product,e->true);
         this.filterUser=new FilteredList<>(table_User,e->true);
         this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
-        //this.filterBuy=new FilteredList<>(table_Buys,e->true);
-        loadClient();
+        this.filterBuy=new FilteredList<>(table_Buys,e->true);
         this.filterProduct=new FilteredList<>(table_product,e->true);
         this.filterUser=new FilteredList<>(table_User,e->true);
         this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
@@ -306,7 +306,7 @@ public class dashboardController implements Initializable{
         client_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         client_nit.setCellValueFactory(new PropertyValueFactory<>("nit"));
         client_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        client_phone.setCellValueFactory(new PropertyValueFactory<>("phone number"));
+        client_phone.setCellValueFactory(new PropertyValueFactory<>("phone_number"));
         client_address.setCellValueFactory(new PropertyValueFactory<>("address"));
         client_update.setCellValueFactory(new PropertyValueFactory<>("update"));
         client_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
@@ -652,6 +652,56 @@ public class dashboardController implements Initializable{
 
         // 5. Add sorted (and filtered) data to the table.
         table_Client.setItems(sortedData);
+    }
+
+
+    @FXML
+    void filterBuy(KeyEvent event) {
+        searchBuy.textProperty().addListener((observable, oldValue, newValue) ->{
+            filterBuy.setPredicate(buy -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                //id,date,serie,no,nit,name,mount_net,mount_gross,mount_IVA;
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (buy.getId().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; // Filter matches first name.
+                } else if (buy.getDate().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (buy.getSerie().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (buy.getNo().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (buy.getNit().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                } if (buy.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                if (buy.getMount_gross().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                if (buy.getMount_net().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                if (buy.getMount_IVA().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                else{
+                    return false;
+                }
+
+            });
+        } );
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Buy> sortedData = new SortedList<>(filterBuy);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        // 	  Otherwise, sorting the TableView would have no effect.
+        sortedData.comparatorProperty().bind(table_buys.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        table_buys.setItems(sortedData);
     }
 
     ////TABLE PROVIDER
