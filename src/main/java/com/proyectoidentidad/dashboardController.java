@@ -143,6 +143,49 @@ public class dashboardController implements Initializable{
 
     ///
 
+    // Table Buys
+    @FXML
+    private TableView<Buy> table_buys;
+    public static ObservableList<Buy> table_Buys;
+    @FXML
+    private TableColumn<User, String> buy_id;
+
+    @FXML
+    private TableColumn<User, String> buy_date;
+
+    @FXML
+    private TableColumn<User, String> buy_serie;
+
+    @FXML
+    private TableColumn<User, String> buy_NO;
+
+    @FXML
+    private TableColumn<User, String> buy_NIT;
+
+    @FXML
+    private TableColumn<User, String> buy_name;
+
+    @FXML
+    private TableColumn<User, String> buy_net;
+
+    @FXML
+    private TableColumn<User, String> buy_gross;
+
+    @FXML
+    private TableColumn<User, String> buy_IVA;
+
+    @FXML
+    private TextField searchBuy;
+    private FilteredList<Buy> filterBuy;
+
+    @FXML
+    private TableColumn<User, Button> buy_action;
+
+    @FXML
+    private TableColumn<User, Button> buy_delete;
+
+
+
     @FXML
     private GridPane pgCharts;
 
@@ -173,7 +216,12 @@ public class dashboardController implements Initializable{
         loadData();
         loadUser();
         loadProvider();
+        loadBuy();
         loadClient();
+        this.filterProduct=new FilteredList<>(table_product,e->true);
+        this.filterUser=new FilteredList<>(table_User,e->true);
+        this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
+        this.filterBuy=new FilteredList<>(table_Buys,e->true);
         this.filterProduct=new FilteredList<>(table_product,e->true);
         this.filterUser=new FilteredList<>(table_User,e->true);
         this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
@@ -184,6 +232,7 @@ public class dashboardController implements Initializable{
         initCols();
         initUser();
         initProviders();
+        initBuy();
         initClient();
     }
 
@@ -233,11 +282,31 @@ public class dashboardController implements Initializable{
         provider_delete.setMinWidth(70);
     }
 
+
+    private void initBuy(){
+        //id,date,serie,no,nit,name,mount_net,mount_gross,mount_IVA;
+        buy_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        buy_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        buy_serie.setCellValueFactory(new PropertyValueFactory<>("serie"));
+        buy_NO.setCellValueFactory(new PropertyValueFactory<>("no"));
+        buy_NIT.setCellValueFactory(new PropertyValueFactory<>("nit"));
+        buy_name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        buy_net.setCellValueFactory(new PropertyValueFactory<>("mount_net"));
+        buy_gross.setCellValueFactory(new PropertyValueFactory<>("mount_gross"));
+        buy_IVA.setCellValueFactory(new PropertyValueFactory<>("mount_IVA"));
+        buy_action.setCellValueFactory(new PropertyValueFactory<>("update"));
+        buy_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        buy_action.setMaxWidth(100);
+        buy_action.setMinWidth(100);
+        buy_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        buy_delete.setMaxWidth(70);
+        buy_delete.setMinWidth(70);
+    }
     private void initClient(){
         client_id.setCellValueFactory(new PropertyValueFactory<>("id"));
         client_nit.setCellValueFactory(new PropertyValueFactory<>("nit"));
         client_name.setCellValueFactory(new PropertyValueFactory<>("name"));
-        client_phone.setCellValueFactory(new PropertyValueFactory<>("phone number"));
+        client_phone.setCellValueFactory(new PropertyValueFactory<>("phone_number"));
         client_address.setCellValueFactory(new PropertyValueFactory<>("address"));
         client_update.setCellValueFactory(new PropertyValueFactory<>("update"));
         client_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
@@ -295,6 +364,20 @@ public class dashboardController implements Initializable{
         Provider_table.setItems(Provider_Table);
     }
 
+
+
+    private void loadBuy(){
+        table_Buys = FXCollections.observableArrayList();
+        for(int i = 0; i<25; i++){
+            Button ac=new  Button("Editar");
+            Buy aux = new Buy(String.valueOf(i),String.valueOf(i*2),String.valueOf(i+11),String.valueOf(i),
+                    String.valueOf(i),String.valueOf(i),String.valueOf(i),String.valueOf(i/2),String.valueOf(i+16),
+                    ac,new Button("Eliminar"));
+            table_Buys.add(aux);
+
+        }
+        table_buys.setItems(table_Buys);
+    }
     private void loadClient(){
         table_client = FXCollections.observableArrayList();
         for (int i = 0; i < 7; i++) {
@@ -569,6 +652,56 @@ public class dashboardController implements Initializable{
 
         // 5. Add sorted (and filtered) data to the table.
         table_Client.setItems(sortedData);
+    }
+
+
+    @FXML
+    void filterBuy(KeyEvent event) {
+        searchBuy.textProperty().addListener((observable, oldValue, newValue) ->{
+            filterBuy.setPredicate(buy -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                //id,date,serie,no,nit,name,mount_net,mount_gross,mount_IVA;
+                String lowerCaseFilter = newValue.toLowerCase();
+                if (buy.getId().toLowerCase().indexOf(lowerCaseFilter) != -1 ) {
+                    return true; // Filter matches first name.
+                } else if (buy.getDate().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (buy.getSerie().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (buy.getNo().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }else if (buy.getNit().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                } if (buy.getName().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                if (buy.getMount_gross().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                if (buy.getMount_net().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                if (buy.getMount_IVA().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+                    return true; // Filter matches last name.
+                }
+                else{
+                    return false;
+                }
+
+            });
+        } );
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Buy> sortedData = new SortedList<>(filterBuy);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        // 	  Otherwise, sorting the TableView would have no effect.
+        sortedData.comparatorProperty().bind(table_buys.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        table_buys.setItems(sortedData);
     }
 
     ////TABLE PROVIDER
