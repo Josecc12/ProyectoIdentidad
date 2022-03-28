@@ -43,7 +43,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="423.0" styleClass="add-button" stylesheets="@packstyle.css" text="GUARDAR" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#save_user" prefHeight="30.0" prefWidth="423.0" styleClass="add-button" stylesheets="@packstyle.css" text="GUARDAR" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="22" />
                </graphic>
@@ -60,12 +60,17 @@
       </VBox>
       <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="30.0" GridPane.rowIndex="1">
          <children>
-            <Label prefHeight="18.0" prefWidth="22.0" text="ID:" textFill="#2a4a4c">
+            <Label prefHeight="12.0" prefWidth="22.0" text="ID:" textFill="#2a4a4c">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
             <Label prefHeight="25.0" prefWidth="84.0" text="Nombre:" textFill="#2a4a4c">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="25.0" prefWidth="70.0" text="Apellido:" textFill="#2a4a4c">
                <font>
                   <Font size="16.0" />
                </font>
@@ -92,6 +97,7 @@
          <children>
             <TextField fx:id="idField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
             <TextField fx:id="nameField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="apellidofield" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
             <TextField fx:id="userField" prefHeight="27.0" prefWidth="292.0" style="-fx-border-color: #407072;" />
             <TextField fx:id="passwordField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
          </children>

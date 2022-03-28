@@ -43,7 +43,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="423.0" styleClass="add-button" stylesheets="@packstyle.css" text="GUARDAR" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#save_client" prefHeight="30.0" prefWidth="423.0" styleClass="add-button" stylesheets="@packstyle.css" text="GUARDAR" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="22" />
                </graphic>

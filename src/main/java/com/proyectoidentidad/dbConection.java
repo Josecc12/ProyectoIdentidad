@@ -36,21 +36,27 @@ public class dbConection {
         }
     }
 
-    public void print_test(){
-        Statement statement;
+    public int ejecutarSenctenciaSQL(String strSentenciaSQL){
+        try {
+            PreparedStatement pstm = conn.prepareStatement(strSentenciaSQL);
+            pstm.execute();
+            return 1;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return 0;
+        }
+    }
 
-        {
-            try {
-                statement = conn.createStatement();
-                ResultSet resultSet = statement.executeQuery("select * from clientes");
-                while(resultSet.next()){
-                    System.out.println(resultSet.getString("Nombre"));
-                    System.out.println(resultSet.getString("Direccion"));
-                    System.out.println(resultSet.getString("Nit"));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    public ResultSet consultarRegistros(String strSentenciaSQL){
+        PreparedStatement pstm = null;
+        try {
+            pstm = conn.prepareStatement(strSentenciaSQL);
+            ResultSet respuesta = pstm.executeQuery();
+
+            return respuesta;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return null;
         }
     }
 

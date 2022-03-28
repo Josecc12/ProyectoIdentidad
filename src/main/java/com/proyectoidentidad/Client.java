@@ -59,10 +59,10 @@ public class Client {
 
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addClient-view.fxml"));
-
+                        ClientManagmentController controller = fxmlLoader.getController();
+                        fxmlLoader.setController(controller);
                         Scene scene = new Scene(fxmlLoader.load());
                         Stage stage=new Stage();
-                        stage.setResizable(false);
                         stage.setTitle("Client Management");
                         stage.setScene(scene);
                         stage.show();
@@ -74,12 +74,7 @@ public class Client {
 
                 }
             }
-
-
         });
-
-
-
     }
 
     public String getId() {

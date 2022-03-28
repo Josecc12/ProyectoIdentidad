@@ -76,13 +76,7 @@ public class Product {
                        //fxmlLoader.getController().
                        stage.setTitle("Product Management");
                        stage.setScene(scene);
-
                        stage.show();
-
-
-
-
-
 
                    } catch (IOException ex) {
                        ex.printStackTrace();

@@ -44,7 +44,7 @@ public class LoginScreen {
             System.out.println(UsernameTextfield.getText() + "\n" + PasswordTextfield.getText());
             con = new dbConection();
             con.getConnection();
-            con.print_test();
+
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());
