@@ -1,6 +1,7 @@
 package com.proyectoidentidad;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -10,7 +11,7 @@ import javafx.scene.Node;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ClientManagmentController {
+public class ClientManagmentController implements Initializable {
     @FXML
     private TextField idField;
 

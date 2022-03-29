@@ -95,11 +95,11 @@
             <Insets right="60.0" />
          </padding>
          <children>
-            <TextField prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
-            <TextField prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
-            <TextField prefHeight="27.0" prefWidth="292.0" style="-fx-border-color: #407072;" />
-            <TextField prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
-            <TextField prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="idField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="nitField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="nameField" prefHeight="27.0" prefWidth="292.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="phoneField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="addressField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
          </children>
       </VBox>
    </children>
