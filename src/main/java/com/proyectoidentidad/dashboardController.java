@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable{
@@ -213,7 +214,8 @@ public class dashboardController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         initTable();
-        loadData();
+        //loadData();
+        loadProducts();
         loadUser();
         loadProvider();
         loadBuy();
@@ -250,10 +252,10 @@ public class dashboardController implements Initializable{
         user_delete.setMaxWidth(70);
     }
 
-    private void initCols(){
-
+    public void initCols(){
 
         //id,code,description,stock,production
+
         Id_Column.setCellValueFactory(new PropertyValueFactory<>("id"));
         Code_Column.setCellValueFactory(new PropertyValueFactory<>("code"));
         Description_Column.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -266,6 +268,7 @@ public class dashboardController implements Initializable{
         Delete_Column.setMinWidth(70);
         Delete_Column.setMaxWidth(70);
         editCols();
+
     }
 
     private void initProviders(){
@@ -327,30 +330,45 @@ public class dashboardController implements Initializable{
     }
     private void loadUser(){
         table_User = FXCollections.observableArrayList();
-        for (int i = 0; i < 7; i++) {
-            table_User.add(new User(String.valueOf(i),
-                    "name"+i,
-                    "lastname"+i,
-                    "user"+i,
-                    "password"+i,
-                    new Button("Actualizar"),
-                    new Button("Eliminar")));
+        try {
+            dbConection conexion = new dbConection();
+            ResultSet resultado = conexion.consultarRegistros("select * from usuario");
+            while(resultado.next()){
+                table_User.add(new User(resultado.getString("id"),resultado.getString("Nombre"),resultado.getString("Apellido"),
+                        resultado.getString("Usuario"),resultado.getString("Contrasena"),
+                        new Button("Editar"),
+                        new Button("Eliminar")));
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
         table_user.setItems(table_User);
     }
-    private  void loadData(){
-        table_product=FXCollections.observableArrayList();
-        for(int i = 0; i<25; i++){
-            Button ac=new  Button("Editar");
-            Product aux= new Product(String.valueOf(i),"Code"+String.valueOf(i+2),
-                    "Description"+String.valueOf(i+5),String.valueOf(i+8),
-                    String.valueOf(i+15),ac,new Button("Eliminar"));
-            table_product.add(aux);
 
+    public void loadProducts(){
+        table_product = FXCollections.observableArrayList();
+
+        try {
+
+           dbConection conexion = new dbConection();
+           ResultSet resultado = conexion.consultarRegistros("select * from producto");
+
+           while(resultado.next()){
+               table_product.add(new Product(resultado.getString("id"),resultado.getString("Nombre"),
+                   resultado.getString("Descripcion"),resultado.getString("Existencia"),resultado.getString("Produccion"),
+               new Button("Editar"),
+               new Button("Eliminar")));
+
+           }
+
+        }catch (Exception e){
+            System.out.println(e);
         }
+
         Product_Table.setItems(table_product);
 
     }
+
     private  void loadProvider() {
         Provider_Table = FXCollections.observableArrayList();
         for(int i = 0; i<25; i++){
@@ -379,17 +397,20 @@ public class dashboardController implements Initializable{
         table_buys.setItems(table_Buys);
     }
     private void loadClient(){
-        table_client = FXCollections.observableArrayList();
-        for (int i = 0; i < 7; i++) {
-            table_client.add(new Client(String.valueOf(i),
-                    "NIT"+i,
-                    "name"+i,
-                    "Phone"+i,
-                    "Adress"+i,
-                    new Button("Actualizar"),
-                    new Button("Eliminar")));
-        }
-        table_Client.setItems(table_client);
+       table_client = FXCollections.observableArrayList();
+       try {
+           dbConection conexion = new dbConection();
+           ResultSet resultado = conexion.consultarRegistros("select * from clientes");
+           while(resultado.next()){
+               table_client.add(new Client(resultado.getString("id"),resultado.getString("Nit"),resultado.getString("Nombre"),"Telefono",
+               resultado.getString("Direccion"),new Button("Editar"),new Button("Eliminar")));
+           }
+
+       }catch (Exception e){
+           System.out.println(e);
+       }
+
+       table_Client.setItems(table_client);
     }
 
     @FXML
@@ -403,6 +424,23 @@ public class dashboardController implements Initializable{
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage=new Stage();
             stage.setTitle("Product Management");
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    void addClient(MouseEvent event) {
+        try {
+            ClientHolder holder=ClientHolder.getInstance();
+            holder.setClient(null);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addClient-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage=new Stage();
+            stage.setTitle("Client Management");
             stage.setScene(scene);
             stage.show();
         } catch (IOException ex) {
@@ -425,9 +463,8 @@ public class dashboardController implements Initializable{
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-
-
     }
+
 
     @FXML
     void addProvider(MouseEvent event) {
@@ -448,33 +485,16 @@ public class dashboardController implements Initializable{
     }
 
     @FXML
-    void addClient(MouseEvent event) {
-        try {
-            ClientHolder holder=ClientHolder.getInstance();
-            holder.setClient(null);
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addClient-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            Stage stage=new Stage();
-            stage.setTitle("Client Management");
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("Se debe actuzalizar");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-
-    }
-
-    @FXML
     void showProductsPage(MouseEvent event) {
+            this.loadProducts();
             pgProducts.toFront();
     }
+
 
     @FXML
     void showUsersPage(MouseEvent event) {
         pgUsers.toFront();
-
+        this.loadUser();
     }
 
     @FXML
@@ -491,6 +511,7 @@ public class dashboardController implements Initializable{
     @FXML
     void showClientsPage(MouseEvent event) {
       pgClients.toFront();
+      this.loadClient();
     }
 
 
