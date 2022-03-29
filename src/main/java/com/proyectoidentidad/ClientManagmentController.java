@@ -33,13 +33,15 @@ public class ClientManagmentController implements Initializable {
         ClientHolder holder = ClientHolder.getInstance();
         dbConection conexion = new dbConection();
 
-        if(holder == null){
-            String sentenciaSQL = String.format("INSERT INTO clientes (Nombre,Direccion,Nit)" + "values (nombre,Direccion,Nit)",this.nameField.getText(),
-                    this.addressField.getText(),this.nitField.getText());
+        if(holder.getClient() == null){
+            String sentenciaSQL = String.format("INSERT INTO clientes (Nombre,Direccion,Nit)" + "values ('%S','%S','%S')",this.nameField.getText(),
+                    this.addressField.getText(),Integer.valueOf(this.nitField.getText()));
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
         }else{
-            System.out.println("Esto es un Update");
+            String setenciaSQL = String.format("UPDATE clientes SET Nombre='%S',Direccion = '%S',Nit = '%S' WHERE id = '%S'",this.nameField.getText(),
+                    this.addressField.getText(),Integer.valueOf(this.nitField.getText()),Integer.valueOf(this.idField.getText()));
+            conexion.ejecutarSenctenciaSQL(setenciaSQL);
         }
 
         this.cerrarVentana(event);

@@ -2,8 +2,10 @@ package com.proyectoidentidad;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,8 +29,30 @@ public class ProviderManagmentController implements Initializable {
 
     @FXML
     void saveProvider(MouseEvent event) {
+        ProviderHolder holder = ProviderHolder.getInstance();
+        dbConection conexion = new dbConection();
+
+        if(holder.getProvider() == null){
+            String sentenciaSQL = String.format("INSERT INTO proveedores (Nombre,Direccion)" + "values('%S','%S')",
+                    this.nameField.getText(),this.adressField.getText());
+            conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+
+        }else{
+            String sentenciaSQL = String.format("UPDATE proveedores SET Nombre = '%S', Direccion ='%S' WHERE id = '%S'",
+                    this.nameField.getText(),this.adressField.getText(),Integer.valueOf(this.idField.getText()));
+            conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+
+        }
+        this.cerrarVentana(event);
 
     }
+
+    private void cerrarVentana(MouseEvent event){
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage)source.getScene().getWindow();
+        stage.close();
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

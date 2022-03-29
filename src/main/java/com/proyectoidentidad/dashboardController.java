@@ -371,13 +371,19 @@ public class dashboardController implements Initializable{
 
     private  void loadProvider() {
         Provider_Table = FXCollections.observableArrayList();
-        for(int i = 0; i<25; i++){
-            Button ac=new  Button("Editar");
-            Provider aux = new Provider(String.valueOf(i), "Nit" + String.valueOf(i+2),
-                    "Name" + String.valueOf(i+5),"Phone" + String.valueOf(i+2),
-                    String.valueOf(i+15),ac,new Button("Eliminar"));
-            Provider_Table.add(aux);
+        dbConection conexion = new dbConection();
+        ResultSet resultado = conexion.consultarRegistros("select * from proveedores");
+        try {
+            while(resultado.next()){
+                Provider_Table.add(new Provider(resultado.getString("id"),"Nit",resultado.getString("Nombre"),"Telefono",
+                        resultado.getString("Direccion"),
+                        new Button("Editar"),
+                        new Button("Eliminar")));
+            }
 
+
+        }catch (Exception e){
+            System.out.println(e);
         }
         Provider_table.setItems(Provider_Table);
     }
@@ -523,6 +529,7 @@ public class dashboardController implements Initializable{
     @FXML
     void showProvidersPage(MouseEvent event) {
         pgProviders.toFront();
+        this.loadProvider();
     }
 
     @FXML
