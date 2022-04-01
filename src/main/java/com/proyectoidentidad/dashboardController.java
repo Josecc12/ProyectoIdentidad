@@ -375,7 +375,7 @@ public class dashboardController implements Initializable{
         ResultSet resultado = conexion.consultarRegistros("select * from proveedores");
         try {
             while(resultado.next()){
-                Provider_Table.add(new Provider(resultado.getString("id"),"Nit",resultado.getString("Nombre"),"Telefono",
+                Provider_Table.add(new Provider(resultado.getString("id"),resultado.getString("Nit"),resultado.getString("Nombre"),"Telefono",
                         resultado.getString("Direccion"),
                         new Button("Editar"),
                         new Button("Eliminar")));
@@ -392,13 +392,21 @@ public class dashboardController implements Initializable{
 
     private void loadBuy(){
         table_Buys = FXCollections.observableArrayList();
-        for(int i = 0; i<25; i++){
-            Button ac=new  Button("Editar");
-            Buy aux = new Buy(String.valueOf(i),String.valueOf(i*2),String.valueOf(i+11),String.valueOf(i),
-                    String.valueOf(i),String.valueOf(i),String.valueOf(i),String.valueOf(i/2),String.valueOf(i+16),
-                    ac,new Button("Eliminar"));
-            table_Buys.add(aux);
+        //private String id,date,serie,no,nit,name,mount_net,mount_gross,mount_IVA;
+        try {
+            dbConection conexion = new dbConection();
+            ResultSet resultado = conexion.consultarRegistros("SELECT * FROM compra AS C JOIN proveedores AS  P ON C.Proveedores_id=P.id;");
+            while(resultado.next()){
+                table_Buys.add(new Buy(resultado.getString("id"),
+                        resultado.getString("Fecha"),resultado.getString("Serie"),
+                        resultado.getString("Factura"),resultado.getString("Nit"),
+                        resultado.getString("Nombre"),resultado.getString("Total Neto"),
+                        resultado.getString("Total Bruto"),resultado.getString("IVA"),
+                        new Button("Editar"),new Button("Eliminar")));
+            }
 
+        }catch (Exception e){
+            System.out.println(e);
         }
         table_buys.setItems(table_Buys);
     }
@@ -483,6 +491,23 @@ public class dashboardController implements Initializable{
             Scene scene = new Scene(fxmlLoader.load());
             Stage stage = new Stage();
             stage.setTitle("Provider");
+            stage.setScene(scene);
+            stage.show();
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    @FXML
+    void addBuy(MouseEvent event) {
+        try {
+            BuyHolder holder = BuyHolder.getInstance();
+            // Step 3
+            holder.setBuy(null);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addBuy-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Buy");
             stage.setScene(scene);
             stage.show();
         }catch (IOException ex) {

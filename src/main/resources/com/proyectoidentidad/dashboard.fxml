@@ -372,7 +372,7 @@
                            </HBox.margin>
                         </FontAwesomeIconView>
                         <TextField fx:id="searchBuy" onKeyPressed="#filterBuy" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
-                        <Button graphicTextGap="15.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Buy" textFill="WHITE">
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addBuy" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Buy" textFill="WHITE">
                            <graphic>
                               <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
                            </graphic>

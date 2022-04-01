@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="622.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyectoidentidad.UserManagmentController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="593.0" prefWidth="622.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyectoidentidad.BuyManagmentController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="160.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0" minWidth="10.0" prefWidth="372.0" />
@@ -44,7 +44,7 @@
       </VBox>
       <VBox alignment="CENTER" prefHeight="113.0" prefWidth="614.0" spacing="10.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
          <children>
-            <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="423.0" styleClass="add-button" stylesheets="@packstyle.css" text="GUARDAR" textFill="WHITE">
+            <Button mnemonicParsing="false" onMouseClicked="#saveBuy" prefHeight="30.0" prefWidth="423.0" styleClass="add-button" stylesheets="@packstyle.css" text="GUARDAR" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="22" />
                </graphic>
@@ -106,13 +106,13 @@
             <Insets right="60.0" />
          </padding>
          <children>
-            <TextField prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
-            <DatePicker prefHeight="27.0" prefWidth="398.0" style="-fx-border-color: #407072;" />
-            <TextField prefHeight="27.0" prefWidth="145.0" style="-fx-border-color: #407072;" />
-            <TextField prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
-            <TextField layoutX="10.0" layoutY="176.0" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
-            <TextField prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
-            <TextField prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="idField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <DatePicker fx:id="dateField" prefHeight="27.0" prefWidth="398.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="serieField" prefHeight="27.0" prefWidth="145.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="NoField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="nitFiled" layoutX="10.0" layoutY="176.0" onKeyReleased="#searchNit" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="providerField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="mountField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
          </children>
       </VBox>
    </children>

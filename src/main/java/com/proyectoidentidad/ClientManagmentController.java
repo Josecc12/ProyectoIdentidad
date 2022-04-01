@@ -34,6 +34,7 @@ public class ClientManagmentController implements Initializable {
         dbConection conexion = new dbConection();
 
         if(holder.getClient() == null){
+
             String sentenciaSQL = String.format("INSERT INTO clientes (Nombre,Direccion,Nit)" + "values ('%S','%S','%S')",this.nameField.getText(),
                     this.addressField.getText(),Integer.valueOf(this.nitField.getText()));
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
