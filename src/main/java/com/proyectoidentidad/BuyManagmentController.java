@@ -3,7 +3,6 @@ package com.proyectoidentidad;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -41,15 +40,45 @@ public class BuyManagmentController implements Initializable {
 
     private Integer nit;
     private Integer id;
+    private boolean providerExist;
 
     @FXML
     void saveBuy(MouseEvent event) {
         BuyHolder holder = BuyHolder.getInstance();
         dbConection conexion = new dbConection();
 
-        if(this.id == 0){
+        if(!this.providerExist){
             this.insertProvider();
         }
+        this.nit=Integer.valueOf(this.nitFiled.getText());
+        getNit();
+
+        if(holder.getBuy() == null){
+            double mountNet=Integer.valueOf(this.mountField.getText());
+            double moungGross=mountNet/1.12;
+            double iva=moungGross*0.12;
+
+            String sentenciaSQL = String.format("INSERT INTO Compra (Proveedores_id,Total Neto,Total Bruto,IVA,Serie,Factura,Usuario_id,Fecha)"
+                            + "values('%S','%S','%S','%S','%S','%S','%S')",
+                    this.id,
+                    mountNet,
+                    moungGross,
+                    iva,
+                    this.serieField.getText(),
+                    this.NoField.getText(),
+                    1,
+                    2022-04-01);
+            conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+
+        }else{
+            //String sentenciaSQL = String.format("UPDATE proveedores SET Nombre = '%S', Direccion ='%S',Nit = '%S' WHERE id = '%S'",
+                  //  this.getb.getText(),this.adressField.getText(),Integer.valueOf(this.NITField.getText()),Integer.valueOf(this.idField.getText()));
+          //  conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+
+        }
+        this.cerrarVentana(event);
+
+
 
 
 
@@ -88,11 +117,13 @@ public class BuyManagmentController implements Initializable {
                 this.providerField.setText("");
                 this.nit=0;
                 this.id=0;
+                this.providerExist=false;
             }
             else{
                 String provider=resultado.getString("Nombre");
                 this.id= Integer.valueOf(resultado.getString("id"));
                 this.providerField.setText(provider);
+                this.providerExist=true;
 
             }
         } catch (SQLException e) {
@@ -106,6 +137,7 @@ public class BuyManagmentController implements Initializable {
         BuyHolder holder = BuyHolder.getInstance();
         this.nit=0;
         this.id=0;
+        this.providerExist=false;
         if (holder.getBuy()!=null){
             System.out.println(ProductHolder.getInstance());
             Buy buy = holder.getBuy();
