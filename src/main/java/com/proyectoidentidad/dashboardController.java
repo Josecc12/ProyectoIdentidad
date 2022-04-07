@@ -400,9 +400,10 @@ public class dashboardController implements Initializable{
                 table_Buys.add(new Buy(resultado.getString("id"),
                         resultado.getString("Fecha"),resultado.getString("Serie"),
                         resultado.getString("Factura"),resultado.getString("Nit"),
-                        resultado.getString("Nombre"),resultado.getString("Total Neto"),
-                        resultado.getString("Total Bruto"),resultado.getString("IVA"),
+                        resultado.getString("Nombre"),resultado.getString("Total_Neto"),
+                        resultado.getString("Total_Bruto"),resultado.getString("IVA"),
                         new Button("Editar"),new Button("Eliminar")));
+
             }
 
         }catch (Exception e){
@@ -531,6 +532,7 @@ public class dashboardController implements Initializable{
     @FXML
     void showSellsPage(MouseEvent event) {
         pgSales.toFront();
+        this.loadBuy();
     }
 
 

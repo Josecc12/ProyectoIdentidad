@@ -53,13 +53,16 @@ public class BuyManagmentController implements Initializable {
         this.nit=Integer.valueOf(this.nitFiled.getText());
         getNit();
 
+
+
         if(holder.getBuy() == null){
+
             double mountNet=Integer.valueOf(this.mountField.getText());
             double moungGross=mountNet/1.12;
             double iva=moungGross*0.12;
 
-            String sentenciaSQL = String.format("INSERT INTO Compra (Proveedores_id,Total Neto,Total Bruto,IVA,Serie,Factura,Usuario_id,Fecha)"
-                            + "values('%S','%S','%S','%S','%S','%S','%S')",
+            String sentenciaSQL = String.format("insert into Compra (Proveedores_id,Total_Neto,Total_Bruto,IVA,Serie,Factura,Usuario_id,Fecha)"
+                            + "values('%S','%S','%S','%S','%S','%S','%S','%S')",
                     this.id,
                     mountNet,
                     moungGross,
@@ -67,20 +70,29 @@ public class BuyManagmentController implements Initializable {
                     this.serieField.getText(),
                     this.NoField.getText(),
                     1,
-                    2022-04-01);
+                    "2020-10-01");
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
         }else{
-            //String sentenciaSQL = String.format("UPDATE proveedores SET Nombre = '%S', Direccion ='%S',Nit = '%S' WHERE id = '%S'",
-                  //  this.getb.getText(),this.adressField.getText(),Integer.valueOf(this.NITField.getText()),Integer.valueOf(this.idField.getText()));
-          //  conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+            double mountNet=Integer.valueOf(this.mountField.getText());
+            double moungGross=mountNet/1.12;
+            double iva=moungGross*0.12;
+
+            String sentenciaSQL = String.format("update Compra set Proveedores_id = '%S', Total_Neto='%S',Total_Bruto ='%S',IVA='%S', Serie = '%S',Factura = '%S', Usuario_id = '%S',Fecha = '%S' where id = '%S'",
+                    Integer.valueOf(this.id),
+                    mountNet,
+                    moungGross,
+                    iva,
+                    Integer.valueOf(this.serieField.getText()),
+                    Integer.valueOf(this.NoField.getText()),
+                    1,
+                    "2020-10-01",
+                    Integer.valueOf(this.idField.getText()));
+
+            conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
         }
         this.cerrarVentana(event);
-
-
-
-
 
     }
 
