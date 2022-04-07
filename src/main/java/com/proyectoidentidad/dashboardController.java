@@ -532,7 +532,7 @@ public class dashboardController implements Initializable{
     @FXML
     void showSellsPage(MouseEvent event) {
         pgSales.toFront();
-        this.loadBuy();
+
     }
 
 
@@ -550,7 +550,8 @@ public class dashboardController implements Initializable{
 
     @FXML
     void showShoppingPage(MouseEvent event) {
-    pgShopping.toFront();
+        pgShopping.toFront();
+        this.loadBuy();
     }
 
     @FXML
