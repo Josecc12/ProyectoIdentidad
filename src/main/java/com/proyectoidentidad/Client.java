@@ -75,6 +75,22 @@ public class Client {
                 }
             }
         });
+
+        delete.setOnAction(e->{
+
+            for (int i = 0; i< dashboardController.table_client.size(); i++){
+                if(delete.hashCode()== dashboardController.table_client.get(i).getDelete().hashCode()){
+                    System.out.println("Delete");
+                    System.out.println(dashboardController.table_client.get(i).getId());
+                    ProductHolder holder = ProductHolder.getInstance();
+                    dbConection conexion = new dbConection();
+                    String sentenciaSQL = String.format("DELETE FROM clientes WHERE id = '%S'",
+                            Integer.valueOf(dashboardController.table_client.get(i).getId()));
+                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+                }
+
+            }
+        });
     }
 
     public String getId() {

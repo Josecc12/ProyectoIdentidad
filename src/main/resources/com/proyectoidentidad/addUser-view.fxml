@@ -97,7 +97,7 @@
          <children>
             <TextField fx:id="idField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
             <TextField fx:id="nameField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
-            <TextField fx:id="apellidofield" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
+            <TextField fx:id="lastNameField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
             <TextField fx:id="userField" prefHeight="27.0" prefWidth="292.0" style="-fx-border-color: #407072;" />
             <TextField fx:id="passwordField" prefHeight="25.0" prefWidth="308.0" style="-fx-border-color: #407072;" />
          </children>

@@ -78,23 +78,29 @@ public class Buy {
                         //fxmlLoader.getController().
                         stage.setTitle("Buy Management");
                         stage.setScene(scene);
-
                         stage.show();
-
-
-
-
-
 
                     } catch (IOException ex) {
                         ex.printStackTrace();
                     }
-
-
                 }
             }
+        });
 
+        delete.setOnAction(e->{
 
+            for (int i = 0; i< dashboardController.table_Buys.size(); i++){
+                if(delete.hashCode()== dashboardController.table_Buys.get(i).getDelete().hashCode()){
+                    System.out.println("Delete");
+                    System.out.println(dashboardController.table_Buys.get(i).getId());
+                    ProductHolder holder = ProductHolder.getInstance();
+                    dbConection conexion = new dbConection();
+                    String sentenciaSQL = String.format("DELETE FROM compra WHERE id = '%S'",
+                            Integer.valueOf(dashboardController.table_Buys.get(i).getId()));
+                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+                }
+
+            }
         });
 
 

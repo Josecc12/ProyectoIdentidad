@@ -324,8 +324,12 @@ public class dashboardController implements Initializable{
 
     }
 
-    public void prueba(){
-        System.out.println("Hola");
+    public void redoTable(){
+        loadProducts();
+        loadUser();
+        loadProvider();
+        loadBuy();
+        loadClient();
 
     }
     private void loadUser(){

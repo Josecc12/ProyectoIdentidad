@@ -77,6 +77,22 @@ public class Provider {
 
         });
 
+        delete.setOnAction(e->{
+
+            for (int i = 0; i< dashboardController.Provider_Table.size(); i++){
+                if(delete.hashCode()== dashboardController.Provider_Table.get(i).getDelete().hashCode()){
+                    System.out.println("Delete");
+                    System.out.println(dashboardController.Provider_Table.get(i).getId());
+                    ProductHolder holder = ProductHolder.getInstance();
+                    dbConection conexion = new dbConection();
+                    String sentenciaSQL = String.format("DELETE FROM proveedores WHERE id = '%S'",
+                            Integer.valueOf(dashboardController.Provider_Table.get(i).getId()));
+                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+                }
+
+            }
+        });
+
 
 
     }

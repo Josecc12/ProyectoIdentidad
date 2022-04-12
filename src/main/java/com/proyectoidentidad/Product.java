@@ -45,8 +45,6 @@ public class Product {
         delete.setMinWidth(65);
 
         update.setOnAction(e->{
-
-
            for (int i = 0; i< dashboardController.table_product.size(); i++){
                if(update.hashCode()== dashboardController.table_product.get(i).getUpdate().hashCode()){
                    System.out.println("id"+ dashboardController.table_product.get(i).getId());
@@ -57,19 +55,13 @@ public class Product {
 
                    Product slected=dashboardController.table_product.get(i);
                    ProductHolder holder = ProductHolder.getInstance();
-                   // Step 3
                    holder.setProduct(slected);
 
 
-
                    try {
-
-
                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProduct-view.fxml"));
                        productManagmentController controller=fxmlLoader.getController();
                        //controller.setPrueba("Hola");admin
-
-
                        fxmlLoader.setController(controller);
                        Scene scene = new Scene(fxmlLoader.load());
                        Stage stage=new Stage();
@@ -81,12 +73,23 @@ public class Product {
                    } catch (IOException ex) {
                        ex.printStackTrace();
                    }
-
-
                }
            }
+        });
 
+        delete.setOnAction(e->{
 
+            for (int i = 0; i< dashboardController.table_product.size(); i++){
+                if(delete.hashCode()== dashboardController.table_product.get(i).getDelete().hashCode()){
+                    System.out.println("Delete");
+                    System.out.println(dashboardController.table_product.get(i).getId());
+                    ProductHolder holder = ProductHolder.getInstance();
+                    dbConection conexion = new dbConection();
+                    String sentenciaSQL = String.format("DELETE FROM producto WHERE id = '%S'",
+                            Integer.valueOf(dashboardController.table_product.get(i).getId()));
+                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+                }
+            }
         });
 
 

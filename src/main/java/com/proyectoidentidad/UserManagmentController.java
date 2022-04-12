@@ -25,7 +25,8 @@ public class UserManagmentController implements Initializable {
     private TextField userField;
 
     @FXML
-    private TextField apellidofield;
+
+    private TextField lastNameField;
 
 
     @FXML
@@ -35,11 +36,11 @@ public class UserManagmentController implements Initializable {
 
         if(holder.getUser()==null){
             String sentenciaSQL =  String.format("INSERT INTO usuario (Nombre,Apellido,Usuario,Contrasena)" + "values ('%S','%S','%S','%S')",
-                    this.nameField.getText(),this.apellidofield.getText(),this.userField.getText(),this.passwordField.getText());
+                    this.nameField.getText(),this.lastNameField.getText(),this.userField.getText(),this.passwordField.getText());
                     conexion.ejecutarSenctenciaSQL(sentenciaSQL);
         }else{
             String sentenciaSQL = String.format("UPDATE usuario SET Nombre='%S',Apellido = '%S',Usuario = '%S',Contrasena = '%S' WHERE id = '%S'",
-                    this.nameField.getText(),this.apellidofield.getText(),this.userField.getText(),this.passwordField.getText(),
+                    this.nameField.getText(),this.lastNameField.getText(),this.userField.getText(),this.passwordField.getText(),
                     Integer.valueOf(this.idField.getText()));
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
         }
@@ -62,6 +63,7 @@ public class UserManagmentController implements Initializable {
             User user = holder.getUser();
             this.idField.setText(user.getId());
             this.nameField.setText(user.getName());
+            this.lastNameField.setText(user.getLastname());
             this.passwordField.setText(user.getPassword());
             this.userField.setText(user.getUser());
 
