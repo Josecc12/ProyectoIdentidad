@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable{
@@ -185,6 +186,52 @@ public class dashboardController implements Initializable{
     @FXML
     private TableColumn<User, Button> buy_delete;
 
+    //TABLA SALE DATAIL
+    @FXML
+    private TableView<saleDetail> sale_Detail;
+    @FXML
+    private TableColumn<saleDetail, String> code_sale;
+    @FXML
+    private TableColumn<saleDetail, String> amount_sale;
+    @FXML
+    private TableColumn<saleDetail, String> product_sale;
+
+    @FXML
+    private TableColumn<saleDetail, String> subtotal_sale;
+    @FXML
+    private TableColumn<saleDetail, String> total_sale;
+
+
+    boolean clientExist;
+    private Integer nitClient;
+    private Integer idClient;
+
+    boolean productExist;
+    private String codeProduct;
+    private Integer idProduct;
+
+    @FXML
+    private TextField nitField;
+
+    @FXML
+    private TextField clientField;
+
+    @FXML
+    private TextField adressField;
+
+    @FXML
+    private TextField phoneField;
+    @FXML
+    private TextField codeField;
+
+    @FXML
+    private TextField productFiield;
+
+    @FXML
+    private TextField priceField;
+
+    @FXML
+    private TextField amountField;
 
 
     @FXML
@@ -208,7 +255,79 @@ public class dashboardController implements Initializable{
     @FXML
     private GridPane pgProviders;
 
+    @FXML
+    void searchNit(KeyEvent event){
+        if(!this.nitField.getText().equals("")){
+            this.nitClient=Integer.valueOf(this.nitField.getText());
+        }else this.nitClient=0;
+        System.out.println(this.nitClient);
+        getCliente();
+    }
+    @FXML
+    void searchProduct(KeyEvent event){
+        if(!this.codeField.getText().equals("")){
+            this.codeProduct=this.codeField.getText();
+            System.out.println(this.codeProduct);
+            getProduct();
+        }
 
+    }
+
+    public void getCliente(){
+        try {
+
+            dbConection conexion = new dbConection();
+            String sentenciaSQL = String.format("SELECT id,Nombre,Direccion from clientes WHERE nit= '%S'",this.nitClient);
+            ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
+            if(!resultado.next()){
+                this.clientField.setText("");
+                this.adressField.setText("");
+                this.nitClient=0;
+                this.idClient=0;
+                this.clientExist=false;
+            }
+            else{
+                String client=resultado.getString("Nombre");
+                this.idClient= Integer.valueOf(resultado.getString("id"));
+                String adress=resultado.getString("Direccion");
+               // String phone=resultado.getString("Nombre");
+                this.clientField.setText(client);
+                this.adressField.setText(adress);
+                this.clientExist=true;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void getProduct(){
+        try {
+
+            dbConection conexion = new dbConection();
+            String sentenciaSQL = String.format("SELECT * from producto WHERE Nombre= '%S'",this.codeProduct);
+            ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
+            if(!resultado.next()){
+                //this.codeField.setText("");
+                this.productFiield.setText("");
+                this.codeProduct="";
+                this.idProduct=0;
+                this.clientExist=false;
+            }
+            else{
+                String code=resultado.getString("Nombre");
+                this.idProduct= Integer.valueOf(resultado.getString("id"));
+                String descripcion=resultado.getString("Descripcion");
+                System.out.println("Ecnontr");
+                this.productFiield.setText(descripcion);
+                this.clientExist=true;
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -236,6 +355,7 @@ public class dashboardController implements Initializable{
         initProviders();
         initBuy();
         initClient();
+        initsaleDetail();
     }
 
     private void initUser(){
@@ -318,6 +438,30 @@ public class dashboardController implements Initializable{
         client_delete.setMinWidth(70);
         client_delete.setMaxWidth(70);
     }
+
+    private void initsaleDetail(){
+        //String id,sale_id,product_id,amount,price,iva,subtotal,total,code,product;
+        code_sale.setCellValueFactory(new PropertyValueFactory<>("code"));
+        amount_sale.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        product_sale.setCellValueFactory(new PropertyValueFactory<>("product"));
+        subtotal_sale.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+        total_sale.setCellValueFactory(new PropertyValueFactory<>("total"));
+
+    }
+
+    @FXML
+    void addSale(MouseEvent event) {
+        sale_Detail.getItems().add(new saleDetail("1","1","1",this.amountField.getText(),
+                priceField.getText(),"1","199","300",
+                codeField.getText(),productFiield.getText()));
+    }
+
+    @FXML
+    void deleteSaleItem(MouseEvent event) {
+        sale_Detail.getItems().removeAll(sale_Detail.getSelectionModel().getSelectedItem());
+        sale_Detail.getSelectionModel().clearSelection();
+    }
+
 
     private void editCols(){
 

@@ -431,9 +431,10 @@
                               <GridPane>
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="127.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="272.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="96.0" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="218.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="204.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="111.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="254.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="95.0" />
                                  </columnConstraints>
                                  <rowConstraints>
                                     <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="168.0" vgrow="SOMETIMES" />
@@ -441,7 +442,7 @@
                                     <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="185.0" styleClass="add-button" stylesheets="@packstyle.css" text="     VENDER" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="185.0" styleClass="add-button" stylesheets="@packstyle.css" text="     VENDER" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                                        <GridPane.margin>
                                           <Insets bottom="5.0" right="5.0" />
                                        </GridPane.margin>
@@ -449,14 +450,13 @@
                                           <FontAwesomeIconView fill="WHITE" glyphName="USD" size="22" wrappingWidth="109.1428575515747" />
                                        </graphic>
                                     </Button>
-                                    <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                                    <TableView fx:id="sale_Detail" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.columnSpan="5" GridPane.rowIndex="1">
                                       <columns>
-                                          <TableColumn prefWidth="75.0" text="Codigo" />
-                                        <TableColumn prefWidth="75.0" text="Cantidad" />
-                                        <TableColumn prefWidth="75.0" text="Producto" />
-                                          <TableColumn prefWidth="75.0" text="Descripcion" />
-                                          <TableColumn prefWidth="75.0" text="SubTotal" />
-                                          <TableColumn prefWidth="75.0" text="Total" />
+                                          <TableColumn fx:id="code_sale" prefWidth="75.0" text="Codigo" />
+                                        <TableColumn fx:id="amount_sale" prefWidth="75.0" text="Cantidad" />
+                                        <TableColumn fx:id="product_sale" prefWidth="75.0" text="Producto" />
+                                          <TableColumn fx:id="subtotal_sale" prefWidth="75.0" text="SubTotal" />
+                                          <TableColumn fx:id="total_sale" prefWidth="75.0" text="Total" />
                                       </columns>
                                        <GridPane.margin>
                                           <Insets top="8.0" />
@@ -484,10 +484,10 @@
                                           <Insets bottom="2.0" top="2.0" />
                                        </GridPane.margin>
                                        <children>
-                                          <TextField />
-                                          <TextField />
-                                          <TextField />
-                                          <TextField />
+                                          <TextField fx:id="nitField" onKeyReleased="#searchNit" />
+                                          <TextField fx:id="clientField" />
+                                          <TextField fx:id="adressField" />
+                                          <TextField fx:id="phoneField" />
                                        </children>
                                        <padding>
                                           <Insets top="10.0" />
@@ -516,13 +516,25 @@
                                           <Insets bottom="2.0" right="5.0" top="2.0" />
                                        </GridPane.margin>
                                        <children>
-                                          <TextField prefHeight="0.0" prefWidth="188.0" />
-                                          <TextField prefHeight="0.0" prefWidth="188.0" />
-                                          <TextField prefHeight="0.0" prefWidth="188.0" />
-                                          <TextField prefHeight="0.0" prefWidth="188.0" />
+                                          <TextField fx:id="codeField" onKeyReleased="#searchProduct" prefHeight="0.0" prefWidth="188.0" />
+                                          <TextField fx:id="productFiield" prefHeight="0.0" prefWidth="188.0" />
+                                          <TextField fx:id="priceField" prefHeight="0.0" prefWidth="188.0" />
+                                          <TextField fx:id="amountField" prefHeight="0.0" prefWidth="188.0" />
                                        </children>
                                        <padding>
                                           <Insets right="15.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                    <VBox alignment="TOP_CENTER" prefHeight="157.0" prefWidth="121.0" spacing="15.0" GridPane.columnIndex="4" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                                       <children>
+                                          <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#addSale" prefHeight="35.0" prefWidth="167.0" styleClass="add-button" stylesheets="@packstyle.css" text="AGREGAR" textFill="WHITE" VBox.vgrow="ALWAYS" />
+                                          <Button contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#deleteSaleItem" prefHeight="35.0" prefWidth="167.0" styleClass="add-button" stylesheets="@packstyle.css" text="QUITAR" textFill="WHITE" />
+                                       </children>
+                                       <GridPane.margin>
+                                          <Insets />
+                                       </GridPane.margin>
+                                       <padding>
+                                          <Insets right="10.0" top="10.0" />
                                        </padding>
                                     </VBox>
                                  </children>
