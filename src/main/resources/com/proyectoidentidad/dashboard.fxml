@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -426,7 +425,7 @@
                <children>
                   <TabPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffff;" tabClosingPolicy="UNAVAILABLE" GridPane.rowSpan="2">
                     <tabs>
-                      <Tab text="Ventas">
+                      <Tab text="   VENTAS    ">
                         <content>
                               <GridPane>
                                  <columnConstraints>
@@ -442,7 +441,7 @@
                                     <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="42.0" prefWidth="185.0" styleClass="add-button" stylesheets="@packstyle.css" text="     VENDER" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#sell" prefHeight="42.0" prefWidth="185.0" styleClass="add-button" stylesheets="@packstyle.css" text="     VENDER" textFill="WHITE" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                                        <GridPane.margin>
                                           <Insets bottom="5.0" right="5.0" />
                                        </GridPane.margin>
@@ -454,6 +453,7 @@
                                       <columns>
                                           <TableColumn fx:id="code_sale" prefWidth="75.0" text="Codigo" />
                                         <TableColumn fx:id="amount_sale" prefWidth="75.0" text="Cantidad" />
+                                          <TableColumn fx:id="price_sale" prefWidth="75.0" text="Precio" />
                                         <TableColumn fx:id="product_sale" prefWidth="75.0" text="Producto" />
                                           <TableColumn fx:id="subtotal_sale" prefWidth="75.0" text="SubTotal" />
                                           <TableColumn fx:id="total_sale" prefWidth="75.0" text="Total" />
@@ -541,11 +541,57 @@
                               </GridPane>
                         </content>
                       </Tab>
-                      <Tab text="Historial">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
+                        <Tab text="HISTORIAL">
+                           <content>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="386.0" minWidth="10.0" prefWidth="386.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="326.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="0.0" prefHeight="496.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0" GridPane.columnSpan="2">
+                                       <children>
+                                          <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
+                                             <HBox.margin>
+                                                <Insets left="10.0" />
+                                             </HBox.margin>
+                                          </FontAwesomeIconView>
+                                          <TextField prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
+                                          <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
+                                             </graphic>
+                                             <HBox.margin>
+                                                <Insets right="15.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets top="5.0" />
+                                       </padding>
+                                    </HBox>
+                                    <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="ID" />
+                                        <TableColumn prefWidth="75.0" text="Usuario" />
+                                          <TableColumn prefWidth="75.0" text="Cliente" />
+                                          <TableColumn prefWidth="75.0" text="Total" />
+                                          <TableColumn prefWidth="75.0" text="Fecha" />
+                                          <TableColumn prefWidth="75.0" text="DETALLE" />
+                                          <TableColumn prefWidth="75.0" text="ELIMINAR" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </Tab>
                     </tabs>
                   </TabPane>
                </children>

@@ -194,6 +194,8 @@ public class dashboardController implements Initializable{
     @FXML
     private TableColumn<saleDetail, String> amount_sale;
     @FXML
+    private TableColumn<saleDetail, String> price_sale;
+    @FXML
     private TableColumn<saleDetail, String> product_sale;
 
     @FXML
@@ -443,6 +445,7 @@ public class dashboardController implements Initializable{
         //String id,sale_id,product_id,amount,price,iva,subtotal,total,code,product;
         code_sale.setCellValueFactory(new PropertyValueFactory<>("code"));
         amount_sale.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        price_sale.setCellValueFactory(new PropertyValueFactory<>("price"));
         product_sale.setCellValueFactory(new PropertyValueFactory<>("product"));
         subtotal_sale.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
         total_sale.setCellValueFactory(new PropertyValueFactory<>("total"));
@@ -451,10 +454,96 @@ public class dashboardController implements Initializable{
 
     @FXML
     void addSale(MouseEvent event) {
-        sale_Detail.getItems().add(new saleDetail("1","1","1",this.amountField.getText(),
-                priceField.getText(),"1","199","300",
-                codeField.getText(),productFiield.getText()));
+
+        String produtcid=String.valueOf(this.idProduct);
+        String amount=this.amountField.getText();
+        String price=this.priceField.getText();
+        Integer amounInteger=Integer.valueOf(amount);
+        Double priceDouble=Double.valueOf(price);
+        Double total=amounInteger*priceDouble;
+        String totalString=String.valueOf(total);
+        Double iva=(total/1.12)*0.12;
+        String code=codeField.getText();
+        String product=productFiield.getText();
+
+        sale_Detail.getItems().add(new saleDetail(
+                null,null,produtcid,amount,price,
+                String.valueOf(iva),totalString,totalString,code,product
+        ));
+
+
     }
+
+    @FXML
+    void sell(MouseEvent event) throws SQLException {
+
+        if(!clientExist){
+            //this.insertClient();
+            this.nitClient=Integer.valueOf(this.nitField.getText());
+            this.getCliente();
+        }
+       this.insertSell();
+        this.insertSaleDetail();
+        this.clearSale();
+
+    }
+
+    private void insertSell(){
+        double total=0;
+        for (int i = 0; i <sale_Detail.getItems().size() ; i++) {
+            total+= Double.valueOf(sale_Detail.getItems().get(i).getTotal());
+        }
+        System.out.println("Total: "+total);
+        //  "INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S')"
+        dbConection conexion = new dbConection();
+        String sentenciaSQL = String.format("INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S','%S','%S')",
+                this.idClient,1,total, "2020-10-01");
+        conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+
+
+    }
+
+    private void insertSaleDetail() throws SQLException {
+
+        dbConection conexion = new dbConection();
+        String sentenciaSQL = String.format("SELECT MAX( id ) AS idVenta FROM venta");
+        ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
+        Integer sale_id=0;
+        while (resultado.next()){
+             sale_id=Integer.valueOf(resultado.getString("idVenta")); //GET LASTA SELL
+        }
+
+
+
+        for (int i = 0; i <sale_Detail.getItems().size() ; i++) {
+            String produtcid=String.valueOf(this.idProduct);
+            Integer amount=Integer.valueOf(sale_Detail.getItems().get(i).getAmount());
+            Double price=Double.valueOf(sale_Detail.getItems().get(i).getPrice());
+            Double iva=Double.valueOf(sale_Detail.getItems().get(i).getIva());
+            Double subTotal=Double.valueOf(sale_Detail.getItems().get(i).getSubtotal());
+            //  "INSERT INTO detalle_venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S')"
+            sentenciaSQL = String.format("INSERT INTO detalle_venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S','%S','%S','%S','%S')",
+                    sale_id,produtcid,amount,price,iva,subTotal);
+            conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+        }
+
+    }
+
+    private void clearSale(){
+
+            sale_Detail.getItems().remove(0,sale_Detail.getItems().size() );
+
+
+    }
+
+    //FUNCION VENDER
+    /*
+    {
+        1.CREAR VENTA
+        2.OBTENER EL ID DE LA ULTIMA VENTA
+        3.ACTUALIZAR CON UN FOR TODOS LOS DETALLE VENTAS PARA PONERLES EL ID
+        4.CREAR DETALLES VENTAS
+    }*/
 
     @FXML
     void deleteSaleItem(MouseEvent event) {
