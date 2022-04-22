@@ -203,6 +203,29 @@ public class dashboardController implements Initializable{
     @FXML
     private TableColumn<saleDetail, String> total_sale;
 
+    // TABLA SALE HISTORY
+    @FXML
+    private TableView<sale_History> sale_history;
+    public static ObservableList<sale_History> salehistory;
+    @FXML
+    private TableColumn<sale_History, String> client_saleh;
+    @FXML
+    private TableColumn<sale_History, String> user_saleh;
+
+    @FXML
+    private TableColumn<sale_History, String> date_saleh;
+
+    @FXML
+    private TableColumn<sale_History, String> total_saleh;
+
+    @FXML
+    private TableColumn<sale_History, String> id_saleh;
+    @FXML
+    private TableColumn<sale_History, Button> btndelete_saleh;
+
+    @FXML
+    private TableColumn<sale_History, Button> btndetail_saleh;
+
 
     boolean clientExist;
     private Integer nitClient;
@@ -341,6 +364,7 @@ public class dashboardController implements Initializable{
         loadProvider();
         loadBuy();
         loadClient();
+        load_salehistory();
         this.filterProduct=new FilteredList<>(table_product,e->true);
         this.filterUser=new FilteredList<>(table_User,e->true);
         this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
@@ -358,6 +382,7 @@ public class dashboardController implements Initializable{
         initBuy();
         initClient();
         initsaleDetail();
+        initsalehistory();
     }
 
     private void initUser(){
@@ -450,6 +475,20 @@ public class dashboardController implements Initializable{
         subtotal_sale.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
         total_sale.setCellValueFactory(new PropertyValueFactory<>("total"));
 
+    }
+
+    private void initsalehistory(){
+        id_saleh.setCellValueFactory(new PropertyValueFactory<>("id"));
+        user_saleh.setCellValueFactory(new PropertyValueFactory<>("Usuario"));
+        client_saleh.setCellValueFactory(new PropertyValueFactory<>("Cliente"));
+        total_saleh.setCellValueFactory(new PropertyValueFactory<>("Total"));
+        date_saleh.setCellValueFactory(new PropertyValueFactory<>("Fecha"));
+        btndetail_saleh.setCellValueFactory(new PropertyValueFactory<>("sale_datail"));
+        btndelete_saleh.setCellValueFactory(new PropertyValueFactory<>("delete"));
+        btndetail_saleh.setMinWidth(100);
+        btndetail_saleh.setMaxWidth(100);
+        btndelete_saleh.setMinWidth(70);
+        btndelete_saleh.setMaxWidth(70);
     }
 
     @FXML
@@ -625,7 +664,31 @@ public class dashboardController implements Initializable{
         Provider_table.setItems(Provider_Table);
     }
 
+    private void load_salehistory(){
+        salehistory = FXCollections.observableArrayList();
+        try{
+            dbConection conexion = new dbConection();
+            ResultSet resultado = conexion.consultarRegistros("select venta.id,usuario.Nombre as usuario,clientes.Nombre as cliente,venta.Total,venta.Fecha\n" +
+                    "from venta\n" +
+                    "inner join usuario\n" +
+                    "on venta.Usuario_id = usuario.id\n" +
+                    "inner join clientes\n" +
+                    "on venta.Clientes_id = clientes.id");
+            while(resultado.next()){
+                salehistory.add(new sale_History(resultado.getString("id"),
+                                resultado.getString("usuario"),
+                                resultado.getString("cliente"),
+                                resultado.getString("Total"),
+                                resultado.getString("Fecha"),
+                                new Button("Detalles"),
+                                new Button("Eliminar")));
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }
 
+        sale_history.setItems(salehistory);
+    }
 
     private void loadBuy(){
         table_Buys = FXCollections.observableArrayList();
@@ -664,6 +727,8 @@ public class dashboardController implements Initializable{
 
        table_Client.setItems(table_client);
     }
+
+
 
     @FXML
     void addProduct(MouseEvent event) {
@@ -753,6 +818,8 @@ public class dashboardController implements Initializable{
         }
     }
 
+
+
     @FXML
     void showProductsPage(MouseEvent event) {
             this.loadProducts();
@@ -769,7 +836,7 @@ public class dashboardController implements Initializable{
     @FXML
     void showSellsPage(MouseEvent event) {
         pgSales.toFront();
-
+        this.load_salehistory();
     }
 
 
