@@ -561,7 +561,7 @@
                                              </HBox.margin>
                                           </FontAwesomeIconView>
                                           <TextField prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
-                                          <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
+                                          <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
                                              <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
                                              </graphic>

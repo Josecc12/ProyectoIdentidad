@@ -1,10 +1,10 @@
 package com.proyectoidentidad;
 
-public class saleDetail {
+public class SaleDetail {
     private String id,sale_id,product_id,amount,price,iva,subtotal,total,code,product;
 
 
-    public saleDetail(String id, String sale_id, String product_id, String amount, String price, String iva, String subtotal, String total, String code, String product) {
+    public SaleDetail(String id, String sale_id, String product_id, String amount, String price, String iva, String subtotal, String total, String code, String product) {
         this.id = id;
         this.sale_id = sale_id;
         this.product_id = product_id;
@@ -17,7 +17,9 @@ public class saleDetail {
         this.product = product;
     }
 
-    public saleDetail(String amount, String subtotal, String total, String code, String product) {
+
+
+    public SaleDetail(String amount, String subtotal, String total, String code, String product) {
         this.amount = amount;
         this.subtotal = subtotal;
         this.total = total;

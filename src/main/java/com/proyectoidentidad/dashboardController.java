@@ -189,43 +189,43 @@ public class dashboardController implements Initializable{
 
     //TABLA SALE DATAIL
     @FXML
-    private TableView<saleDetail> sale_Detail;
+    private TableView<SaleDetail> sale_Detail;
     @FXML
-    private TableColumn<saleDetail, String> code_sale;
+    private TableColumn<SaleDetail, String> code_sale;
     @FXML
-    private TableColumn<saleDetail, String> amount_sale;
+    private TableColumn<SaleDetail, String> amount_sale;
     @FXML
-    private TableColumn<saleDetail, String> price_sale;
+    private TableColumn<SaleDetail, String> price_sale;
     @FXML
-    private TableColumn<saleDetail, String> product_sale;
+    private TableColumn<SaleDetail, String> product_sale;
 
     @FXML
-    private TableColumn<saleDetail, String> subtotal_sale;
+    private TableColumn<SaleDetail, String> subtotal_sale;
     @FXML
-    private TableColumn<saleDetail, String> total_sale;
+    private TableColumn<SaleDetail, String> total_sale;
 
     // TABLA SALE HISTORY
     @FXML
-    private TableView<sale_History> sale_history;
-    public static ObservableList<sale_History> salehistory;
+    private TableView<SaleHistory> sale_history;
+    public static ObservableList<SaleHistory> salehistory;
     @FXML
-    private TableColumn<sale_History, String> client_saleh;
+    private TableColumn<SaleHistory, String> client_saleh;
     @FXML
-    private TableColumn<sale_History, String> user_saleh;
+    private TableColumn<SaleHistory, String> user_saleh;
 
     @FXML
-    private TableColumn<sale_History, String> date_saleh;
+    private TableColumn<SaleHistory, String> date_saleh;
 
     @FXML
-    private TableColumn<sale_History, String> total_saleh;
+    private TableColumn<SaleHistory, String> total_saleh;
 
     @FXML
-    private TableColumn<sale_History, String> id_saleh;
+    private TableColumn<SaleHistory, String> id_saleh;
     @FXML
-    private TableColumn<sale_History, Button> btndelete_saleh;
+    private TableColumn<SaleHistory, Button> btndelete_saleh;
 
     @FXML
-    private TableColumn<sale_History, Button> btndetail_saleh;
+    private TableColumn<SaleHistory, Button> btndetail_saleh;
 
 
     boolean clientExist;
@@ -506,7 +506,7 @@ public class dashboardController implements Initializable{
         String code=codeField.getText();
         String product=productFiield.getText();
 
-        sale_Detail.getItems().add(new saleDetail(
+        sale_Detail.getItems().add(new SaleDetail(
                 null,null,produtcid,amount,price,
                 String.valueOf(iva),totalString,totalString,code,product
         ));
@@ -604,6 +604,7 @@ public class dashboardController implements Initializable{
         loadProvider();
         loadBuy();
         loadClient();
+        load_salehistory();
 
     }
     private void loadUser(){
@@ -677,7 +678,7 @@ public class dashboardController implements Initializable{
                     "inner join clientes\n" +
                     "on venta.Clientes_id = clientes.id");
             while(resultado.next()){
-                salehistory.add(new sale_History(resultado.getString("id"),
+                salehistory.add(new SaleHistory(resultado.getString("id"),
                                 resultado.getString("usuario"),
                                 resultado.getString("cliente"),
                                 resultado.getString("Total"),
