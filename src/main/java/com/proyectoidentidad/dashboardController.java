@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable{
@@ -528,6 +529,8 @@ public class dashboardController implements Initializable{
     }
 
     private void insertSell(){
+        LocalDate localdate = LocalDate.now();
+
         double total=0;
         for (int i = 0; i <sale_Detail.getItems().size() ; i++) {
             total+= Double.valueOf(sale_Detail.getItems().get(i).getTotal());
@@ -536,9 +539,8 @@ public class dashboardController implements Initializable{
         //  "INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S')"
         dbConection conexion = new dbConection();
         String sentenciaSQL = String.format("INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S','%S','%S')",
-                this.idClient,1,total, "2020-10-01");
+                this.idClient,1,total,localdate);
         conexion.ejecutarSenctenciaSQL(sentenciaSQL);
-
 
     }
 
