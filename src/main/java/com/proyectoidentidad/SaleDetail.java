@@ -4,6 +4,23 @@ public class SaleDetail {
     private String id,sale_id,product_id,amount,price,iva,subtotal,total,code,product;
 
 
+    public SaleDetail(String amount, String price, String iva, String subtotal, String total, String product) {
+        this.amount = amount;
+        this.price = price;
+        this.iva = iva;
+        this.subtotal = subtotal;
+        this.total = total;
+        this.product = product;
+    }
+
+    public SaleDetail(String amount, String subtotal, String total, String code, String product) {
+        this.amount = amount;
+        this.subtotal = subtotal;
+        this.total = total;
+        this.code = code;
+        this.product = product;
+    }
+
     public SaleDetail(String id, String sale_id, String product_id, String amount, String price, String iva, String subtotal, String total, String code, String product) {
         this.id = id;
         this.sale_id = sale_id;
@@ -19,13 +36,7 @@ public class SaleDetail {
 
 
 
-    public SaleDetail(String amount, String subtotal, String total, String code, String product) {
-        this.amount = amount;
-        this.subtotal = subtotal;
-        this.total = total;
-        this.code = code;
-        this.product = product;
-    }
+
 
     public String getId() {
         return id;

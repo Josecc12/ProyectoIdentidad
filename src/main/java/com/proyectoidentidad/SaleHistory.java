@@ -9,6 +9,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 
 
 public class SaleHistory {
@@ -85,6 +86,14 @@ public class SaleHistory {
                     SaleHistory slected=dashboardController.salehistory.get(i);
                     SaleHolder holder = SaleHolder.getInstance();
                     holder.setSale(slected);
+
+                    dbConection conexion = new dbConection();
+                    Integer idDelete=Integer.valueOf(holder.getSale().getId());
+                    System.out.println("IddDDD: "+id);
+                    String sentenciaSQL = String.format("DELETE FROM detalle_venta WHERE Venta_id='%S'",idDelete);
+                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+                    sentenciaSQL = String.format("DELETE  FROM venta WHERE id='%S'",idDelete);
+                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
 
                 }

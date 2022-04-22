@@ -39,7 +39,7 @@ public class detailSaleController  implements Initializable {
         product.setCellValueFactory(new PropertyValueFactory<>("product"));
         amount.setCellValueFactory(new PropertyValueFactory<>("amount"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        iva.setCellValueFactory(new PropertyValueFactory<>("iva,"));
+        iva.setCellValueFactory(new PropertyValueFactory<>("iva"));
         subtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
     }
@@ -54,8 +54,8 @@ public class detailSaleController  implements Initializable {
         ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
         while(resultado.next()){
             System.out.println("item agregado");
-            aux.add(new SaleDetail(resultado.getString("Nombre"),resultado.getString("Cantidad"),
-                    resultado.getString("Precio"),resultado.getString("IVA"),resultado.getString("SubTotal")));
+            aux.add(new SaleDetail(resultado.getString("Cantidad"),resultado.getString("Precio"),
+                    resultado.getString("IVA"),resultado.getString("SubTotal"),resultado.getString("SubTotal"),resultado.getString("Nombre")));
         }
         detailTable.setItems(aux);
     }
