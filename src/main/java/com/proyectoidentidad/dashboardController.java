@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -281,6 +284,16 @@ public class dashboardController implements Initializable{
     @FXML
     private GridPane pgProviders;
 
+
+    //CHARTS
+
+    @FXML
+    private LineChart productChar;
+    @FXML
+    private LineChart clientChart;
+    @FXML
+    private PieChart sellChart;
+
     @FXML
     void searchNit(KeyEvent event){
         if(!this.nitField.getText().equals("")){
@@ -358,6 +371,9 @@ public class dashboardController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+
+
         initTable();
         //loadData();
         loadProducts();
@@ -374,6 +390,42 @@ public class dashboardController implements Initializable{
         this.filterUser=new FilteredList<>(table_User,e->true);
         this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
         this.filterClient = new FilteredList<>(table_client, e-> true);
+
+        XYChart.Series series=new XYChart.Series();
+        series.setName("Cantidad de productos");
+        series.getData().add(new XYChart.Data("1",22));
+        series.getData().add(new XYChart.Data("2",30));
+        series.getData().add(new XYChart.Data("3",22));
+        series.getData().add(new XYChart.Data("4",55));
+        series.getData().add(new XYChart.Data("5",100));
+        series.getData().add(new XYChart.Data("6",22));
+        series.getData().add(new XYChart.Data("7",300));
+
+        XYChart.Series series2=new XYChart.Series();
+        series2.setName("Venta de Productos");
+        series2.getData().add(new XYChart.Data("1",10));
+        series2.getData().add(new XYChart.Data("2",5));
+        series2.getData().add(new XYChart.Data("3",22));
+        series2.getData().add(new XYChart.Data("4",13));
+        series2.getData().add(new XYChart.Data("5",100));
+        series2.getData().add(new XYChart.Data("6",22));
+        series2.getData().add(new XYChart.Data("7",300));
+
+
+        productChar.getData().add(series);
+        productChar.getData().add(series2);
+        clientChart.getData().add(series);
+
+        ObservableList<PieChart.Data> pieChartData=FXCollections.observableArrayList(
+                new PieChart.Data("Total",50),
+                new PieChart.Data("IVA",25),
+                new PieChart.Data("Utilidad",25)
+
+        );
+
+        sellChart.setData(pieChartData);
+
+
     }
 
     private void initTable(){
@@ -563,7 +615,7 @@ public class dashboardController implements Initializable{
             Double iva=Double.valueOf(sale_Detail.getItems().get(i).getIva());
             Double subTotal=Double.valueOf(sale_Detail.getItems().get(i).getSubtotal());
             //  "INSERT INTO detalle_venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S')"
-            sentenciaSQL = String.format("INSERT INTO detalle_venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S','%S','%S','%S','%S')",
+            sentenciaSQL = String.format("INSERT INTO Detalle_Venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S','%S','%S','%S','%S')",
                     sale_id,produtcid,amount,price,iva,subTotal);
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
         }
