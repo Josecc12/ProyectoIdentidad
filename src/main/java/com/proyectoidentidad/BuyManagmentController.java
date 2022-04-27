@@ -9,9 +9,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+
 import java.net.URL;
+import java.text.ParseException;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -42,8 +46,18 @@ public class BuyManagmentController implements Initializable {
     private Integer id;
     private boolean providerExist;
 
+    // Formato de fechas
+    public static Date fechaObjeto;
+    public static SimpleDateFormat formatoFecha_MDA;
+    public static SimpleDateFormat formatoFecha_AMD;
+    public static String Fecha_AMD = "yyyy-MM-dd";
+    public static String Fecha_MDA = "MM/dd/yyyy";
+
     @FXML
-    void saveBuy(MouseEvent event) {
+    void saveBuy(MouseEvent event) throws ParseException {
+        formatoFecha_MDA =  new SimpleDateFormat(Fecha_MDA);
+        formatoFecha_AMD = new SimpleDateFormat(Fecha_AMD);
+
         BuyHolder holder = BuyHolder.getInstance();
         dbConection conexion = new dbConection();
 
@@ -52,10 +66,11 @@ public class BuyManagmentController implements Initializable {
         }
         this.nit=Integer.valueOf(this.nitFiled.getText());
         getNit();
-
+        String fecha = cambiarFormatoFecha(this.dateField.getValue().toString());
 
 
         if(holder.getBuy() == null){
+
 
             double mountNet=Integer.valueOf(this.mountField.getText());
             double moungGross=mountNet/1.12;
@@ -70,13 +85,15 @@ public class BuyManagmentController implements Initializable {
                     this.serieField.getText(),
                     this.NoField.getText(),
                     1,
-                    "2020-10-01");
+                    fecha);
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
+
         }else{
-            double mountNet=Integer.valueOf(this.mountField.getText());
+            double mountNet=Double.valueOf(this.mountField.getText());;
             double moungGross=mountNet/1.12;
             double iva=moungGross*0.12;
+
 
             String sentenciaSQL = String.format("update Compra set Proveedores_id = '%S', Total_Neto='%S',Total_Bruto ='%S',IVA='%S', Serie = '%S',Factura = '%S', Usuario_id = '%S',Fecha = '%S' where id = '%S'",
                     Integer.valueOf(this.id),
@@ -86,9 +103,8 @@ public class BuyManagmentController implements Initializable {
                     Integer.valueOf(this.serieField.getText()),
                     Integer.valueOf(this.NoField.getText()),
                     1,
-                    "2020-10-01",
+                    fecha,
                     Integer.valueOf(this.idField.getText()));
-
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
         }
@@ -117,7 +133,17 @@ public class BuyManagmentController implements Initializable {
         conexion.ejecutarSenctenciaSQL(sentenciaSQL);
     }
 
+    public static String cambiarFormatoFecha(String fecha){
+        try {
+            fechaObjeto = new Date();
+            fechaObjeto = formatoFecha_MDA.parse(fecha);
+            fecha = formatoFecha_AMD.format(fechaObjeto);
 
+        } catch (ParseException e) {
+            System.out.println(e);
+        }
+        return fecha;
+    }
 
    private void getNit() {
         try {

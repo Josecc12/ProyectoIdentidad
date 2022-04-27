@@ -654,8 +654,8 @@ public class dashboardController implements Initializable{
         ResultSet resultado = conexion.consultarRegistros("select * from proveedores");
         try {
             while(resultado.next()){
-                Provider_Table.add(new Provider(resultado.getString("id"),resultado.getString("Nit"),resultado.getString("Nombre"),"Telefono",
-                        resultado.getString("Direccion"),
+                Provider_Table.add(new Provider(resultado.getString("id"),resultado.getString("Nit"),resultado.getString("Nombre"),
+                        resultado.getString("Telefono"),resultado.getString("Direccion"),
                         new Button("Editar"),
                         new Button("Eliminar")));
             }
@@ -720,7 +720,7 @@ public class dashboardController implements Initializable{
            dbConection conexion = new dbConection();
            ResultSet resultado = conexion.consultarRegistros("select * from clientes");
            while(resultado.next()){
-               table_client.add(new Client(resultado.getString("id"),resultado.getString("Nit"),resultado.getString("Nombre"),"Telefono",
+               table_client.add(new Client(resultado.getString("id"),resultado.getString("Nit"),resultado.getString("Nombre"),resultado.getString("Telefono"),
                resultado.getString("Direccion"),new Button("Editar"),new Button("Eliminar")));
            }
 
