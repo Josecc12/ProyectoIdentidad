@@ -11,16 +11,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class User{
-    private String id,name,lastname,user,password;
+    private String id,name,lastname,user,password,Type;
     Button update;
     Button delete;
 
-    public User(String id, String name, String lastname, String user, String password, Button update, Button delete) {
+    public User(String id, String name, String lastname, String user, String password,String Type, Button update, Button delete) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.user = user;
         this.password = password;
+        this.Type = Type;
         this.update = update;
         this.delete = delete;
 
@@ -152,5 +153,13 @@ public class User{
 
     public void setDelete(Button delete) {
         this.delete = delete;
+    }
+
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
     }
 }

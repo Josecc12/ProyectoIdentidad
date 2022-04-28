@@ -73,6 +73,9 @@ public class dashboardController implements Initializable{
     private TableColumn<User, String> user_name;
 
     @FXML
+    private TableColumn<User, String> type_user;
+
+    @FXML
     private TableColumn<User, String> user_password;
 
     @FXML
@@ -444,6 +447,7 @@ public class dashboardController implements Initializable{
         user_lastname.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         user_user.setCellValueFactory(new PropertyValueFactory<>("user"));
         user_password.setCellValueFactory(new PropertyValueFactory<>("password"));
+        type_user.setCellValueFactory(new PropertyValueFactory<>("Type"));
         user_update.setCellValueFactory(new PropertyValueFactory<>("update"));
         user_delete.setCellValueFactory(new PropertyValueFactory<>("delete"));
         user_update.setMinWidth(100);
@@ -667,6 +671,7 @@ public class dashboardController implements Initializable{
             while(resultado.next()){
                 table_User.add(new User(resultado.getString("id"),resultado.getString("Nombre"),resultado.getString("Apellido"),
                         resultado.getString("Usuario"),resultado.getString("Contrasena"),
+                        resultado.getString("Tipo"),
                         new Button("Editar"),
                         new Button("Eliminar")));
             }

@@ -106,305 +106,145 @@
       </VBox>
       <StackPane GridPane.columnIndex="1" GridPane.rowSpan="2">
          <children>
-            <GridPane fx:id="pgUsers" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
+            <GridPane fx:id="pgCharts" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #D63368;" StackPane.alignment="TOP_LEFT">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="62.0" minHeight="9.999998092651367" prefHeight="62.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="275.0" minHeight="10.0" prefHeight="139.0" valignment="TOP" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="270.0" minHeight="10.0" prefHeight="186.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="187.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff;">
                      <children>
-                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </FontAwesomeIconView>
-                        <TextField fx:id="searchUser" onKeyReleased="#filterUser" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
-                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addUser" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add User" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" wrappingWidth="19.64285659790039" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
-                           </graphic>
+                        <Label text="ESTADISTICAS">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="1">
+                     <children>
+                        <VBox prefHeight="150.0" prefWidth="284.0">
+                           <children>
+                              <Label text="VENTAS TOTALES:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Fecha Inicio:" />
+                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="Fecha fin:" />
+                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
+                           </children>
+                           <padding>
+                              <Insets left="20.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <PieChart fx:id="sellChart" prefHeight="150.0" prefWidth="259.0" HBox.hgrow="ALWAYS" />
+                        <VBox prefHeight="150.0" prefWidth="135.0" spacing="5.0">
+                           <children>
+                              <Label text="Total:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="IVA:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Utilidad:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" top="25.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="63.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="2">
+                     <children>
+                        <VBox prefHeight="150.0" prefWidth="284.0">
+                           <children>
+                              <Label text="VENTAS POR CLIENTE:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="NIT:" />
+                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="228.0" VBox.vgrow="NEVER" />
+                              <Label text="Fecha Inicio:" />
+                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="Fecha fin:" />
+                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="TOTAL VENDIDO:">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <LineChart fx:id="clientChart" HBox.hgrow="ALWAYS">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
-                        </Button>
+                        </LineChart>
                      </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
                   </HBox>
-                  <TableView fx:id="table_user" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
-                     <columns>
-                        <TableColumn fx:id="user_id" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="user_name" prefWidth="75.0" text="Nombre" />
-                        <TableColumn fx:id="user_lastname" prefWidth="75.0" text="Apellido" />
-                        <TableColumn fx:id="user_user" prefWidth="75.0" text="Usuario" />
-                        <TableColumn fx:id="user_password" prefWidth="75.0" text="Contraseña" />
-                        <TableColumn fx:id="user_update" prefWidth="75.0" />
-                        <TableColumn fx:id="user_delete" prefWidth="75.0" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </GridPane>
-            <GridPane fx:id="pgShopping" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <TableView fx:id="table_buys" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
-                     <columns>
-                        <TableColumn fx:id="buy_id" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="buy_date" prefWidth="75.0" text="Fecha" />
-                        <TableColumn prefWidth="75.0" text="Factura">
-                           <columns>
-                              <TableColumn fx:id="buy_serie" prefWidth="75.0" text="Serie" />
-                              <TableColumn fx:id="buy_NO" prefWidth="75.0" text="No." />
-                           </columns>
-                        </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Proveedor">
-                           <columns>
-                              <TableColumn fx:id="buy_NIT" prefWidth="75.0" text="NIT" />
-                              <TableColumn fx:id="buy_name" prefWidth="75.0" text="Nombre" />
-                           </columns>
-                        </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Monto (Q)">
-                           <columns>
-                              <TableColumn fx:id="buy_net" prefWidth="75.0" text="Neto" />
-                              <TableColumn fx:id="buy_gross" prefWidth="75.0" text="Bruto" />
-                              <TableColumn fx:id="buy_IVA" prefWidth="75.0" text="IVA" />
-                           </columns>
-                        </TableColumn>
-                        <TableColumn fx:id="buy_action" prefWidth="75.0" />
-                        <TableColumn fx:id="buy_delete" prefWidth="75.0" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
+                  <HBox layoutX="10.0" layoutY="213.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="3">
                      <children>
-                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </FontAwesomeIconView>
-                        <TextField fx:id="searchBuy" onKeyPressed="#filterBuy" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
-                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addBuy" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Buy" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
-                           </graphic>
+                        <VBox prefHeight="150.0" prefWidth="284.0">
+                           <children>
+                              <Label text="VENTAS POR PRODUCTO:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="CODIGO:" />
+                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="Fecha Inicio:" />
+                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="Fecha fin:" />
+                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="TOTAL VENDIDO:">
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <LineChart fx:id="productChar" HBox.hgrow="ALWAYS">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
-                        </Button>
+                        </LineChart>
                      </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
                   </HBox>
-               </children>
-            </GridPane>
-            <GridPane fx:id="pgClients" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
-                     <children>
-                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </FontAwesomeIconView>
-                        <TextField fx:id="searchClient" onKeyReleased="#filterClient" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
-                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addClient" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Client" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </HBox>
-                  <TableView fx:id="table_Client" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
-                     <columns>
-                        <TableColumn fx:id="client_id" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="client_nit" prefWidth="75.0" text="NIT" />
-                        <TableColumn fx:id="client_name" prefWidth="75.0" text="Nombre" />
-                        <TableColumn fx:id="client_phone" prefWidth="75.0" text="Telefono" />
-                        <TableColumn fx:id="client_address" prefWidth="75.0" text="Direccion" />
-                        <TableColumn fx:id="client_update" prefWidth="75.0" />
-                        <TableColumn fx:id="client_delete" prefWidth="75.0" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </GridPane>
-            <GridPane fx:id="pgProducts" style="-fx-background-color: #ffff;">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
-                     <children>
-                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </FontAwesomeIconView>
-                        <TextField fx:id="searchProduct" onKeyReleased="#filterProduct" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
-                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addProduct" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Product" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" wrappingWidth="19.64285659790039" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
-                           </graphic>
-                        </Button>
-                     </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </HBox>
-                  <TableView fx:id="Product_Table" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
-                    <columns>
-                      <TableColumn fx:id="Id_Column" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="Code_Column" prefWidth="75.0" text="Codigo" />
-                        <TableColumn fx:id="Description_Column" prefWidth="75.0" text="Descripcion" />
-                        <TableColumn fx:id="Stock_Column" prefWidth="75.0" text="Existencia" />
-                        <TableColumn fx:id="Production_Column" prefWidth="75.0" text="Produccion" />
-                        <TableColumn fx:id="Action_Column" prefWidth="75.0" />
-                        <TableColumn fx:id="Delete_Column" prefWidth="75.0" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </GridPane>
-            <GridPane fx:id="pgProviders" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
-                     <children>
-                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </FontAwesomeIconView>
-                        <TextField fx:id="search_provider" onKeyReleased="#filterProvider" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
-                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addProvider" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Providers" textFill="WHITE">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
-                           </graphic>
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </HBox>
-                  <TableView fx:id="Provider_table" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
-                     <columns>
-                        <TableColumn fx:id="provider_id" prefWidth="75.0" text="ID" />
-                        <TableColumn fx:id="provider_nit" prefWidth="75.0" text="NIT" />
-                        <TableColumn fx:id="provider_name" prefWidth="75.0" text="Nombre" />
-                        <TableColumn fx:id="provider_phone" prefWidth="75.0" text="Telefono" />
-                        <TableColumn fx:id="provider_address" prefWidth="75.0" text="Direccion" />
-                        <TableColumn fx:id="provider_action" prefWidth="75.0" />
-                        <TableColumn fx:id="provider_delete" prefWidth="75.0" />
-                     </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
                </children>
             </GridPane>
             <GridPane fx:id="pgSales" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
@@ -589,145 +429,306 @@
                   </TabPane>
                </children>
             </GridPane>
-            <GridPane fx:id="pgCharts" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #D63368;" StackPane.alignment="TOP_LEFT">
+            <GridPane fx:id="pgProviders" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                </columnConstraints>
                <rowConstraints>
-                  <RowConstraints maxHeight="62.0" minHeight="9.999998092651367" prefHeight="62.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="275.0" minHeight="10.0" prefHeight="139.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="270.0" minHeight="10.0" prefHeight="186.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="187.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff;">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
                      <children>
-                        <Label text="ESTADISTICAS">
-                           <font>
-                              <Font name="System Bold" size="19.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="1">
-                     <children>
-                        <VBox prefHeight="150.0" prefWidth="284.0">
-                           <children>
-                              <Label text="VENTAS TOTALES:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Fecha Inicio:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="Fecha fin:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                           </children>
-                           <padding>
-                              <Insets left="20.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                        <PieChart fx:id="sellChart" prefHeight="150.0" prefWidth="259.0" HBox.hgrow="ALWAYS" />
-                        <VBox prefHeight="150.0" prefWidth="135.0" spacing="5.0">
-                           <children>
-                              <Label text="Total:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="IVA:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Utilidad:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="10.0" top="25.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="63.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="2">
-                     <children>
-                        <VBox prefHeight="150.0" prefWidth="284.0">
-                           <children>
-                              <Label text="VENTAS POR CLIENTE:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="NIT:" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="228.0" VBox.vgrow="NEVER" />
-                              <Label text="Fecha Inicio:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="Fecha fin:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="TOTAL VENDIDO:">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="20.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                        <LineChart fx:id="clientChart" HBox.hgrow="ALWAYS">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
+                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <TextField fx:id="search_provider" onKeyReleased="#filterProvider" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addProvider" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Providers" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
+                           </graphic>
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
-                        </LineChart>
+                        </Button>
                      </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="213.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="3">
+                  <TableView fx:id="Provider_table" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
+                     <columns>
+                        <TableColumn fx:id="provider_id" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="provider_nit" prefWidth="75.0" text="NIT" />
+                        <TableColumn fx:id="provider_name" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="provider_phone" prefWidth="75.0" text="Telefono" />
+                        <TableColumn fx:id="provider_address" prefWidth="75.0" text="Direccion" />
+                        <TableColumn fx:id="provider_action" prefWidth="75.0" />
+                        <TableColumn fx:id="provider_delete" prefWidth="75.0" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </GridPane>
+            <GridPane fx:id="pgProducts" style="-fx-background-color: #ffff;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
                      <children>
-                        <VBox prefHeight="150.0" prefWidth="284.0">
-                           <children>
-                              <Label text="VENTAS POR PRODUCTO:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="CODIGO:" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="Fecha Inicio:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="Fecha fin:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="TOTAL VENDIDO:">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="20.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                        <LineChart fx:id="productChar" HBox.hgrow="ALWAYS">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
+                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <TextField fx:id="searchProduct" onKeyReleased="#filterProduct" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addProduct" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Product" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" wrappingWidth="19.64285659790039" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
-                        </LineChart>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
+                           </graphic>
+                        </Button>
                      </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
                   </HBox>
+                  <TableView fx:id="Product_Table" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
+                    <columns>
+                      <TableColumn fx:id="Id_Column" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="Code_Column" prefWidth="75.0" text="Codigo" />
+                        <TableColumn fx:id="Description_Column" prefWidth="75.0" text="Descripcion" />
+                        <TableColumn fx:id="Stock_Column" prefWidth="75.0" text="Existencia" />
+                        <TableColumn fx:id="Production_Column" prefWidth="75.0" text="Produccion" />
+                        <TableColumn fx:id="Action_Column" prefWidth="75.0" />
+                        <TableColumn fx:id="Delete_Column" prefWidth="75.0" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </GridPane>
+            <GridPane fx:id="pgClients" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
+                     <children>
+                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <TextField fx:id="searchClient" onKeyReleased="#filterClient" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addClient" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Client" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </HBox>
+                  <TableView fx:id="table_Client" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
+                     <columns>
+                        <TableColumn fx:id="client_id" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="client_nit" prefWidth="75.0" text="NIT" />
+                        <TableColumn fx:id="client_name" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="client_phone" prefWidth="75.0" text="Telefono" />
+                        <TableColumn fx:id="client_address" prefWidth="75.0" text="Direccion" />
+                        <TableColumn fx:id="client_update" prefWidth="75.0" />
+                        <TableColumn fx:id="client_delete" prefWidth="75.0" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+               </children>
+            </GridPane>
+            <GridPane fx:id="pgShopping" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TableView fx:id="table_buys" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
+                     <columns>
+                        <TableColumn fx:id="buy_id" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="buy_date" prefWidth="75.0" text="Fecha" />
+                        <TableColumn prefWidth="75.0" text="Factura">
+                           <columns>
+                              <TableColumn fx:id="buy_serie" prefWidth="75.0" text="Serie" />
+                              <TableColumn fx:id="buy_NO" prefWidth="75.0" text="No." />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Proveedor">
+                           <columns>
+                              <TableColumn fx:id="buy_NIT" prefWidth="75.0" text="NIT" />
+                              <TableColumn fx:id="buy_name" prefWidth="75.0" text="Nombre" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Monto (Q)">
+                           <columns>
+                              <TableColumn fx:id="buy_net" prefWidth="75.0" text="Neto" />
+                              <TableColumn fx:id="buy_gross" prefWidth="75.0" text="Bruto" />
+                              <TableColumn fx:id="buy_IVA" prefWidth="75.0" text="IVA" />
+                           </columns>
+                        </TableColumn>
+                        <TableColumn fx:id="buy_action" prefWidth="75.0" />
+                        <TableColumn fx:id="buy_delete" prefWidth="75.0" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
+                     <children>
+                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <TextField fx:id="searchBuy" onKeyPressed="#filterBuy" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addBuy" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add Buy" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" text="" wrappingWidth="19.64285659790039" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </GridPane>
+            <GridPane fx:id="pgUsers" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="78.0" minHeight="9.999998092651367" prefHeight="61.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="510.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="28.0" prefWidth="712.0" spacing="20.0">
+                     <children>
+                        <FontAwesomeIconView fill="#407072" glyphName="SEARCH" size="20" wrappingWidth="15.350000381469727">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <TextField fx:id="searchUser" onKeyReleased="#filterUser" prefHeight="35.0" prefWidth="391.0" style="-fx-border-color: #407072;" HBox.hgrow="ALWAYS" />
+                        <Button graphicTextGap="15.0" mnemonicParsing="false" onMouseClicked="#addUser" prefHeight="33.0" prefWidth="194.0" styleClass="add-button" stylesheets="@packstyle.css" text="Add User" textFill="WHITE">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="25" wrappingWidth="19.64285659790039" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onMouseClicked="#redoTable" prefHeight="34.0" prefWidth="60.0" styleClass="add-button" stylesheets="@packstyle.css">
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="22" />
+                           </graphic>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </HBox>
+                  <TableView fx:id="table_user" prefHeight="200.0" prefWidth="200.0" stylesheets="@packstyle.css" GridPane.rowIndex="1">
+                     <columns>
+                        <TableColumn fx:id="user_id" prefWidth="75.0" text="ID" />
+                        <TableColumn fx:id="user_name" prefWidth="75.0" text="Nombre" />
+                        <TableColumn fx:id="user_lastname" prefWidth="75.0" text="Apellido" />
+                        <TableColumn fx:id="user_user" prefWidth="75.0" text="Usuario" />
+                        <TableColumn fx:id="user_password" prefWidth="75.0" text="Contraseña" />
+                        <TableColumn fx:id="type_user" prefWidth="75.0" text="Tipo" />
+                        <TableColumn fx:id="user_update" prefWidth="75.0" />
+                        <TableColumn fx:id="user_delete" prefWidth="75.0" />
+                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                  </TableView>
                </children>
             </GridPane>
          </children>
