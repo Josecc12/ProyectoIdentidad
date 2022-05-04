@@ -1,5 +1,6 @@
 package com.proyectoidentidad;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,15 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -549,23 +548,48 @@ public class dashboardController implements Initializable{
     }
 
     @FXML
-    void addSale(MouseEvent event) {
+    void addSale(MouseEvent event) throws SQLException {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        dbConection conexion = new dbConection();
+        String id = this.codeProduct.toString();
+        String sentenciaSQL = String.format("select Existencia from producto where Nombre = '%S'",id);
+        ResultSet resultado = conexion.consultarRegistros(sentenciaSQL);
+        Integer existencia;
 
-        String produtcid=String.valueOf(this.idProduct);
-        String amount=this.amountField.getText();
-        String price=this.priceField.getText();
-        Integer amounInteger=Integer.valueOf(amount);
-        Double priceDouble=Double.valueOf(price);
-        Double total=amounInteger*priceDouble;
-        String totalString=String.valueOf(total);
-        Double iva=(total/1.12)*0.12;
-        String code=codeField.getText();
-        String product=productFiield.getText();
+        while(resultado.next()){
+            System.out.println(resultado.getString("Existencia"));
+            existencia = Integer.valueOf(resultado.getString("Existencia"));
 
-        sale_Detail.getItems().add(new SaleDetail(
-                null,null,produtcid,amount,price,
-                String.valueOf(iva),totalString,totalString,code,product
-        ));
+
+            if((existencia - Integer.valueOf(this.amountField.getText() )< 0)){
+
+                alert.setTitle("INVENTARIO");
+                alert.setHeaderText("la cantidad que quieres vender no se encuentra disponible en el inventario");
+                alert.setContentText("Cantidad Existentes: "+String.valueOf(existencia));
+
+                alert.showAndWait();
+
+            }else{
+
+                String produtcid=String.valueOf(this.idProduct);
+                String amount=this.amountField.getText();
+                String price=this.priceField.getText();
+                Integer amounInteger=Integer.valueOf(amount);
+                Double priceDouble=Double.valueOf(price);
+                Double total=amounInteger*priceDouble;
+                String totalString=String.valueOf(total);
+                Double iva=(total/1.12)*0.12;
+                String code=codeField.getText();
+                String product=productFiield.getText();
+
+                sale_Detail.getItems().add(new SaleDetail(
+                        null,null,produtcid,amount,price,
+                        String.valueOf(iva),totalString,totalString,code,product
+                ));
+            }
+        }
+
+
 
 
     }
