@@ -297,6 +297,142 @@ public class dashboardController implements Initializable{
     private PieChart sellChart;
 
     @FXML
+    private DatePicker fechaFinCliente;
+
+    @FXML
+    private DatePicker fechaFinProducto;
+
+    @FXML
+    private DatePicker fechaFinVentas;
+
+    @FXML
+    private DatePicker fechaInicioCliente;
+
+    @FXML
+    private DatePicker fechaInicioProducto;
+
+    @FXML
+    private DatePicker fechaInicioVentas;
+
+    @FXML
+    private TextField codigoConsulta;
+
+    @FXML
+    private TextField consultaNit;
+
+    @FXML
+    private Label totalLabel;
+    @FXML
+    private Label ivaLabel;
+    @FXML
+    private Label comprasLabel;
+
+    @FXML
+    void consultarCliente(MouseEvent event) throws SQLException {
+        String inicio=fechaInicioCliente.getValue().toString();
+        String fin=fechaFinCliente.getValue().toString();
+        String nit=consultaNit.getText();
+        dbConection conexion = new dbConection();
+        String sentenciaSQL = String.format("SELECT sum(Total) as Total, month(fecha) as mes FROM venta JOIN clientes as C ON venta.Clientes_id=C.id WHERE C.Nit='%S'" +
+                " and Fecha between '%S' AND '%S'\n" +
+                "group by month(fecha);",nit,inicio,fin);
+        ResultSet resultado = conexion.consultarRegistros(sentenciaSQL);
+
+        XYChart.Series series=new XYChart.Series();
+        series.setName("Ventas");
+
+        while(resultado.next()){
+            String mes=resultado.getString("mes");
+            Float cantidad=Float.valueOf(resultado.getString("Total"));
+            //Float ingreso=Float.valueOf(resultado.getString("ingreso"));
+
+            series.getData().add(new XYChart.Data(mes,cantidad));
+
+        }
+        clientChart.getData().remove(0,clientChart.getData().size());
+        clientChart.getData().add(series);
+
+    }
+
+    @FXML
+    void consultarProducto(MouseEvent event) throws SQLException {
+        String inicio=fechaInicioProducto.getValue().toString();
+        String fin=fechaFinProducto.getValue().toString();
+        String codigo=codigoConsulta.getText();
+        dbConection conexion = new dbConection();
+        String sentenciaSQL = String.format("SELECT sum(Cantidad) as cantidad,sum(SubTotal) as ingreso , month(fecha) as mes FROM identidad.detalle_venta AS DV JOIN producto AS P ON DV.Producto_id=P.id \n" +
+                "JOIN venta AS V ON DV.Venta_id=V.id\n" +
+                "WHERE P.Nombre='%S'  and Fecha between '%S' AND '%S' \n" +
+                "group by month(fecha)",codigo,inicio,fin);
+        ResultSet resultado = conexion.consultarRegistros(sentenciaSQL);
+
+        XYChart.Series series=new XYChart.Series();
+        series.setName("Cantidad de productos");
+
+        while(resultado.next()){
+            String mes=resultado.getString("mes");
+            Integer cantidad=Integer.valueOf(resultado.getString("cantidad"));
+            Float ingreso=Float.valueOf(resultado.getString("ingreso"));
+
+            series.getData().add(new XYChart.Data(mes,cantidad));
+
+        }
+        productChar.getData().remove(0,productChar.getData().size());
+        productChar.getData().add(series);
+
+
+    }
+
+    @FXML
+    void consultarTotal(MouseEvent event) throws SQLException {
+        String inicio=fechaInicioVentas.getValue().toString();
+        String fin=fechaFinVentas.getValue().toString();
+        String nit=consultaNit.getText();
+        dbConection conexion = new dbConection();
+        String sentenciaSQL = String.format("SELECT sum(DV.IVA) as iva FROM detalle_venta AS DV JOIN venta AS V ON DV.Venta_id=V.id \n" +
+                "WHERE V.Fecha between '%S' AND '%S' ",inicio,fin);
+        ResultSet resultado = conexion.consultarRegistros(sentenciaSQL);
+        float iva=0;
+
+        while(resultado.next()){
+            iva=Float.valueOf(resultado.getString("iva")); //GET LASTA SELL
+        }
+        sentenciaSQL=String.format("SELECT SUM(Total) as Total FROM venta WHERE Fecha between '%S' AND '%S' ",inicio,fin);
+        resultado=conexion.consultarRegistros(sentenciaSQL);
+        float total=0;
+        while(resultado.next()){
+            total=Float.valueOf(resultado.getString("total")); //GET LASTA SELL
+        }
+
+        sentenciaSQL=String.format("SELECT SUM(Total_Neto) as compra FROM compra WHERE Fecha between '%S' AND '%S' ",inicio,fin);
+        resultado=conexion.consultarRegistros(sentenciaSQL);
+        float compra=0;
+        while(resultado.next()){
+            compra=Float.valueOf(resultado.getString("compra")); //GET LASTA SELL
+        }
+
+        System.out.println(iva);
+        System.out.println(total);
+        System.out.println(compra);
+        float total2=iva+total+compra;
+        float ventap=(total*100)/total2;
+        float compraP=(compra*100)/total2;
+        float ivaP=(iva*100)/total2;
+        totalLabel.setText("Ventas: "+total);
+        comprasLabel.setText("Compras: "+compra);
+        ivaLabel.setText("IVA: "+iva);
+
+        ObservableList<PieChart.Data> pieChartData=FXCollections.observableArrayList(
+                new PieChart.Data("Ventas",ventap),
+                new PieChart.Data("Compras",compraP),
+                new PieChart.Data("IVA",ivaP)
+
+        );
+
+        sellChart.setData(pieChartData);
+
+    }
+    @FXML
     void searchNit(KeyEvent event){
         if(!this.nitField.getText().equals("")){
             this.nitClient=Integer.valueOf(this.nitField.getText());

@@ -25,7 +25,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="952.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyectoidentidad.dashboardController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.proyectoidentidad.dashboardController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="240.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -106,147 +106,6 @@
       </VBox>
       <StackPane GridPane.columnIndex="1" GridPane.rowSpan="2">
          <children>
-            <GridPane fx:id="pgCharts" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #D63368;" StackPane.alignment="TOP_LEFT">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints maxHeight="62.0" minHeight="9.999998092651367" prefHeight="62.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="275.0" minHeight="10.0" prefHeight="139.0" valignment="TOP" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="270.0" minHeight="10.0" prefHeight="186.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="187.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff;">
-                     <children>
-                        <Label text="ESTADISTICAS">
-                           <font>
-                              <Font name="System Bold" size="19.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="1">
-                     <children>
-                        <VBox prefHeight="150.0" prefWidth="284.0">
-                           <children>
-                              <Label text="VENTAS TOTALES:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Fecha Inicio:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="Fecha fin:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                           </children>
-                           <padding>
-                              <Insets left="20.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                        <PieChart fx:id="sellChart" prefHeight="150.0" prefWidth="259.0" HBox.hgrow="ALWAYS" />
-                        <VBox prefHeight="150.0" prefWidth="135.0" spacing="5.0">
-                           <children>
-                              <Label text="Total:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="IVA:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Utilidad:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="10.0" top="25.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="63.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="2">
-                     <children>
-                        <VBox prefHeight="150.0" prefWidth="284.0">
-                           <children>
-                              <Label text="VENTAS POR CLIENTE:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="NIT:" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="228.0" VBox.vgrow="NEVER" />
-                              <Label text="Fecha Inicio:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="Fecha fin:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="TOTAL VENDIDO:">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="20.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                        <LineChart fx:id="clientChart" HBox.hgrow="ALWAYS">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </LineChart>
-                     </children>
-                  </HBox>
-                  <HBox layoutX="10.0" layoutY="213.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="3">
-                     <children>
-                        <VBox prefHeight="150.0" prefWidth="284.0">
-                           <children>
-                              <Label text="VENTAS POR PRODUCTO:">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                              </Label>
-                              <Label text="CODIGO:" />
-                              <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="Fecha Inicio:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="Fecha fin:" />
-                              <DatePicker prefHeight="26.0" prefWidth="228.0" />
-                              <Label text="TOTAL VENDIDO:">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                           <padding>
-                              <Insets left="20.0" top="5.0" />
-                           </padding>
-                        </VBox>
-                        <LineChart fx:id="productChar" HBox.hgrow="ALWAYS">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </LineChart>
-                     </children>
-                  </HBox>
-               </children>
-            </GridPane>
             <GridPane fx:id="pgSales" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffff;">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -729,6 +588,152 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+               </children>
+            </GridPane>
+            <GridPane fx:id="pgCharts" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #D63368;" StackPane.alignment="TOP_LEFT">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="62.0" minHeight="9.999998092651367" prefHeight="62.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="275.0" minHeight="10.0" prefHeight="139.0" valignment="TOP" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="270.0" minHeight="10.0" prefHeight="186.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="427.0" minHeight="10.0" prefHeight="187.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #ffffff;">
+                     <children>
+                        <Label text="ESTADISTICAS">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="1">
+                     <children>
+                        <VBox prefHeight="150.0" prefWidth="284.0">
+                           <children>
+                              <Label text="VENTAS TOTALES:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Fecha Inicio:" />
+                              <DatePicker fx:id="fechaInicioVentas" prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="Fecha fin:" />
+                              <DatePicker fx:id="fechaFinVentas" prefHeight="26.0" prefWidth="228.0" />
+                              <Button mnemonicParsing="false" onMouseClicked="#consultarTotal" prefHeight="30.0" prefWidth="227.0" styleClass="add-button" stylesheets="@packstyle.css" text="CONSULTAR" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <PieChart fx:id="sellChart" prefHeight="150.0" prefWidth="259.0" HBox.hgrow="ALWAYS" />
+                        <VBox prefHeight="150.0" prefWidth="135.0" spacing="5.0">
+                           <children>
+                              <Label fx:id="totalLabel" text="Ventas:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="comprasLabel" text="Compras:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="ivaLabel" text="IVA:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" top="25.0" />
+                           </padding>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="63.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="2">
+                     <children>
+                        <VBox prefHeight="150.0" prefWidth="284.0">
+                           <children>
+                              <Label text="VENTAS POR CLIENTE:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="NIT:" />
+                              <TextField fx:id="consultaNit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="228.0" VBox.vgrow="NEVER" />
+                              <Label text="Fecha Inicio:" />
+                              <DatePicker fx:id="fechaInicioCliente" prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="Fecha fin:" />
+                              <DatePicker fx:id="fechaFinCliente" prefHeight="26.0" prefWidth="228.0" />
+                              <Button mnemonicParsing="false" onMouseClicked="#consultarCliente" prefHeight="30.0" prefWidth="228.0" styleClass="add-button" stylesheets="@packstyle.css" text="CONSULTAR" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <LineChart fx:id="clientChart" HBox.hgrow="ALWAYS">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </LineChart>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="213.0" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" GridPane.rowIndex="3">
+                     <children>
+                        <VBox prefHeight="150.0" prefWidth="284.0">
+                           <children>
+                              <Label text="VENTAS POR PRODUCTO:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label text="CODIGO:" />
+                              <TextField fx:id="codigoConsulta" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="Fecha Inicio:" />
+                              <DatePicker fx:id="fechaInicioProducto" prefHeight="26.0" prefWidth="228.0" />
+                              <Label text="Fecha fin:" />
+                              <DatePicker fx:id="fechaFinProducto" prefHeight="26.0" prefWidth="228.0" />
+                              <Button mnemonicParsing="false" onMouseClicked="#consultarProducto" prefHeight="30.0" prefWidth="227.0" styleClass="add-button" stylesheets="@packstyle.css" text="CONSULTAR" textFill="WHITE">
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets left="20.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <LineChart fx:id="productChar" HBox.hgrow="ALWAYS">
+                          <xAxis>
+                            <CategoryAxis side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis side="LEFT" />
+                          </yAxis>
+                           <HBox.margin>
+                              <Insets right="15.0" />
+                           </HBox.margin>
+                        </LineChart>
+                     </children>
+                  </HBox>
                </children>
             </GridPane>
          </children>
