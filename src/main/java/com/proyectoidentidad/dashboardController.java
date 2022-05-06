@@ -718,10 +718,10 @@ public class dashboardController implements Initializable{
                 ));
             }
         }
-
-
-
-
+        codeField.setText("");
+        productFiield.setText("");
+        priceField.setText("");
+        amountField.setText("");
     }
 
     @FXML
@@ -735,7 +735,10 @@ public class dashboardController implements Initializable{
        this.insertSell();
         this.insertSaleDetail();
         this.clearSale();
-
+        nitField.setText("");
+        clientField.setText("");
+        adressField.setText("");
+        phoneField.setText("");
     }
 
     private void insertSell(){
@@ -748,7 +751,7 @@ public class dashboardController implements Initializable{
         //  "INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S')"
         dbConection conexion = new dbConection();
         String sentenciaSQL = String.format("INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S','%S','%S')",
-                this.idClient,1,total,localdate);
+                this.idClient,LoginScreen.user_id,total,localdate);
         conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
     }

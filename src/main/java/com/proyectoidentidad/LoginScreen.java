@@ -1,4 +1,5 @@
 package com.proyectoidentidad;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,14 +14,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 
 public class LoginScreen {
+    public static Integer user_id;
     dbConection con;
     @FXML
     private GridPane BackgroundPanel;
@@ -58,6 +57,7 @@ public class LoginScreen {
 
             if(resultado.next()){
                 try {
+                    LoginScreen.user_id = Integer.valueOf(resultado.getString("id"));
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();

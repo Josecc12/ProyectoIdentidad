@@ -84,7 +84,7 @@ public class BuyManagmentController implements Initializable {
                     iva,
                     this.serieField.getText(),
                     this.NoField.getText(),
-                    1,
+                    LoginScreen.user_id,
                     fecha);
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
@@ -102,7 +102,7 @@ public class BuyManagmentController implements Initializable {
                     iva,
                     Integer.valueOf(this.serieField.getText()),
                     Integer.valueOf(this.NoField.getText()),
-                    1,
+                    LoginScreen.user_id,
                     fecha,
                     Integer.valueOf(this.idField.getText()));
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
