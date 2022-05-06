@@ -41,6 +41,34 @@ public class SaleHistory {
         Detalles.setPadding(new Insets(5));;
         Detalles.setMinWidth(95);
 
+     Detalles.setOnAction(e->{
+            for (int i = 0; i< dashboardController.salehistory.size(); i++){
+                if(Detalles.hashCode()== dashboardController.salehistory.get(i).getSale_datail().hashCode()){
+
+                    SaleHistory slected=dashboardController.salehistory.get(i);
+                    SaleHolder holder = SaleHolder.getInstance();
+                    holder.setSale(slected);
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("detailSale.fxml"));
+
+
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage=new Stage();
+
+                        stage.setTitle("Detail Sale");
+                        stage.setScene(scene);
+                        stage.show();
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                }
+            }
+        });
+
         Eliminar.setOnAction(e->{
             for (int i = 0; i< dashboardController.salehistory.size(); i++){
                 if(Detalles.hashCode()== dashboardController.salehistory.get(i).getSale_datail().hashCode()){

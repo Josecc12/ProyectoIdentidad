@@ -44,7 +44,32 @@ public class Product {
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
+        update.setOnAction(e->{
+            for (int i = 0; i< dashboardController.table_product.size(); i++){
+                if(update.hashCode()== dashboardController.table_product.get(i).getUpdate().hashCode()){
+                    Product slected=dashboardController.table_product.get(i);
+                    ProductHolder holder = ProductHolder.getInstance();
+                    holder.setProduct(slected);
 
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProduct-view.fxml"));
+                        productManagmentController controller=fxmlLoader.getController();
+                        //controller.setPrueba("Hola");admin
+                        fxmlLoader.setController(controller);
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage=new Stage();
+                        //fxmlLoader.getController().
+                        stage.setTitle("Product Management");
+                        stage.setScene(scene);
+                        stage.show();
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
         delete.setOnAction(e->{
 
             for (int i = 0; i< dashboardController.table_product.size(); i++){

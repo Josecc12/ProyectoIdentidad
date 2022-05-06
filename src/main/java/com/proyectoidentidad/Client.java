@@ -38,7 +38,35 @@ public class Client {
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
+        update.setOnAction(e->{
 
+
+            for (int i = 0; i< dashboardController.table_client.size(); i++){
+                if(update.hashCode()== dashboardController.table_client.get(i).getUpdate().hashCode()){
+                    Client selected=dashboardController.table_client.get(i);
+                    ClientHolder holder = ClientHolder.getInstance();
+                    // Step 3
+                    holder.setClient(selected);
+
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addClient-view.fxml"));
+                        ClientManagmentController controller = fxmlLoader.getController();
+                        fxmlLoader.setController(controller);
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage=new Stage();
+                        stage.setTitle("Client Management");
+                        stage.setScene(scene);
+                        stage.show();
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+
+
+                }
+            }
+        });
 
         delete.setOnAction(e->{
 

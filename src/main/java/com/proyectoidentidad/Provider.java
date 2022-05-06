@@ -45,6 +45,34 @@ public class Provider {
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
+
+        update.setOnAction(e->{
+
+            for(int i = 0; i< dashboardController.Provider_Table.size(); i++){
+                if(update.hashCode() == dashboardController.Provider_Table.get(i).getUpdate().hashCode()){
+
+                    Provider selected = dashboardController.Provider_Table.get(i);
+                    ProviderHolder holder = ProviderHolder.getInstance();
+
+                    holder.setProvider(selected);
+
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProvider-view.fxml"));
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage = new Stage();
+                        stage.setTitle("Provider Management");
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex){
+                        ex.printStackTrace();
+                    }
+
+                }
+            }
+
+        });
+
+
         delete.setOnAction(e->{
 
             for (int i = 0; i< dashboardController.Provider_Table.size(); i++){

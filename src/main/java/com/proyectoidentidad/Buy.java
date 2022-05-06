@@ -48,6 +48,42 @@ public class Buy {
         delete.setMinWidth(65);
 
 
+
+        update.setOnAction(e->{
+
+            for (int i = 0; i< dashboardController.table_Buys.size(); i++){
+                if(update.hashCode()== dashboardController.table_Buys.get(i).getUpdate().hashCode()){
+
+                    Buy slected=dashboardController.table_Buys.get(i);
+                    BuyHolder holder = BuyHolder.getInstance();
+                    // Step 3
+                    holder.setBuy(slected);
+
+
+
+                    try {
+
+
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addBuy-view.fxml"));
+                        productManagmentController controller=fxmlLoader.getController();
+                        //controller.setPrueba("Hola");admin
+
+
+                        fxmlLoader.setController(controller);
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage=new Stage();
+                        //fxmlLoader.getController().
+                        stage.setTitle("Buy Management");
+                        stage.setScene(scene);
+                        stage.show();
+
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+
         delete.setOnAction(e->{
 
             for (int i = 0; i< dashboardController.table_Buys.size(); i++){
