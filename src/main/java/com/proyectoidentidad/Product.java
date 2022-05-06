@@ -44,45 +44,11 @@ public class Product {
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
-        update.setOnAction(e->{
-           for (int i = 0; i< dashboardController.table_product.size(); i++){
-               if(update.hashCode()== dashboardController.table_product.get(i).getUpdate().hashCode()){
-                   System.out.println("id"+ dashboardController.table_product.get(i).getId());
-                   System.out.println("code"+ dashboardController.table_product.get(i).getCode());
-                   System.out.println("stock"+ dashboardController.table_product.get(i).getStock());
-                   System.out.println("production"+ dashboardController.table_product.get(i).getProduction());
-                   System.out.println("");
-
-                   Product slected=dashboardController.table_product.get(i);
-                   ProductHolder holder = ProductHolder.getInstance();
-                   holder.setProduct(slected);
-
-
-                   try {
-                       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProduct-view.fxml"));
-                       productManagmentController controller=fxmlLoader.getController();
-                       //controller.setPrueba("Hola");admin
-                       fxmlLoader.setController(controller);
-                       Scene scene = new Scene(fxmlLoader.load());
-                       Stage stage=new Stage();
-                       //fxmlLoader.getController().
-                       stage.setTitle("Product Management");
-                       stage.setScene(scene);
-                       stage.show();
-
-                   } catch (IOException ex) {
-                       ex.printStackTrace();
-                   }
-               }
-           }
-        });
 
         delete.setOnAction(e->{
 
             for (int i = 0; i< dashboardController.table_product.size(); i++){
                 if(delete.hashCode()== dashboardController.table_product.get(i).getDelete().hashCode()){
-                    System.out.println("Delete");
-                    System.out.println(dashboardController.table_product.get(i).getId());
                     ProductHolder holder = ProductHolder.getInstance();
                     dbConection conexion = new dbConection();
                     String sentenciaSQL = String.format("DELETE FROM producto WHERE id = '%S'",

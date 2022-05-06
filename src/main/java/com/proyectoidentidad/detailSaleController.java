@@ -49,11 +49,9 @@ public class detailSaleController  implements Initializable {
         SaleHolder holder = SaleHolder.getInstance();
         dbConection conexion = new dbConection();
         Integer id=Integer.valueOf(holder.getSale().getId());
-        System.out.println("IddDDD: "+id);
         String sentenciaSQL = String.format("SELECT Nombre,Cantidad,Precio,IVA,SubTotal FROM detalle_venta as D JOIN producto as P ON D.Producto_id=P.id WHERE D.Venta_id='%S'",id);
         ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
         while(resultado.next()){
-            System.out.println("item agregado");
             aux.add(new SaleDetail(resultado.getString("Cantidad"),resultado.getString("Precio"),
                     resultado.getString("IVA"),resultado.getString("SubTotal"),resultado.getString("SubTotal"),resultado.getString("Nombre")));
         }

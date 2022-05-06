@@ -47,52 +47,11 @@ public class Buy {
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
-        update.setOnAction(e->{
-
-            for (int i = 0; i< dashboardController.table_Buys.size(); i++){
-                if(update.hashCode()== dashboardController.table_Buys.get(i).getUpdate().hashCode()){
-                    System.out.println("id"+ dashboardController.table_Buys.get(i).getId());
-                    System.out.println("code"+ dashboardController.table_Buys.get(i).getDate());
-                    System.out.println("stock"+ dashboardController.table_Buys.get(i).getName());
-                    System.out.println("production"+ dashboardController.table_Buys.get(i).getMount_IVA());
-                    System.out.println("");
-
-                    Buy slected=dashboardController.table_Buys.get(i);
-                    BuyHolder holder = BuyHolder.getInstance();
-                    // Step 3
-                    holder.setBuy(slected);
-
-
-
-                    try {
-
-
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addBuy-view.fxml"));
-                        productManagmentController controller=fxmlLoader.getController();
-                        //controller.setPrueba("Hola");admin
-
-
-                        fxmlLoader.setController(controller);
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage=new Stage();
-                        //fxmlLoader.getController().
-                        stage.setTitle("Buy Management");
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-        });
 
         delete.setOnAction(e->{
 
             for (int i = 0; i< dashboardController.table_Buys.size(); i++){
                 if(delete.hashCode()== dashboardController.table_Buys.get(i).getDelete().hashCode()){
-                    System.out.println("Delete");
-                    System.out.println(dashboardController.table_Buys.get(i).getId());
                     ProductHolder holder = ProductHolder.getInstance();
                     dbConection conexion = new dbConection();
                     String sentenciaSQL = String.format("DELETE FROM compra WHERE id = '%S'",

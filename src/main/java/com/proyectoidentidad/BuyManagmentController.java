@@ -140,14 +140,12 @@ public class BuyManagmentController implements Initializable {
             fecha = formatoFecha_AMD.format(fechaObjeto);
 
         } catch (ParseException e) {
-            System.out.println(e);
         }
         return fecha;
     }
 
    private void getNit() {
         try {
-            System.out.println(this.nit);
             dbConection conexion = new dbConection();
             String sentenciaSQL = String.format("SELECT id,Nombre from Proveedores WHERE nit= '%S'",this.nit);
             ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
@@ -177,7 +175,6 @@ public class BuyManagmentController implements Initializable {
         this.id=0;
         this.providerExist=false;
         if (holder.getBuy()!=null){
-            System.out.println(ProductHolder.getInstance());
             Buy buy = holder.getBuy();
             this.idField.setText(buy.getId());
             LocalDate date = LocalDate.now();

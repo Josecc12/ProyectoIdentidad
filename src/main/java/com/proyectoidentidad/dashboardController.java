@@ -411,9 +411,6 @@ public class dashboardController implements Initializable{
             compra=Float.valueOf(resultado.getString("compra")); //GET LASTA SELL
         }
 
-        System.out.println(iva);
-        System.out.println(total);
-        System.out.println(compra);
         float total2=iva+total+compra;
         float ventap=(total*100)/total2;
         float compraP=(compra*100)/total2;
@@ -437,14 +434,12 @@ public class dashboardController implements Initializable{
         if(!this.nitField.getText().equals("")){
             this.nitClient=Integer.valueOf(this.nitField.getText());
         }else this.nitClient=0;
-        System.out.println(this.nitClient);
         getCliente();
     }
     @FXML
     void searchProduct(KeyEvent event){
         if(!this.codeField.getText().equals("")){
             this.codeProduct=this.codeField.getText();
-            System.out.println(this.codeProduct);
             getProduct();
         }
 
@@ -496,7 +491,6 @@ public class dashboardController implements Initializable{
                 String code=resultado.getString("Nombre");
                 this.idProduct= Integer.valueOf(resultado.getString("id"));
                 String descripcion=resultado.getString("Descripcion");
-                System.out.println("Ecnontr");
                 this.productFiield.setText(descripcion);
                 this.clientExist=true;
 
@@ -693,7 +687,7 @@ public class dashboardController implements Initializable{
         Integer existencia;
 
         while(resultado.next()){
-            System.out.println(resultado.getString("Existencia"));
+
             existencia = Integer.valueOf(resultado.getString("Existencia"));
 
 
@@ -751,7 +745,6 @@ public class dashboardController implements Initializable{
         for (int i = 0; i <sale_Detail.getItems().size() ; i++) {
             total+= Double.valueOf(sale_Detail.getItems().get(i).getTotal());
         }
-        System.out.println("Total: "+total);
         //  "INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S')"
         dbConection conexion = new dbConection();
         String sentenciaSQL = String.format("INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S','%S','%S')",
@@ -836,7 +829,7 @@ public class dashboardController implements Initializable{
                         new Button("Eliminar")));
             }
         }catch (Exception e){
-            System.out.println(e);
+
         }
         table_user.setItems(table_User);
     }
@@ -858,7 +851,7 @@ public class dashboardController implements Initializable{
            }
 
         }catch (Exception e){
-            System.out.println(e);
+
         }
 
         Product_Table.setItems(table_product);
@@ -879,7 +872,6 @@ public class dashboardController implements Initializable{
 
 
         }catch (Exception e){
-            System.out.println(e);
         }
         Provider_table.setItems(Provider_Table);
     }
@@ -904,7 +896,7 @@ public class dashboardController implements Initializable{
                                 new Button("Eliminar")));
             }
         }catch (Exception e){
-            System.out.println(e);
+
         }
 
         sale_history.setItems(salehistory);
@@ -927,7 +919,7 @@ public class dashboardController implements Initializable{
             }
 
         }catch (Exception e){
-            System.out.println(e);
+
         }
         table_buys.setItems(table_Buys);
     }
@@ -942,7 +934,7 @@ public class dashboardController implements Initializable{
            }
 
        }catch (Exception e){
-           System.out.println(e);
+
        }
 
        table_Client.setItems(table_client);
@@ -996,7 +988,6 @@ public class dashboardController implements Initializable{
             stage.setTitle("Product Management");
             stage.setScene(scene);
             stage.show();
-            System.out.println("Se debe actuzalizar");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

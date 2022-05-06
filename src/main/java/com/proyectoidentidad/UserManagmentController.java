@@ -92,7 +92,6 @@ public class UserManagmentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         UserHolder holder = UserHolder.getInstance();
         if (holder.getUser()!=null){
-            System.out.println(ProductHolder.getInstance());
             User user = holder.getUser();
             this.idField.setText(user.getId());
             this.nameField.setText(user.getName());

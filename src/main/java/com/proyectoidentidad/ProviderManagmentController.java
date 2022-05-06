@@ -59,7 +59,6 @@ public class ProviderManagmentController implements Initializable {
         ProviderHolder holder = ProviderHolder.getInstance();
 
         if (holder.getProvider()!=null){
-            System.out.println(ProductHolder.getInstance());
             Provider provider = holder.getProvider();
             this.idField.setText(provider.getId());
             this.NITField.setText(provider.getNit());

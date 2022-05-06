@@ -39,49 +39,12 @@ public class Client {
         delete.setMinWidth(65);
 
 
-        update.setOnAction(e->{
-
-
-            for (int i = 0; i< dashboardController.table_client.size(); i++){
-                if(update.hashCode()== dashboardController.table_client.get(i).getUpdate().hashCode()){
-                    System.out.println("id"+ dashboardController.table_client.get(i).getId());
-                    System.out.println("NIT"+ dashboardController.table_client.get(i).getNit());
-                    System.out.println("Name:"+ dashboardController.table_client.get(i).getName());
-                    System.out.println("Phone Number"+ dashboardController.table_client.get(i).getPhone_number());
-                    System.out.println("Address"+ dashboardController.table_client.get(i).getAddress());
-                    System.out.println("");
-
-                    Client selected=dashboardController.table_client.get(i);
-                    ClientHolder holder = ClientHolder.getInstance();
-                    // Step 3
-                    holder.setClient(selected);
-
-
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addClient-view.fxml"));
-                        ClientManagmentController controller = fxmlLoader.getController();
-                        fxmlLoader.setController(controller);
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage=new Stage();
-                        stage.setTitle("Client Management");
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-
-                }
-            }
-        });
 
         delete.setOnAction(e->{
 
             for (int i = 0; i< dashboardController.table_client.size(); i++){
                 if(delete.hashCode()== dashboardController.table_client.get(i).getDelete().hashCode()){
-                    System.out.println("Delete");
-                    System.out.println(dashboardController.table_client.get(i).getId());
+
                     ProductHolder holder = ProductHolder.getInstance();
                     dbConection conexion = new dbConection();
                     String sentenciaSQL = String.format("DELETE FROM clientes WHERE id = '%S'",

@@ -13,6 +13,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 
@@ -41,33 +45,41 @@ public class LoginScreen {
 
     @FXML
     void LoginButtonClicked(MouseEvent event) {
-        if (UsernameTextfield.getText().equals("admin") && PasswordTextfield.getText().equals("admin")) {
-            System.out.println(UsernameTextfield.getText() + "\n" + PasswordTextfield.getText());
+        try{
+
             con = new dbConection();
             con.getConnection();
-
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                Stage stage = new Stage();
-                stage.setMaximized(true);
-                stage.setTitle("DASHBOARD");
-                stage.setScene(scene);
-                stage.show();
+            String user = UsernameTextfield.getText();
+            String password = PasswordTextfield.getText();
 
 
-                Node source = (Node) event.getSource();
-                Stage stage2 = (Stage) source.getScene().getWindow();
-                stage2.close();
+            String SQL = String.format( "SELECT * FROM usuario WHERE Usuario= '%S' AND Contrasena= '%S'", user,password);
+            ResultSet resultado =  con.consultarRegistros(SQL);
 
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if(resultado.next()){
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());
+                    Stage stage = new Stage();
+                    stage.setMaximized(true);
+                    stage.setTitle("DASHBOARD");
+                    stage.setScene(scene);
+                    stage.show();
+
+
+                    Node source = (Node) event.getSource();
+                    Stage stage2 = (Stage) source.getScene().getWindow();
+                    stage2.close();
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
+
+        } catch (SQLException ex){
+            ex.printStackTrace();
         }
-        else {
-            System.out.println("Error");
-            System.out.println(UsernameTextfield.getText() + "\n" + PasswordTextfield.getText());
-        }
+
     }
 
-}
+};

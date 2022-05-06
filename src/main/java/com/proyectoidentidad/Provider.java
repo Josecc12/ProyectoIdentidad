@@ -45,44 +45,10 @@ public class Provider {
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
-
-        update.setOnAction(e->{
-
-            for(int i = 0; i< dashboardController.Provider_Table.size(); i++){
-                if(update.hashCode() == dashboardController.Provider_Table.get(i).getUpdate().hashCode()){
-                    System.out.println("id" + dashboardController.Provider_Table.get(i).getId());
-                    System.out.println("nit" + dashboardController.Provider_Table.get(i).getNit());
-                    System.out.println("name" + dashboardController.Provider_Table.get(i).getName());
-                    System.out.println("phone" + dashboardController.Provider_Table.get(i).getPhone());
-                    System.out.println("address" + dashboardController.Provider_Table.get(i).getAddress());
-
-                    Provider selected = dashboardController.Provider_Table.get(i);
-                    ProviderHolder holder = ProviderHolder.getInstance();
-
-                    holder.setProvider(selected);
-
-                        try {
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProvider-view.fxml"));
-                            Scene scene = new Scene(fxmlLoader.load());
-                            Stage stage = new Stage();
-                            stage.setTitle("Provider Management");
-                            stage.setScene(scene);
-                            stage.show();
-                        } catch (IOException ex){
-                            ex.printStackTrace();
-                        }
-
-                }
-            }
-
-        });
-
         delete.setOnAction(e->{
 
             for (int i = 0; i< dashboardController.Provider_Table.size(); i++){
                 if(delete.hashCode()== dashboardController.Provider_Table.get(i).getDelete().hashCode()){
-                    System.out.println("Delete");
-                    System.out.println(dashboardController.Provider_Table.get(i).getId());
                     ProductHolder holder = ProductHolder.getInstance();
                     dbConection conexion = new dbConection();
                     String sentenciaSQL = String.format("DELETE FROM proveedores WHERE id = '%S'",

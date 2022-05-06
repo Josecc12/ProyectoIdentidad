@@ -40,51 +40,11 @@ public class User{
         delete.setMinWidth(65);
 
 
-        update.setOnAction(e->{
-
-
-            for (int i = 0; i< dashboardController.table_User.size(); i++){
-                if(update.hashCode()== dashboardController.table_User.get(i).getUpdate().hashCode()){
-                    System.out.println("id"+ dashboardController.table_User.get(i).getId());
-                    System.out.println("Name:"+ dashboardController.table_User.get(i).getName());
-                    System.out.println("LastName"+ dashboardController.table_User.get(i).getLastname());
-                    System.out.println("User"+ dashboardController.table_User.get(i).getUser());
-                    System.out.println("Pasword"+ dashboardController.table_User.get(i).getPassword());
-                    System.out.println("");
-
-                    User slected=dashboardController.table_User.get(i);
-                    UserHolder holder = UserHolder.getInstance();
-                    // Step 3
-                    holder.setUser(slected);
-
-
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addUser-view.fxml"));
-
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage=new Stage();
-                        stage.setResizable(false);
-                        stage.setTitle("User Management");
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-
-                }
-            }
-
-
-        });
 
         delete.setOnAction(e->{
 
             for (int i = 0; i< dashboardController.table_User.size(); i++){
                 if(delete.hashCode()== dashboardController.table_User.get(i).getDelete().hashCode()){
-                    System.out.println("Delete");
-                    System.out.println(dashboardController.table_User.get(i).getId());
                     ProductHolder holder = ProductHolder.getInstance();
                     dbConection conexion = new dbConection();
                     String sentenciaSQL = String.format("DELETE FROM usuario WHERE id = '%S'",

@@ -6,7 +6,7 @@ public class dbConection {
     private static Connection conn;
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final String user = "root";
-    private static final String password = "admin";
+    private static final String password = "antonio55";
     private static final String url = "jdbc:mysql://localhost:3306/identidad";
 
     public dbConection(){
@@ -14,11 +14,9 @@ public class dbConection {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url,user,password);
-            if(conn !=null){
-                System.out.println("Conexion Establecida...");
-            }
+
         } catch (ClassNotFoundException e) {
-            System.out.println("Error en la conexion"+e);
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,12 +27,6 @@ public class dbConection {
         return conn;
     }
 
-    public void disconnect(){
-        conn = null;
-        if(conn ==null){
-            System.out.println("Conexion Terminada...");
-        }
-    }
 
     public int ejecutarSenctenciaSQL(String strSentenciaSQL){
         try {
@@ -42,7 +34,6 @@ public class dbConection {
             pstm.execute();
             return 1;
         } catch (SQLException e) {
-            System.out.println(e);
             return 0;
         }
     }
@@ -55,7 +46,6 @@ public class dbConection {
 
             return respuesta;
         } catch (SQLException e) {
-            System.out.println(e);
             return null;
         }
     }

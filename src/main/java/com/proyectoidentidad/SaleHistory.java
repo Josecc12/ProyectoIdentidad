@@ -41,47 +41,9 @@ public class SaleHistory {
         Detalles.setPadding(new Insets(5));;
         Detalles.setMinWidth(95);
 
-        Detalles.setOnAction(e->{
-            for (int i = 0; i< dashboardController.salehistory.size(); i++){
-                if(Detalles.hashCode()== dashboardController.salehistory.get(i).getSale_datail().hashCode()){
-                    System.out.println("id"+ dashboardController.salehistory.get(i).getId());
-                    System.out.println("code"+ dashboardController.salehistory.get(i).getUsuario());
-                    System.out.println("stock"+ dashboardController.salehistory.get(i).getCliente());
-
-                    System.out.println("");
-
-                    SaleHistory slected=dashboardController.salehistory.get(i);
-                    SaleHolder holder = SaleHolder.getInstance();
-                    holder.setSale(slected);
-
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("detailSale.fxml"));
-
-
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage=new Stage();
-
-                        stage.setTitle("Detail Sale");
-                        stage.setScene(scene);
-                        stage.show();
-
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-
-
-                }
-            }
-        });
-
         Eliminar.setOnAction(e->{
             for (int i = 0; i< dashboardController.salehistory.size(); i++){
                 if(Detalles.hashCode()== dashboardController.salehistory.get(i).getSale_datail().hashCode()){
-                    System.out.println("id"+ dashboardController.salehistory.get(i).getId());
-                    System.out.println("code"+ dashboardController.salehistory.get(i).getUsuario());
-                    System.out.println("stock"+ dashboardController.salehistory.get(i).getCliente());
-
-                    System.out.println("");
 
                     SaleHistory slected=dashboardController.salehistory.get(i);
                     SaleHolder holder = SaleHolder.getInstance();
@@ -89,7 +51,7 @@ public class SaleHistory {
 
                     dbConection conexion = new dbConection();
                     Integer idDelete=Integer.valueOf(holder.getSale().getId());
-                    System.out.println("IddDDD: "+id);
+
                     String sentenciaSQL = String.format("DELETE FROM detalle_venta WHERE Venta_id='%S'",idDelete);
                     conexion.ejecutarSenctenciaSQL(sentenciaSQL);
                     sentenciaSQL = String.format("DELETE  FROM venta WHERE id='%S'",idDelete);

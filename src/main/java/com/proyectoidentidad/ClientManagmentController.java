@@ -58,7 +58,6 @@ public class ClientManagmentController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ClientHolder holder = ClientHolder.getInstance();
         if (holder.getClient()!=null){
-            System.out.println(ProductHolder.getInstance());
             Client client = holder.getClient();
             this.idField.setText(client.getId());
             this.nitField.setText(client.getNit());

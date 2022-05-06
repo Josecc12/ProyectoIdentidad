@@ -82,7 +82,6 @@ public class productManagmentController implements Initializable  {
         ProductHolder holder = ProductHolder.getInstance();
 
         if (holder.getProduct()!=null){
-            System.out.println(ProductHolder.getInstance());
             Product product = holder.getProduct();
             this.idField.setText(product.getId());
             this.codeField.setText(product.getCode());
