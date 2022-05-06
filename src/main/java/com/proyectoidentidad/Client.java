@@ -10,18 +10,17 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class User{
-    private String id,name,lastname,user,password,Type;
+public class Client {
+    private String id, name, address, phone_number, nit;
     Button update;
     Button delete;
 
-    public User(String id, String name, String lastname, String user, String password,String Type, Button update, Button delete) {
+    public Client(String id, String nit, String name, String phone_number, String address, Button update, Button delete) {
         this.id = id;
+        this.nit = nit;
         this.name = name;
-        this.lastname = lastname;
-        this.user = user;
-        this.password = password;
-        this.Type = Type;
+        this.address = address;
+        this.phone_number = phone_number;
         this.update = update;
         this.delete = delete;
 
@@ -39,25 +38,24 @@ public class User{
         delete.setPadding(new Insets(5));
         delete.setMinWidth(65);
 
-    update.setOnAction(e->{
+        update.setOnAction(e->{
 
 
-            for (int i = 0; i< dashboardController.table_User.size(); i++){
-                if(update.hashCode()== dashboardController.table_User.get(i).getUpdate().hashCode()){
-
-                    User slected=dashboardController.table_User.get(i);
-                    UserHolder holder = UserHolder.getInstance();
+            for (int i = 0; i< dashboardController.table_client.size(); i++){
+                if(update.hashCode()== dashboardController.table_client.get(i).getUpdate().hashCode()){
+                    Client selected=dashboardController.table_client.get(i);
+                    ClientHolder holder = ClientHolder.getInstance();
                     // Step 3
-                    holder.setUser(slected);
+                    holder.setClient(selected);
 
 
                     try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addUser-view.fxml"));
-
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addClient-view.fxml"));
+                        ClientManagmentController controller = fxmlLoader.getController();
+                        fxmlLoader.setController(controller);
                         Scene scene = new Scene(fxmlLoader.load());
                         Stage stage=new Stage();
-                        stage.setResizable(false);
-                        stage.setTitle("User Management");
+                        stage.setTitle("Client Management");
                         stage.setScene(scene);
                         stage.show();
 
@@ -68,26 +66,22 @@ public class User{
 
                 }
             }
-
-
         });
 
         delete.setOnAction(e->{
 
-            for (int i = 0; i< dashboardController.table_User.size(); i++){
-                if(delete.hashCode()== dashboardController.table_User.get(i).getDelete().hashCode()){
+            for (int i = 0; i< dashboardController.table_client.size(); i++){
+                if(delete.hashCode()== dashboardController.table_client.get(i).getDelete().hashCode()){
+
                     ProductHolder holder = ProductHolder.getInstance();
                     dbConection conexion = new dbConection();
-                    String sentenciaSQL = String.format("DELETE FROM usuario WHERE id = '%S'",
-                            Integer.valueOf(dashboardController.table_User.get(i).getId()));
+                    String sentenciaSQL = String.format("DELETE FROM clientes WHERE id = '%S'",
+                            Integer.valueOf(dashboardController.table_client.get(i).getId()));
                     conexion.ejecutarSenctenciaSQL(sentenciaSQL);
                 }
 
             }
         });
-
-
-
     }
 
     public String getId() {
@@ -98,6 +92,10 @@ public class User{
         this.id = id;
     }
 
+    public String getNit() { return nit; }
+
+    public void setNit(String nit) { this.nit = nit; }
+
     public String getName() {
         return name;
     }
@@ -106,28 +104,20 @@ public class User{
         this.name = name;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getUser() {
-        return user;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
     public Button getUpdate() {
@@ -144,13 +134,5 @@ public class User{
 
     public void setDelete(Button delete) {
         this.delete = delete;
-    }
-
-    public String getType() {
-        return Type;
-    }
-
-    public void setType(String type) {
-        Type = type;
     }
 }

@@ -45,54 +45,42 @@ public class Product {
         delete.setMinWidth(65);
 
         update.setOnAction(e->{
+            for (int i = 0; i< dashboardController.table_product.size(); i++){
+                if(update.hashCode()== dashboardController.table_product.get(i).getUpdate().hashCode()){
+                    Product slected=dashboardController.table_product.get(i);
+                    ProductHolder holder = ProductHolder.getInstance();
+                    holder.setProduct(slected);
 
 
-           for (int i = 0; i< dashboardController.table_product.size(); i++){
-               if(update.hashCode()== dashboardController.table_product.get(i).getUpdate().hashCode()){
-                   System.out.println("id"+ dashboardController.table_product.get(i).getId());
-                   System.out.println("code"+ dashboardController.table_product.get(i).getCode());
-                   System.out.println("stock"+ dashboardController.table_product.get(i).getStock());
-                   System.out.println("production"+ dashboardController.table_product.get(i).getProduction());
-                   System.out.println("");
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProduct-view.fxml"));
+                        productManagmentController controller=fxmlLoader.getController();
+                        //controller.setPrueba("Hola");admin
+                        fxmlLoader.setController(controller);
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage=new Stage();
+                        //fxmlLoader.getController().
+                        stage.setTitle("Product Management");
+                        stage.setScene(scene);
+                        stage.show();
 
-                   Product slected=dashboardController.table_product.get(i);
-                   ProductHolder holder = ProductHolder.getInstance();
-                   // Step 3
-                   holder.setProduct(slected);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
+        delete.setOnAction(e->{
 
-
-
-                   try {
-
-
-                       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addProduct-view.fxml"));
-                       productManagmentController controller=fxmlLoader.getController();
-                       //controller.setPrueba("Hola");admin
-
-
-                       fxmlLoader.setController(controller);
-                       Scene scene = new Scene(fxmlLoader.load());
-                       Stage stage=new Stage();
-                       //fxmlLoader.getController().
-                       stage.setTitle("Product Management");
-                       stage.setScene(scene);
-
-                       stage.show();
-
-
-
-
-
-
-                   } catch (IOException ex) {
-                       ex.printStackTrace();
-                   }
-
-
-               }
-           }
-
-
+            for (int i = 0; i< dashboardController.table_product.size(); i++){
+                if(delete.hashCode()== dashboardController.table_product.get(i).getDelete().hashCode()){
+                    ProductHolder holder = ProductHolder.getInstance();
+                    dbConection conexion = new dbConection();
+                    String sentenciaSQL = String.format("DELETE FROM producto WHERE id = '%S'",
+                            Integer.valueOf(dashboardController.table_product.get(i).getId()));
+                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+                }
+            }
         });
 
 
