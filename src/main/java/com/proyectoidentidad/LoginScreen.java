@@ -20,6 +20,7 @@ import java.sql.SQLException;
 
 public class LoginScreen {
     public static Integer user_id;
+    public static String tipo;
     dbConection con;
     @FXML
     private GridPane BackgroundPanel;
@@ -58,6 +59,7 @@ public class LoginScreen {
             if(resultado.next()){
                 try {
                     LoginScreen.user_id = Integer.valueOf(resultado.getString("id"));
+                    LoginScreen.tipo=resultado.getString("Tipo");
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();

@@ -30,6 +30,30 @@ import java.util.ResourceBundle;
 public class dashboardController implements Initializable{
 
     @FXML
+    private Button btnClientes;
+
+    @FXML
+    private Button btnCompras;
+
+    @FXML
+    private Button btnEstadisticas;
+
+    @FXML
+    private Tab btnHistorial;
+
+    @FXML
+    private Button btnProductos;
+
+    @FXML
+    private Button btnProveedores;
+
+    @FXML
+    private Button btnUsuarios;
+
+    @FXML
+    private Button btnVentas;
+
+    @FXML
     private TableView<Product> Product_Table;
 
 
@@ -449,23 +473,27 @@ public class dashboardController implements Initializable{
         try {
 
             dbConection conexion = new dbConection();
-            String sentenciaSQL = String.format("SELECT id,Nombre,Direccion from clientes WHERE nit= '%S'",this.nitClient);
+            String sentenciaSQL = String.format("SELECT id,Nombre,Direccion,Telefono from clientes WHERE nit= '%S'",this.nitClient);
             ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
             if(!resultado.next()){
+
                 this.clientField.setText("");
                 this.adressField.setText("");
                 this.nitClient=0;
                 this.idClient=0;
                 this.clientExist=false;
+                System.out.println("NO EXISS"+clientExist);
             }
             else{
                 String client=resultado.getString("Nombre");
                 this.idClient= Integer.valueOf(resultado.getString("id"));
                 String adress=resultado.getString("Direccion");
-               // String phone=resultado.getString("Nombre");
+                String phone=resultado.getString("Telefono");
                 this.clientField.setText(client);
                 this.adressField.setText(adress);
+                this.phoneField.setText(phone);
                 this.clientExist=true;
+                System.out.println("NO EXISS");
 
             }
         } catch (SQLException e) {
@@ -485,14 +513,14 @@ public class dashboardController implements Initializable{
                 this.productFiield.setText("");
                 this.codeProduct="";
                 this.idProduct=0;
-                this.clientExist=false;
+                this.productExist=false;
             }
             else{
                 String code=resultado.getString("Nombre");
                 this.idProduct= Integer.valueOf(resultado.getString("id"));
                 String descripcion=resultado.getString("Descripcion");
                 this.productFiield.setText(descripcion);
-                this.clientExist=true;
+                this.productExist=true;
 
             }
         } catch (SQLException e) {
@@ -556,6 +584,16 @@ public class dashboardController implements Initializable{
         );
 
         sellChart.setData(pieChartData);
+
+        if(!LoginScreen.tipo.equals("ADMINISTRADOR")){
+            btnClientes.setDisable(true);
+            btnCompras.setDisable(true);
+            btnProductos.setDisable(true);
+            btnUsuarios.setDisable(true);
+            btnProveedores.setDisable(true);
+            btnEstadisticas.setDisable(true);
+            btnHistorial.setDisable(true);
+        }
 
 
     }
@@ -726,12 +764,13 @@ public class dashboardController implements Initializable{
 
     @FXML
     void sell(MouseEvent event) throws SQLException {
-
-        if(!clientExist){
-            //this.insertClient();
-            this.nitClient=Integer.valueOf(this.nitField.getText());
-            this.getCliente();
+        System.out.println(clientExist);
+        if(clientExist==false){
+            this.insertClient();
+            System.out.println("iNSER");
         }
+        this.nitClient=Integer.valueOf(this.nitField.getText());
+        this.getCliente();
        this.insertSell();
         this.insertSaleDetail();
         this.clearSale();
@@ -739,6 +778,14 @@ public class dashboardController implements Initializable{
         clientField.setText("");
         adressField.setText("");
         phoneField.setText("");
+    }
+
+    private void insertClient(){
+        dbConection conexion = new dbConection();
+        String sentenciaSQL = String.format("INSERT INTO clientes (Nombre,Direccion,Nit,Telefono)" + "values ('%S','%S','%S','%S')",
+                this.clientField.getText(),
+                this.adressField.getText(),Integer.valueOf(this.nitField.getText()),this.phoneField.getText());
+        conexion.ejecutarSenctenciaSQL(sentenciaSQL);
     }
 
     private void insertSell(){
