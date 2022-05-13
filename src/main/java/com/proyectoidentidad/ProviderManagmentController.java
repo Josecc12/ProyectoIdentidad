@@ -34,12 +34,12 @@ public class ProviderManagmentController implements Initializable {
 
         if(holder.getProvider() == null){
             String sentenciaSQL = String.format("INSERT INTO proveedores (Nombre,Direccion,Nit,Telefono)" + "values('%S','%S','%S','%S')",
-                    this.nameField.getText(),this.adressField.getText(),Integer.valueOf(this.NITField.getText()),this.phoneFiled.getText());
+                    this.nameField.getText(),this.adressField.getText(), this.NITField.getText(),this.phoneFiled.getText());
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
         }else{
             String sentenciaSQL = String.format("UPDATE proveedores SET Nombre = '%S', Direccion ='%S',Nit = '%S',Telefono = '%S' WHERE id = '%S'",
-                    this.nameField.getText(),this.adressField.getText(),Integer.valueOf(this.NITField.getText()),this.phoneFiled.getText(),Integer.valueOf(this.idField.getText()));
+                    this.nameField.getText(),this.adressField.getText(), this.NITField.getText(),this.phoneFiled.getText(),Integer.valueOf(this.idField.getText()));
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
         }

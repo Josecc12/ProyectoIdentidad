@@ -258,7 +258,7 @@ public class dashboardController implements Initializable{
 
 
     boolean clientExist;
-    private Integer nitClient;
+    private String nitClient;
     private Integer idClient;
 
     boolean productExist;
@@ -456,8 +456,8 @@ public class dashboardController implements Initializable{
     @FXML
     void searchNit(KeyEvent event){
         if(!this.nitField.getText().equals("")){
-            this.nitClient=Integer.valueOf(this.nitField.getText());
-        }else this.nitClient=0;
+            this.nitClient=String.valueOf(this.nitField.getText());
+        }else this.nitClient="";
         getCliente();
     }
     @FXML
@@ -479,7 +479,7 @@ public class dashboardController implements Initializable{
 
                 this.clientField.setText("");
                 this.adressField.setText("");
-                this.nitClient=0;
+                this.nitClient="";
                 this.idClient=0;
                 this.clientExist=false;
                 System.out.println("NO EXISS"+clientExist);
@@ -769,7 +769,7 @@ public class dashboardController implements Initializable{
             this.insertClient();
             System.out.println("iNSER");
         }
-        this.nitClient=Integer.valueOf(this.nitField.getText());
+        this.nitClient=String.valueOf(this.nitField.getText());
         this.getCliente();
        this.insertSell();
         this.insertSaleDetail();
@@ -784,7 +784,7 @@ public class dashboardController implements Initializable{
         dbConection conexion = new dbConection();
         String sentenciaSQL = String.format("INSERT INTO clientes (Nombre,Direccion,Nit,Telefono)" + "values ('%S','%S','%S','%S')",
                 this.clientField.getText(),
-                this.adressField.getText(),Integer.valueOf(this.nitField.getText()),this.phoneField.getText());
+                this.adressField.getText(),String.valueOf(this.nitField.getText()),this.phoneField.getText());
         conexion.ejecutarSenctenciaSQL(sentenciaSQL);
     }
 

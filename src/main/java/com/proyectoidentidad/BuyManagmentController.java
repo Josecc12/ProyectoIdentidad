@@ -42,7 +42,7 @@ public class BuyManagmentController implements Initializable {
     @FXML
     private TextField serieField;
 
-    private Integer nit;
+    private String nit;
     private Integer id;
     private boolean providerExist;
 
@@ -64,7 +64,7 @@ public class BuyManagmentController implements Initializable {
         if(!this.providerExist){
             this.insertProvider();
         }
-        this.nit=Integer.valueOf(this.nitFiled.getText());
+        this.nit=String.valueOf(this.nitFiled.getText());
         getNit();
         String fecha = cambiarFormatoFecha(this.dateField.getValue().toString());
 
@@ -121,15 +121,15 @@ public class BuyManagmentController implements Initializable {
     @FXML
     void searchNit(KeyEvent event){
         if(!this.nitFiled.getText().equals("")){
-            this.nit=Integer.valueOf(this.nitFiled.getText());
-        }else this.nit=0;
+            this.nit=String.valueOf(this.nitFiled.getText());
+        }else this.nit="0";
         getNit();
     }
 
     private void insertProvider(){
         dbConection conexion = new dbConection();
         String sentenciaSQL = String.format("INSERT INTO proveedores (Nombre,Nit)" + "values('%S','%S')",
-                this.providerField.getText(),Integer.valueOf(this.nitFiled.getText()));
+                this.providerField.getText(),String.valueOf(this.nitFiled.getText()));
         conexion.ejecutarSenctenciaSQL(sentenciaSQL);
     }
 
@@ -151,7 +151,7 @@ public class BuyManagmentController implements Initializable {
             ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
             if(!resultado.next()){
                 this.providerField.setText("");
-                this.nit=0;
+                this.nit="";
                 this.id=0;
                 this.providerExist=false;
             }
@@ -171,7 +171,7 @@ public class BuyManagmentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         BuyHolder holder = BuyHolder.getInstance();
-        this.nit=0;
+        this.nit="";
         this.id=0;
         this.providerExist=false;
         if (holder.getBuy()!=null){
@@ -185,7 +185,7 @@ public class BuyManagmentController implements Initializable {
             this.nitFiled.setText(buy.getNit());
             this.providerField.setText(buy.getName());
             this.mountField.setText(buy.getMount_net());
-            this.nit=Integer.valueOf(nitFiled.getText());
+            this.nit=String.valueOf(nitFiled.getText());
 
         }
     }

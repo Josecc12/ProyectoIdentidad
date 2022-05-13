@@ -36,12 +36,12 @@ public class ClientManagmentController implements Initializable {
         if(holder.getClient() == null){
 
             String sentenciaSQL = String.format("INSERT INTO clientes (Nombre,Direccion,Nit,Telefono)" + "values ('%S','%S','%S','%S')",this.nameField.getText(),
-                    this.addressField.getText(),Integer.valueOf(this.nitField.getText()),this.phoneField.getText());
+                    this.addressField.getText(), this.nitField.getText(),this.phoneField.getText());
             conexion.ejecutarSenctenciaSQL(sentenciaSQL);
 
         }else{
             String setenciaSQL = String.format("UPDATE clientes SET Nombre='%S',Direccion = '%S',Nit = '%S',Telefono = '%S' WHERE id = '%S'",this.nameField.getText(),
-                    this.addressField.getText(),Integer.valueOf(this.nitField.getText()),this.phoneField.getText(),Integer.valueOf(this.idField.getText()));
+                    this.addressField.getText(), this.nitField.getText(),this.phoneField.getText(),Integer.valueOf(this.idField.getText()));
             conexion.ejecutarSenctenciaSQL(setenciaSQL);
         }
 
