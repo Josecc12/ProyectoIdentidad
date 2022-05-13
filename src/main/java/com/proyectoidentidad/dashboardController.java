@@ -858,6 +858,15 @@ public class dashboardController implements Initializable{
     }
 
     public void redoTable(){
+
+        this.filterProduct=new FilteredList<>(table_product,e->true);
+        this.filterUser=new FilteredList<>(table_User,e->true);
+        this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
+        this.filterBuy=new FilteredList<>(table_Buys,e->true);
+        this.filterProduct=new FilteredList<>(table_product,e->true);
+        this.filterUser=new FilteredList<>(table_User,e->true);
+        this.filter_Provider = new FilteredList<>(Provider_Table, e-> true);
+        this.filterClient = new FilteredList<>(table_client, e-> true);
         loadProducts();
         loadUser();
         loadProvider();
