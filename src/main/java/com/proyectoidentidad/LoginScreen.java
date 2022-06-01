@@ -45,21 +45,22 @@ public class LoginScreen {
 
     @FXML
     void LoginButtonClicked(MouseEvent event) {
-        try{
 
-            con = new dbConection();
-            con.getConnection();
-            String user = UsernameTextfield.getText();
-            String password = PasswordTextfield.getText();
+        con = new dbConection();
+        con.getConnection();
+        String user = UsernameTextfield.getText();
+        String password = PasswordTextfield.getText();
 
 
-            String SQL = String.format( "SELECT * FROM usuario WHERE Usuario= '%S' AND Contrasena= '%S'", user,password);
-            ResultSet resultado =  con.consultarRegistros(SQL);
+        String SQL = String.format( "SELECT * FROM usuario WHERE Usuario= '%S' AND Contrasena= '%S'", user,password);
+        ResultSet resultado =  con.consultarRegistros(SQL);
 
+        try {
             if(resultado.next()){
                 try {
                     LoginScreen.user_id = Integer.valueOf(resultado.getString("id"));
                     LoginScreen.tipo=resultado.getString("Tipo");
+
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("dashboard.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());
                     Stage stage = new Stage();
@@ -75,11 +76,12 @@ public class LoginScreen {
 
                 } catch (IOException ex) {
                     ex.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
-
-        } catch (SQLException ex){
-            ex.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }

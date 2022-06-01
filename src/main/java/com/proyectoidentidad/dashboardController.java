@@ -814,7 +814,6 @@ public class dashboardController implements Initializable{
         }
 
 
-
         for (int i = 0; i <sale_Detail.getItems().size() ; i++) {
             String produtcid=String.valueOf(this.idProduct);
             Integer amount=Integer.valueOf(sale_Detail.getItems().get(i).getAmount());

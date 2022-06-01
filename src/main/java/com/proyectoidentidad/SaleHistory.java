@@ -27,6 +27,7 @@ public class SaleHistory {
         this.Detalles = Detalles;
         this.Eliminar = Eliminar;
 
+
         Eliminar.setTextAlignment(TextAlignment.CENTER);
         Eliminar.setTextFill(Color.web("ffff"));
         Eliminar.getStylesheets().add(getClass().getResource("dashboard.fxml").toExternalForm());
@@ -147,6 +148,5 @@ public class SaleHistory {
     public void setDelete(Button delete) {
         this.Eliminar = delete;
     }
-
 
 }

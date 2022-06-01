@@ -27,7 +27,7 @@ public class ClientManagmentController implements Initializable {
     @FXML
     private TextField addressField;
 
-    ///@Override
+    ///@OverrideHO
     @FXML
     void save_client(MouseEvent event) {
         ClientHolder holder = ClientHolder.getInstance();
@@ -53,7 +53,6 @@ public class ClientManagmentController implements Initializable {
         Stage stage = (Stage)source.getScene().getWindow();
         stage.close();
     }
-
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ClientHolder holder = ClientHolder.getInstance();

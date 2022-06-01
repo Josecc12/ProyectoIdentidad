@@ -17,7 +17,6 @@ public class dbConection {
 
         } catch (ClassNotFoundException e) {
 
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
