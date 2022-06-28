@@ -482,7 +482,7 @@ public class dashboardController implements Initializable{
                 this.nitClient="";
                 this.idClient=0;
                 this.clientExist=false;
-                System.out.println("NO EXISS"+clientExist);
+
             }
             else{
                 String client=resultado.getString("Nombre");
@@ -493,7 +493,7 @@ public class dashboardController implements Initializable{
                 this.adressField.setText(adress);
                 this.phoneField.setText(phone);
                 this.clientExist=true;
-                System.out.println("NO EXISS");
+
 
             }
         } catch (SQLException e) {
@@ -738,7 +738,7 @@ public class dashboardController implements Initializable{
                 alert.showAndWait();
 
             }else{
-
+                getProduct();
                 String produtcid=String.valueOf(this.idProduct);
                 String amount=this.amountField.getText();
                 String price=this.priceField.getText();
@@ -751,7 +751,7 @@ public class dashboardController implements Initializable{
                 String product=productFiield.getText();
 
                 sale_Detail.getItems().add(new SaleDetail(
-                        null,null,produtcid,amount,price,
+                        produtcid,null,produtcid,amount,price,
                         String.valueOf(iva),totalString,totalString,code,product
                 ));
             }
@@ -764,10 +764,10 @@ public class dashboardController implements Initializable{
 
     @FXML
     void sell(MouseEvent event) throws SQLException {
-        System.out.println(clientExist);
+
         if(clientExist==false){
             this.insertClient();
-            System.out.println("iNSER");
+
         }
         this.nitClient=String.valueOf(this.nitField.getText());
         this.getCliente();
@@ -815,7 +815,8 @@ public class dashboardController implements Initializable{
 
 
         for (int i = 0; i <sale_Detail.getItems().size() ; i++) {
-            String produtcid=String.valueOf(this.idProduct);
+
+            String produtcid=String.valueOf(sale_Detail.getItems().get(i).getId());
             Integer amount=Integer.valueOf(sale_Detail.getItems().get(i).getAmount());
             Double price=Double.valueOf(sale_Detail.getItems().get(i).getPrice());
             Double iva=Double.valueOf(sale_Detail.getItems().get(i).getIva());
