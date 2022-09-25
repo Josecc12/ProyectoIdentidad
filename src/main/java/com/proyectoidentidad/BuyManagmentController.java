@@ -10,8 +10,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
+import java.sql.Statement;
 import java.text.ParseException;
+import java.time.LocalTime;
 import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +25,8 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class BuyManagmentController implements Initializable {
+    private Statement state;
+    private dbConection conexion;
 
     @FXML
     private TextField NoField;
@@ -59,7 +66,8 @@ public class BuyManagmentController implements Initializable {
         formatoFecha_AMD = new SimpleDateFormat(Fecha_AMD);
 
         BuyHolder holder = BuyHolder.getInstance();
-        dbConection conexion = new dbConection();
+        conexion = new dbConection();
+
 
         if(!this.providerExist){
             this.insertProvider();
@@ -68,10 +76,22 @@ public class BuyManagmentController implements Initializable {
         getNit();
         String fecha = cambiarFormatoFecha(this.dateField.getValue().toString());
 
-
+        FileWriter file=null;
+        PrintWriter writer=null;
         if(holder.getBuy() == null){
 
-
+            try {
+                file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+                writer = new PrintWriter(file);
+                conexion.getConnection().setTransactionIsolation(conexion.getConnection().TRANSACTION_SERIALIZABLE);
+                conexion.getConnection().setAutoCommit(false);
+                state=conexion.getConnection().createStatement();
+                state.execute("START TRANSACTION");
+                state.execute("BEGIN");
+                writer.println("");
+                writer.println(LocalDate.now().toString());
+                writer.println(LocalTime.now().toString());
+                writer.println("START TRANSACTION");
             double mountNet=Integer.valueOf(this.mountField.getText());
             double moungGross=mountNet/1.12;
             double iva=moungGross*0.12;
@@ -86,15 +106,50 @@ public class BuyManagmentController implements Initializable {
                     this.NoField.getText(),
                     LoginScreen.user_id,
                     fecha);
-            conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+            state.executeUpdate(sentenciaSQL);
+            writer.println("\t"+sentenciaSQL.toUpperCase());
+            state.execute("COMMIT");
+            writer.println("COMMIT");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    state.execute("ROLLBACK");
+                    writer.println("ROLLBACK");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conexion.getConnection().close();
+                    file.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
         }else{
             double mountNet=Double.valueOf(this.mountField.getText());;
             double moungGross=mountNet/1.12;
             double iva=moungGross*0.12;
 
+            try {
+                file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+                writer = new PrintWriter(file);
+                conexion.getConnection().setTransactionIsolation(conexion.getConnection().TRANSACTION_SERIALIZABLE);
 
+            conexion.getConnection().setAutoCommit(false);
+            state=conexion.getConnection().createStatement();
+            state.execute("START TRANSACTION");
+            writer.println("");
+            writer.println(LocalDate.now().toString());
+            writer.println(LocalTime.now().toString());
+            writer.println("START TRANSACTION");
+            state.execute("BEGIN");
             String sentenciaSQL = String.format("update Compra set Proveedores_id = '%S', Total_Neto='%S',Total_Bruto ='%S',IVA='%S', Serie = '%S',Factura = '%S', Usuario_id = '%S',Fecha = '%S' where id = '%S'",
                     Integer.valueOf(this.id),
                     mountNet,
@@ -105,7 +160,30 @@ public class BuyManagmentController implements Initializable {
                     LoginScreen.user_id,
                     fecha,
                     Integer.valueOf(this.idField.getText()));
-            conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+            state.executeUpdate(sentenciaSQL);
+            writer.println("\t"+sentenciaSQL.toUpperCase());
+            state.execute("COMMIT");
+            writer.println("COMMIT");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                try {
+                    state.execute("ROLLBACK ");
+                    writer.println("ROLLBACK");
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    conexion.getConnection().close();
+                    file.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
         }
         this.cerrarVentana(event);

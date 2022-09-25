@@ -8,10 +8,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Buy {
-
+    private Statement state;
+    private dbConection conexion;
     private String id,date,serie,no,nit,name,mount_net,mount_gross,mount_IVA;
     private Button update;
     private Button delete;
@@ -89,10 +96,48 @@ public class Buy {
             for (int i = 0; i< dashboardController.table_Buys.size(); i++){
                 if(delete.hashCode()== dashboardController.table_Buys.get(i).getDelete().hashCode()){
                     ProductHolder holder = ProductHolder.getInstance();
-                    dbConection conexion = new dbConection();
-                    String sentenciaSQL = String.format("DELETE FROM compra WHERE id = '%S'",
-                            Integer.valueOf(dashboardController.table_Buys.get(i).getId()));
-                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+                    conexion = new dbConection();
+                    FileWriter file=null;
+                    PrintWriter writer=null;
+                    try {
+
+                        file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+                        writer = new PrintWriter(file);
+                        conexion.getConnection().setTransactionIsolation(conexion.getConnection().TRANSACTION_SERIALIZABLE);
+                        conexion.getConnection().setAutoCommit(false);
+                        state=conexion.getConnection().createStatement();
+                        writer.println("");
+                        writer.println(LocalDate.now().toString());
+                        writer.println(LocalTime.now().toString());
+                        state.execute("START TRANSACTION");
+
+                        writer.println("START TRANSACTION");
+                        String sentenciaSQL = String.format("DELETE FROM compra WHERE id = '%S'",
+                                Integer.valueOf(dashboardController.table_Buys.get(i).getId()));
+                        state.executeUpdate(sentenciaSQL);
+                        writer.println("\t"+sentenciaSQL.toUpperCase());
+                        state.execute("COMMIT");
+                        writer.println("COMMIT");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        try {
+                            state.execute("ROLLBACK ");
+                            writer.append("ROLLBACK");
+                        } catch (SQLException exc) {
+                            exc.printStackTrace();
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    } finally {
+                        try {
+                            conexion.getConnection().close();
+                            file.close();
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
                 }
 
             }
