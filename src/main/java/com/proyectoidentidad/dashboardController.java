@@ -8,12 +8,14 @@ import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -350,6 +352,20 @@ public class dashboardController implements Initializable{
     private Label ivaLabel;
     @FXML
     private Label comprasLabel;
+
+
+    @FXML
+    void backup(KeyEvent event) throws IOException {
+       if(event.getCode() == KeyCode.F2){
+           System.out.println("F2 pressed !");
+           Parent root = FXMLLoader.load(getClass().getResource("backup.fxml"));
+           Scene scene = new Scene(root);
+           Stage stage = new Stage();
+           stage.setTitle("backup");
+           stage.setScene(scene);
+           stage.show();
+       }
+    }
 
     @FXML
     void consultarCliente(MouseEvent event) throws SQLException {
