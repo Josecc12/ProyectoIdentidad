@@ -45,7 +45,7 @@ public class backupController implements Initializable{
         System.out.println(f.getAbsolutePath());
         System.out.println("sss");
         String username = "root";
-        String password = "adrian12";
+        String password = "admin";
         String dbname = "identidad";
         String ruta = "";
         String executeCmd = "C:/Program Files/MySQL/MySQL Server 8.0/bin/mysqldump.exe -u" + username + " -p" + password
