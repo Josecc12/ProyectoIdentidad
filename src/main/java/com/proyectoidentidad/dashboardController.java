@@ -22,14 +22,22 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 public class dashboardController implements Initializable{
+
+    private dbConection conexion;
+
+    Statement state;
 
     @FXML
     private Button btnClientes;
@@ -783,7 +791,6 @@ public class dashboardController implements Initializable{
 
         if(clientExist==false){
             this.insertClient();
-
         }
         this.nitClient=String.valueOf(this.nitField.getText());
         this.getCliente();
@@ -812,36 +819,105 @@ public class dashboardController implements Initializable{
             total+= Double.valueOf(sale_Detail.getItems().get(i).getTotal());
         }
         //  "INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S')"
-        dbConection conexion = new dbConection();
-        String sentenciaSQL = String.format("INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S','%S','%S')",
-                this.idClient,LoginScreen.user_id,total,localdate);
-        conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+        this.conexion = new dbConection();
+        FileWriter file=null;
+        PrintWriter writer=null;
+        try {
+            file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+            writer = new PrintWriter(file);
+            conexion.getConnection().setAutoCommit(false);
+            conexion.getConnection().setTransactionIsolation(conexion.getConnection().TRANSACTION_SERIALIZABLE);
+            state = conexion.getConnection().createStatement();
+
+            state.execute("START TRANSACTION");
+            writer.println("");
+            writer.println(LocalDate.now().toString());
+            writer.println(LocalTime.now().toString());
+            writer.println("START TRANSACTION");
+            String sentenciaSQL = String.format("INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S','%S','%S')", this.idClient,LoginScreen.user_id,total,localdate);
+            state.executeUpdate(sentenciaSQL);
+            writer.println("\t"+sentenciaSQL.toUpperCase());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                state.execute("ROLLBACK");
+                writer.println("ROLLBACK");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                file.close();
+            }  catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
 
     }
 
-    private void insertSaleDetail() throws SQLException {
+    private void insertSaleDetail()  {
 
-        dbConection conexion = new dbConection();
         String sentenciaSQL = String.format("SELECT MAX( id ) AS idVenta FROM venta");
-        ResultSet resultado= conexion.consultarRegistros(sentenciaSQL);
-        Integer sale_id=0;
-        while (resultado.next()){
-             sale_id=Integer.valueOf(resultado.getString("idVenta")); //GET LASTA SELL
+        ResultSet resultado= null;
+        FileWriter file=null;
+        PrintWriter writer=null;
+
+        try {
+            file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+            writer = new PrintWriter(file);
+            resultado = state.executeQuery(sentenciaSQL);
+            Integer sale_id=0;
+            while (resultado.next()){
+                sale_id=Integer.valueOf(resultado.getString("idVenta")); //GET LASTA SELL
+            }
+
+
+            for (int i = 0; i <sale_Detail.getItems().size() ; i++) {
+
+                String produtcid=String.valueOf(sale_Detail.getItems().get(i).getId());
+                Integer amount=Integer.valueOf(sale_Detail.getItems().get(i).getAmount());
+                Double price=Double.valueOf(sale_Detail.getItems().get(i).getPrice());
+                Double iva=Double.valueOf(sale_Detail.getItems().get(i).getIva());
+                Double subTotal=Double.valueOf(sale_Detail.getItems().get(i).getSubtotal());
+                //  "INSERT INTO detalle_venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S')"
+                sentenciaSQL = String.format("INSERT INTO Detalle_Venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S','%S','%S','%S','%S')",
+                        sale_id,produtcid,amount,price,iva,subTotal);
+                state.executeUpdate(sentenciaSQL);
+                writer.println("\t"+sentenciaSQL.toUpperCase());
+
+            }
+            //PROVOCAR ERROR
+            //sentenciaSQL = "INSERT INTO Detalle_VentaSS (1000,1,10,12,11,22)";
+            //state.executeUpdate(sentenciaSQL);
+            state.execute("COMMIT");
+            writer.println("COMMIT");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                state.execute("ROLLBACK");
+                writer.println("ROLLBACK");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                conexion.getConnection().close();
+                file.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
-
-        for (int i = 0; i <sale_Detail.getItems().size() ; i++) {
-
-            String produtcid=String.valueOf(sale_Detail.getItems().get(i).getId());
-            Integer amount=Integer.valueOf(sale_Detail.getItems().get(i).getAmount());
-            Double price=Double.valueOf(sale_Detail.getItems().get(i).getPrice());
-            Double iva=Double.valueOf(sale_Detail.getItems().get(i).getIva());
-            Double subTotal=Double.valueOf(sale_Detail.getItems().get(i).getSubtotal());
-            //  "INSERT INTO detalle_venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S')"
-            sentenciaSQL = String.format("INSERT INTO Detalle_Venta (venta_id,producto_id,Cantidad,Precio,IVA,SubTotal)" + "values('%S','%S','%S','%S','%S','%S')",
-                    sale_id,produtcid,amount,price,iva,subTotal);
-            conexion.ejecutarSenctenciaSQL(sentenciaSQL);
-        }
 
     }
 

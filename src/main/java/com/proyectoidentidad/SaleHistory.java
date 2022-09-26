@@ -8,12 +8,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 public class SaleHistory {
-
+    private dbConection conexion;
+    private Statement state;
     private String id,usuario,cliente,total,fecha;
     private Button Detalles;
     private Button Eliminar;
@@ -78,15 +85,51 @@ public class SaleHistory {
                     SaleHolder holder = SaleHolder.getInstance();
                     holder.setSale(slected);
 
-                    dbConection conexion = new dbConection();
+                    conexion = new dbConection();
+                    FileWriter file=null;
+                    PrintWriter writer=null;
+                    try {
+                        file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+                        writer = new PrintWriter(file);
+                    conexion.getConnection().setTransactionIsolation(conexion.getConnection().TRANSACTION_SERIALIZABLE);
+                    conexion.getConnection().setAutoCommit(false);
+                    state=conexion.getConnection().createStatement();
+                    state.execute("START TRANSACTION");
+                        writer.println("");
+                        writer.println(LocalDate.now().toString());
+                        writer.println(LocalTime.now().toString());
+                        writer.println("START TRANSACTION");
+
                     Integer idDelete=Integer.valueOf(holder.getSale().getId());
 
                     String sentenciaSQL = String.format("DELETE FROM detalle_venta WHERE Venta_id='%S'",idDelete);
-                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
+                    state.executeUpdate(sentenciaSQL);
+                    writer.println("\t"+sentenciaSQL.toUpperCase());
                     sentenciaSQL = String.format("DELETE  FROM venta WHERE id='%S'",idDelete);
-                    conexion.ejecutarSenctenciaSQL(sentenciaSQL);
-
-
+                    state.executeUpdate(sentenciaSQL);
+                    writer.println("\t"+sentenciaSQL.toUpperCase());
+                        state.execute("COMMIT");
+                        writer.println("COMMIT");
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        try {
+                            state.execute("ROLLBACK ");
+                            writer.println("COMMIT");
+                        } catch (SQLException exc) {
+                            exc.printStackTrace();
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    } finally {
+                        try {
+                            conexion.getConnection().close();
+                            file.close();
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
                 }
             }
         });
