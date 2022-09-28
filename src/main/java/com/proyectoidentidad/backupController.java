@@ -36,7 +36,7 @@ public class backupController implements Initializable{
 
     @FXML
     void saveBackup(ActionEvent event) {
-        File file = new File("mysqlBackup");
+        File file = new File("\\\\DESKTOP-6382TQN\\Users\\Public\\mysqlBackup");
         if (!file.isDirectory()) {
             file.mkdir();
         }
@@ -44,7 +44,7 @@ public class backupController implements Initializable{
         String path = f.getPath();
         System.out.println(f.getAbsolutePath());
         System.out.println("sss");
-        String username = "root";
+        String username = "Adrian";
         String password = "admin";
         String dbname = "identidad";
         String ruta = "";

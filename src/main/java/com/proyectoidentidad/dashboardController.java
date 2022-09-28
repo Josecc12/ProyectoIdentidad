@@ -22,6 +22,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -819,11 +820,18 @@ public class dashboardController implements Initializable{
             total+= Double.valueOf(sale_Detail.getItems().get(i).getTotal());
         }
         //  "INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S')"
+
         this.conexion = new dbConection();
         FileWriter file=null;
         PrintWriter writer=null;
+
+        File document = new File("\\\\DESKTOP-6382TQN\\Users\\Public\\mysqlBitacora");
+        if(!document.isDirectory()){
+            document.mkdir();
+        }
         try {
-            file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+            String path = LocalDate.now().toString()+".txt";
+            file= new FileWriter(new File(document,path),true);
             writer = new PrintWriter(file);
             conexion.getConnection().setAutoCommit(false);
             conexion.getConnection().setTransactionIsolation(conexion.getConnection().TRANSACTION_SERIALIZABLE);
@@ -837,6 +845,8 @@ public class dashboardController implements Initializable{
             String sentenciaSQL = String.format("INSERT INTO venta (Clientes_id,Usuario_id,Total,Fecha)" + "values('%S','%S','%S','%S')", this.idClient,LoginScreen.user_id,total,localdate);
             state.executeUpdate(sentenciaSQL);
             writer.println("\t"+sentenciaSQL.toUpperCase());
+
+
         } catch (SQLException e) {
             e.printStackTrace();
             try {
@@ -866,9 +876,14 @@ public class dashboardController implements Initializable{
         ResultSet resultado= null;
         FileWriter file=null;
         PrintWriter writer=null;
+        File document = new File("\\\\DESKTOP-6382TQN\\Users\\Public\\mysqlBitacora");
+        if(!document.isDirectory()){
+            document.mkdir();
+        }
 
         try {
-            file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+            String path = LocalDate.now().toString()+".txt";
+            file= new FileWriter(new File(document,path),true);
             writer = new PrintWriter(file);
             resultado = state.executeQuery(sentenciaSQL);
             Integer sale_id=0;

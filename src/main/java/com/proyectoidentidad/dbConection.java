@@ -5,9 +5,9 @@ import java.sql.*;
 public class dbConection {
     private static Connection conn;
     private static final String driver = "com.mysql.jdbc.Driver";
-    private static final String user = "root";
+    private static final String user = "Adrian";
     private static final String password = "admin";
-    private static final String url = "jdbc:mysql://localhost:3306/identidad";
+    private static final String url = "jdbc:mysql://DESKTOP-6382TQN/identidad";
 
     public dbConection(){
         conn =null;

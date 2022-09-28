@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -80,8 +81,14 @@ public class BuyManagmentController implements Initializable {
         PrintWriter writer=null;
         if(holder.getBuy() == null){
 
+            File document = new File("\\\\DESKTOP-6382TQN\\Users\\Public\\mysqlBitacora");
+            if(!document.isDirectory()){
+                document.mkdir();
+            }
+
             try {
-                file=new FileWriter("Bitacora"+LocalDate.now().toString()+".txt",true);
+                String path = LocalDate.now().toString()+".txt";
+                file= new FileWriter(new File(document,path),true);
                 writer = new PrintWriter(file);
                 conexion.getConnection().setTransactionIsolation(conexion.getConnection().TRANSACTION_SERIALIZABLE);
                 conexion.getConnection().setAutoCommit(false);
